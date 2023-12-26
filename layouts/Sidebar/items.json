@@ -1,0 +1,47 @@
+[
+    {
+        "svg": "/SidebarIcons/user-circle.svg",
+        "href": "/admin/members",
+        "name": "Miembros"
+    },
+    {
+        "svg": "/SidebarIcons/megaphone.svg",
+        "href": "/admin/activities",
+        "name": "Actividades"
+    },
+    {
+        "svg": "/SidebarIcons/pin-943.svg",
+        "href": "/admin/regularEvents",
+        "name": "Eventos Fijos"
+    },
+    {
+        "svg": "/SidebarIcons/home.svg",
+        "href": "/admin/consolidationHouses",
+        "name": "Casas de Consolidación"
+    },
+    {
+        "svg": "/SidebarIcons/book-open.svg",
+        "href": "/admin/testimonials",
+        "name": "Testimonios"
+    },
+    {
+        "svg": "/SidebarIcons/pencil-square.svg",
+        "href": "/admin/sermons",
+        "name": "Sermones"
+    },
+    {
+        "svg": "/SidebarIcons/home-modern.svg",
+        "href": "/admin/sites",
+        "name": "Sedes"
+    },
+    {
+        "svg": "/SidebarIcons/academic-cap.svg",
+        "href": "/admin/infantile",
+        "name": "Infantil"
+    },
+    {
+        "svg": "/SidebarIcons/video-cam.svg",
+        "href": "/admin/multimedia",
+        "name": "Multimedia"
+    }
+]
