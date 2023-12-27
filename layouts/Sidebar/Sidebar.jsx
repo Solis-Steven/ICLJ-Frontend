@@ -10,6 +10,10 @@ import menus from "./items.json";
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
 
+  // if() {
+
+  // }
+
   return (
     <aside
       className={`${

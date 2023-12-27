@@ -5,9 +5,17 @@ export const Input = ({
     labelText, 
     placeholder, 
     disabled = false,
-    value}) => {
-
+    value = "",
+    onChange,
+}) => {
     const [valueState, setValueState] = useState(value);
+
+    const handleChange = (e) => {
+        setValueState(e.target.value);
+        if (onChange) {
+            onChange(e.target.value);
+        }
+    };
 
     return (
         <div className="my-5">
@@ -22,10 +30,10 @@ export const Input = ({
                 type="text"
                 placeholder={placeholder}
                 value={valueState}
-                onChange={e => setValueState(e.target.value)}
+                onChange={handleChange}
                 disabled={disabled}
                 className={`mt-3 p-3 border rounded-xl bg-gray-50
-                ${disabled ? "cursor-not-allowed text-gray-300" : ""}`} />
+                ${disabled ? "cursor-not-allowed text-gray-300" : "w-full"}`} />
         </div>
     );
-}
+};

@@ -26,7 +26,7 @@ const page = () => {
 
             <section className="shadow-lg p-5 mt-10">
                 {
-                    members.map(member => (
+                    members?.map(member => (
                         <Accordion 
                             key={member._id}
                             member={member}
