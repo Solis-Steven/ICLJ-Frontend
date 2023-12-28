@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Input = ({
     id, 
@@ -11,10 +11,15 @@ export const Input = ({
 }) => {
     const [valueState, setValueState] = useState(value);
 
+    useEffect(() => {
+        setValueState(value);
+    }, [value]);
+
     const handleChange = (e) => {
-        setValueState(e.target.value);
+        const newValue = e.target.value;
+        setValueState(newValue);
         if (onChange) {
-            onChange(e.target.value);
+            onChange(newValue);
         }
     };
 
