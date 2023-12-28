@@ -20,12 +20,27 @@ const page = () => {
         fetchSites();
     }, []);
 
-    const addElement = () => {
-        addSite({
-            name: "San Jose",
-            address: "50mts sur de la iglesia"
-        })
-    }
+    const updateSites = async () => {
+        try {
+            const updatedSites = await getAllSites();
+            setSites(updatedSites);
+        } catch (error) {
+            console.error("Error updating sites:", error);
+        }
+    };
+
+    const addElement = async () => {
+        try {
+            await addSite({
+                name: "San Jose",
+                address: "50mts sur de la iglesia"
+            });
+            updateSites();
+        } catch (error) {
+            console.error("Error adding site:", error);
+        }
+    };
+
     return(
         <section className="w-full">
             <h1 className="font-bold text-2xl">Sedes</h1>  
@@ -38,6 +53,7 @@ const page = () => {
                     <EachSite
                         key={site._id}
                         site={site}
+                        updateSites={updateSites}
                         />
                 ))}
             </section>  
