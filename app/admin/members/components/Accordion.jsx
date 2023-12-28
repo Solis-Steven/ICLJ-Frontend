@@ -2,6 +2,10 @@
 
 import { Input } from "@/components/Input";
 import { useState } from "react";
+import { Role } from "./Role";
+import { EditButton } from "@/components/EditButton";
+import { DeleteButton } from "@/components/DeleteButton";
+import { useModal } from "@/hooks/useModal";
 
 export const Accordion = ({member}) => {
     const [isAccordionOpen, setAccordionOpen] = useState(false);
@@ -9,6 +13,21 @@ export const Accordion = ({member}) => {
     const toggleAccordion = () => {
         setAccordionOpen(!isAccordionOpen);
     };
+
+    const { 
+        setShowDeleteModalWarning,
+        setModalTitle,
+        setModalText,
+        setOnDeleteCallback
+    } = useModal();
+
+    const handleDeleteModal = () => {
+        setShowDeleteModalWarning(true);
+        setModalTitle("Eliminar Miembro");
+        setModalText("¿Estás seguro de que quieres eliminar un miembro?");
+        setOnDeleteCallback(() => {
+        });
+    }
 
     return (
         <div id="accordion-collapse" data-accordion="collapse">
@@ -62,7 +81,18 @@ export const Accordion = ({member}) => {
                     placeholder={"Dirección de residencia"}
                     disabled={true}
                     value={member.address}/>
+                
+                <Role 
+                    value={member.role}
+                />
 
+                <section className="flex gap-8">
+                    <EditButton name="Editar"/>
+                    <DeleteButton 
+                        name="Eliminar"
+                        deleteElement={handleDeleteModal}
+                    />
+                </section>
             </div>
         </div>
     );
