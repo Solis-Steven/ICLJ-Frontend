@@ -61,54 +61,61 @@ const Login = () => {
     const { msg } = alert;
 
     return(
-        <section className="w-1/3">
-            <h1 className="text-primary font-black text-6xl capitalize">
-                Inicia Sesión Y Registrate A Eventos
-            </h1>
+        <section className="w-full h-full flex items-center justify-center px-10 sm:px-20">
+            <div className="w-full md:w-1/2 lg:w-1/3">
+                <h1 className="text-primary font-black text-6xl capitalize">
+                    Inicia Sesión Y Regístrate A Eventos
+                </h1>
         
-            <form 
-                onSubmit={handleSubmit}
-                className="my-10 bg-white shadow rounded-lg p-10">
-                <Input 
-                    id={email}
-                    labelText={"Correo Electrónico"}
-                    placeholder={"Correo electrónico de registro"}
-                    onChange={handleEmailChange}/>
+                <form
+                    onSubmit={handleSubmit}
+                    className="my-10 bg-white shadow rounded-lg p-10"
+                >
+                    <Input
+                        id={email}
+                        labelText={"Correo Electrónico"}
+                        placeholder={"Correo electrónico de registro"}
+                        onChange={handleEmailChange}
+                    />
 
-                <Input 
-                    id={password}
-                    labelText={"Contraseña"}
-                    placeholder={"Contraseña de registro"}
-                    onChange={handlePasswordChange}/>
+                    <Input
+                        id={password}
+                        labelText={"Contraseña"}
+                        placeholder={"Contraseña de registro"}
+                        type="password"
+                        onChange={handlePasswordChange}
+                    />
 
-                <input
-                    type="submit"
-                    value="Iniciar Sesión"
-                    className="bg-primary mb-5 w-full py-3 text-white uppercase
-                    font-bold rounded hover:cursor-pointer hover:bg-sky-800
-                    transition-colors"
-                />
+                    <input
+                        type="submit"
+                        value="Iniciar Sesión"
+                        className="bg-primary mb-5 w-full py-3 text-white uppercase
+                        font-bold rounded hover:cursor-pointer hover:bg-darkPrimary
+                        transition-colors"
+                    />
 
-                {
-                    msg && <Alert alert={alert}/>
-                }
-            </form>
+                    {msg && <Alert alert={alert} />}
+                </form>
 
-            <nav className="lg:flex lg:justify-between">
-                <Link
-                    href="/register"
-                    className="block text-center my-5 text-slate-500 uppercase
-                    text-sm">
-                    ¿No tienes una cuenta? <span className="text-primary">Reg&iacute;strate</span>
-                </Link>
+                <nav className="lg:flex lg:justify-between">
+                    <Link
+                        href="/register"
+                        className="block text-center my-5 text-slate-500 uppercase
+                        text-sm"
+                    >
+                        ¿No tienes una cuenta?{" "}
+                        <span className="text-primary">Regístrate</span>
+                    </Link>
 
-                <Link 
-                    href=""
-                    className="block text-center my-5 text-slate-500 uppercase
-                    text-sm">
-                    Olvidé Mi Password
-                </Link>
-            </nav>
+                    <Link
+                        href="/forgotPassword"
+                        className="block text-center my-5 text-slate-500 uppercase
+                        text-sm"
+                    >
+                        Olvidé Mi Contrase&ntilde;a
+                    </Link>
+                </nav>
+            </div>
         </section>
     );
 }

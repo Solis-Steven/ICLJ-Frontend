@@ -7,6 +7,7 @@ export const Input = ({
     disabled = false,
     value = "",
     onChange,
+    type = "text"
 }) => {
     const [valueState, setValueState] = useState(value);
 
@@ -27,7 +28,7 @@ export const Input = ({
             </label>
             <input
                 id={id}
-                type="text"
+                type={type}
                 placeholder={placeholder}
                 value={valueState}
                 onChange={handleChange}
