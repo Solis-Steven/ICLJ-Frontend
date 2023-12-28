@@ -10,3 +10,13 @@ export const getAllSites = async () => {
     console.error("Error al obtener sedes:", error);
   }
 };
+export const addSite = async (siteData) => {
+  try {
+    const config = getConfigWithToken();
+    const { data } = await axiosClient.post("/sites", siteData, config);
+    return data;
+  } catch (error) {
+    console.error("Error al agregar una sede:", error);
+    throw error;
+  }
+};

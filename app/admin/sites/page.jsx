@@ -1,7 +1,9 @@
 "use client"
 
-import { getAllSites } from "../sites/services/site.services"
+import { addSite, getAllSites } from "../sites/services/site.services"
 import { useEffect, useState } from "react";
+import { EachSite } from "./components/EachSite";
+import { AddButton } from "@/components/AddButton";
 const page = () => {
     const [sites, setSites] = useState([]);
 
@@ -17,16 +19,26 @@ const page = () => {
         };
         fetchSites();
     }, []);
-    
+
+    const addElement = () => {
+        addSite({
+            name: "San Jose",
+            address: "50mts sur de la iglesia"
+        })
+    }
     return(
         <section className="w-full">
-            <h1 className="font-bold text-2xl">Sedes</h1>      
-
+            <h1 className="font-bold text-2xl">Sedes</h1>  
+            <AddButton
+                addElement={addElement}
+                name={"Agregar Sede"}
+            />    
             <section className="shadow-lg p-5 mt-10">
                 {sites.map(site => (
-                    <li key={site.name}>
-                        <strong>Nombre:</strong> {site.name}, <strong>Dirección:</strong> {site.address}
-                    </li>
+                    <EachSite
+                        key={site._id}
+                        site={site}
+                        />
                 ))}
             </section>  
         </section>
