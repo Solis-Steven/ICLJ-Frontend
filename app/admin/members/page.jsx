@@ -30,6 +30,7 @@ const page = () => {
                         <Accordion 
                             key={member._id}
                             member={member}
+                            setMembers={setMembers}
                         />
                     ))
                 }

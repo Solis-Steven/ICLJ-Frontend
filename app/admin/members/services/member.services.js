@@ -14,15 +14,15 @@ export const getAllMembers = async () => {
   }
 };
 
-export const deleteMember = async () => {
+export const deleteMember = async (id) => {
   try {
     
     const config = getToken()
   
-    const { data } = await axiosClient("/users", config);
+    const { data } = await axiosClient.delete(`/users/delete/${id}`, config);
 
     return(data);
   } catch (error) {
-    console.log("Error al obtener miembros")
+    console.log("Error al eliminar miembro")
   }
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import { notifySuccess } from "@/utilities/notifySuccess";
 import { useState, createContext } from "react";
 
 const ModalContext = createContext();
@@ -8,14 +9,32 @@ export const ModalProvider = ({children}) => {
     const [showDeleteModalWarning, setShowDeleteModalWarning] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalText, setModalText] = useState("");
-    const [onDeleteCallback, setOnDeleteCallback] = useState(null);
+    const [deleteFunction, setDeleteFunction] = useState(null);
 
     const closeModal = () => {
         setShowDeleteModalWarning(false);
         setModalTitle("");
         setModalText("");
-        setOnDeleteCallback(null);
     };
+
+    const setDeleteModal = (title, text, onDelete) => {
+        setModalTitle(title);
+        setModalText(text);
+        setDeleteFunction(() => onDelete);
+        setShowDeleteModalWarning(true);
+    };
+
+    const deleteItem = async () => {
+        if (deleteFunction) {
+            try {
+                const data = await deleteFunction();
+                notifySuccess(data.msg)
+            } catch (error) {
+                console.log(error)
+            }
+        } 
+        closeModal();
+      };
 
     return(
         <ModalContext.Provider
@@ -26,9 +45,10 @@ export const ModalProvider = ({children}) => {
                 setModalTitle,
                 modalText,
                 setModalText,
-                onDeleteCallback,
-                setOnDeleteCallback,
-                closeModal
+                setDeleteFunction,
+                closeModal,
+                deleteItem,
+                setDeleteModal
             }}
         >
             {children}

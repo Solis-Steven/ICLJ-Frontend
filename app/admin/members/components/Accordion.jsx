@@ -6,8 +6,9 @@ import { Role } from "./Role";
 import { EditButton } from "@/components/EditButton";
 import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
+import { deleteMember } from "../services/member.services";
 
-export const Accordion = ({member}) => {
+export const Accordion = ({member, setMembers}) => {
     const [isAccordionOpen, setAccordionOpen] = useState(false);
 
     const toggleAccordion = () => {
@@ -15,19 +16,27 @@ export const Accordion = ({member}) => {
     };
 
     const { 
-        setShowDeleteModalWarning,
-        setModalTitle,
-        setModalText,
-        setOnDeleteCallback
+        setDeleteModal
     } = useModal();
 
     const handleDeleteModal = () => {
-        setShowDeleteModalWarning(true);
-        setModalTitle("Eliminar Miembro");
-        setModalText("¿Estás seguro de que quieres eliminar un miembro?");
-        setOnDeleteCallback(() => {
-        });
-    }
+        setDeleteModal(
+          "Eliminar Miembro",
+          "¿Estás seguro de que quieres eliminar un miembro?",
+          () => deleteMemberCallback(member._id)
+        );
+    };
+
+    const deleteMemberCallback = async (memberId) => {
+        try {
+          await deleteMember(memberId);
+          setMembers((prevMembers) =>
+            prevMembers.filter((member) => member._id !== memberId)
+          );
+        } catch (error) {
+          console.error("Error deleting member:", error);
+        }
+      };
 
     return (
         <div id="accordion-collapse" data-accordion="collapse">
