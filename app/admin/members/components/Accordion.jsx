@@ -43,21 +43,21 @@ export const Accordion = ({member}) => {
                 aria-labelledby="accordion-collapse-heading-1"
             >
                 <Input 
-                    id={"personPhoneNumber"} 
+                    id={`phoneNumber-${member.name}`} 
                     labelText={"Teléfono"} 
                     placeholder={"Número de Teléfono"}
                     disabled={true}
                     value={member.phone}/>
                 
                 <Input 
-                    id={"personEmail"} 
+                    id={`email-${member.name}`} 
                     labelText={"Correo Electrónico"} 
                     placeholder={"Correo Electrónico"}
                     disabled={true}
                     value={member.email}/>
 
                 <Input 
-                    id={"personAddress"} 
+                    id={`address-${member.name}`} 
                     labelText={"Dirección"} 
                     placeholder={"Dirección de residencia"}
                     disabled={true}
