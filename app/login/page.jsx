@@ -3,18 +3,16 @@
 import { Input } from "@/components/Input";
 import Link from "next/link";
 import { useState } from "react";
-import { Alert } from "@/components/Alert";
 import { login } from "./services/login.services";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-// import { useAuth } from "../hooks/useAuth";
+import { notifyError } from "@/utilities/notifyError";
 
 const Login = () => {
     const router = useRouter();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [alert, setAlert] = useState({});
 
     const { setAuth } = useAuth();
 
@@ -30,10 +28,7 @@ const Login = () => {
         e.preventDefault();
 
         if([email, password].includes("")) {
-            setAlert({
-                msg: "Todos los campos son obligatorios",
-                error: true
-            });
+            notifyError("Todos los campos son obligatorios")
 
             return;
         }
@@ -44,25 +39,18 @@ const Login = () => {
             //     password
             // });
             const data = await login({email, password})
-            console.log("data", data)
 
-            setAlert({});
             localStorage.setItem("token", data.token);
             setAuth(data);
             router.push("/admin/members")
         } catch (error) {
-            setAlert({
-                msg: error.response.data.msg,
-                error: true
-            });
+            notifyError(error.response.data.msg);
         }
     }
 
-    const { msg } = alert;
-
     return(
         <section className="w-full h-full flex items-center justify-center px-10 sm:px-20">
-            <div className="w-full md:w-1/2 lg:w-1/3">
+            <div className="w-full md:w-1/2">
                 <h1 className="text-primary font-black text-6xl capitalize">
                     Inicia Sesión Y Regístrate A Eventos
                 </h1>
@@ -72,14 +60,14 @@ const Login = () => {
                     className="my-10 bg-white shadow rounded-lg p-10"
                 >
                     <Input
-                        id={email}
+                        id={"email"}
                         labelText={"Correo Electrónico"}
                         placeholder={"Correo electrónico de registro"}
                         onChange={handleEmailChange}
                     />
 
                     <Input
-                        id={password}
+                        id={"password"}
                         labelText={"Contraseña"}
                         placeholder={"Contraseña de registro"}
                         type="password"
@@ -94,7 +82,6 @@ const Login = () => {
                         transition-colors"
                     />
 
-                    {msg && <Alert alert={alert} />}
                 </form>
 
                 <nav className="lg:flex lg:justify-between">
