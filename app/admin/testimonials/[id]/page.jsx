@@ -1,20 +1,24 @@
 "use client"
 
-import { Input } from "@/components/Input";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import toolbar from "@/config/toolbar";
+import { useRouter } from "next/navigation";
+import { Select } from "../addTestimonial/components/Select";
 import { AddButton } from "@/components/AddButton";
-import { addTestimonial } from "./services/addTestimonial.services";
-import { Select } from "./components/Select";
+import { Input } from "@/components/Input";
+import { notifyError } from "@/utilities/notifyError";
+import { getTestimonial, updateTestimonial } from "./services/testimonial.services";
 import { notifySuccess } from "@/utilities/notifySuccess";
 
-const AddTestimonial = () => {
+const Testimonial = ({params}) => {
+    const [id, setId] = useState(params.id);
     const [name, setName] = useState("");
     const [type, setType] = useState("");
-    const { quill, quillRef } = useQuill({
+    const [testimonial, setTestimonial] = useState({});
+
+    const {quill, quillRef} = useQuill({
         modules: {
             toolbar
         }
@@ -30,29 +34,42 @@ const AddTestimonial = () => {
         setType(e.target.value);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const testimonialData = {
-            personName: name,
-            type,
-            testimonial: JSON.stringify(quill.getContents())
+    useEffect(() => {
+        const getTestimonialEffect = async () => {
+            try {
+                const data = await getTestimonial(id);
+                setName(data.personName);
+                setType(data.type);
+                quill.setContents(JSON.parse(data.testimonial));
+                setTestimonial(data);
+            } catch (error) {
+                console.log({error});
+                notifyError(error.response?.data.msg);
+            }
         }
 
+        if(quill) {
+            getTestimonialEffect();
+        }
+    }, [quill]);
+
+    const handleEdit = async () => {
         try {
-            const data = await addTestimonial(testimonialData)
-
+            const testimonialString = JSON.stringify(quill.getContents());
+            const data = await updateTestimonial(id, 
+                {
+                    personName: name, 
+                    type, 
+                    testimonial: testimonialString
+                });
             notifySuccess(data.msg);
-
-            setName("");
-            setType("");
-            quill.setText("");
+            router.push("/admin/testimonials");
         } catch (error) {
-            
+            notifyError(error.response.data.msg);
         }
     }
 
-    return (
+    return(
         <section className="w-full">
             <div className="flex gap-3 ">
                 <button
@@ -63,7 +80,7 @@ const AddTestimonial = () => {
                     </svg>
                 </button>
 
-                <h1 className="font-bold text-2xl">Nuevo Testimonio</h1>
+                <h1 className="font-bold text-2xl">Editar Testimonio</h1>
             </div>
 
             <section className="shadow-lg p-5 mt-5">
@@ -77,7 +94,7 @@ const AddTestimonial = () => {
                         onChange={handleNameChange}
                     />
 
-                    <Select 
+                    <Select
                         value={type}
                         onChange={handleTypeChange}
                     />
@@ -86,9 +103,9 @@ const AddTestimonial = () => {
                         <div ref={quillRef}></div>
                     </div>
 
-                    <AddButton 
-                        name="Agregar Testimonio"
-                        addElement={handleSubmit}
+                    <AddButton
+                        name="Guardar Cambios"
+                        addElement={handleEdit}
                     />
                 </form>
             </section>
@@ -96,4 +113,4 @@ const AddTestimonial = () => {
     );
 }
 
-export default AddTestimonial;
+export default Testimonial;
