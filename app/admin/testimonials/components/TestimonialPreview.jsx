@@ -29,13 +29,16 @@ export const TestimonialPreview = ({testimonial, setTestimonials}) => {
 
             notifySuccess(data.msg);
         } catch (error) {
-            console.error("Error deleting testimonial:", error);
+
+        } catch (error) {
+            console.error("Error deleting member:", error);
         }
     };
 
     return(
         <section className="flex flex-col md:flex-row gap-3 items-center 
         justify-between border-b-2 pb-3 mb-5">
+
             <div className="">
                 <h3 className="font-bold text-lg">{testimonial.personName}</h3>
                 <p className="text-tertiary">{testimonial.type}</p>
