@@ -3,9 +3,12 @@
 import { useEffect, useState } from "react";
 import { Accordion } from "./components/Accordion";
 import { getAllMembers } from "./services/member.services";
+import { AddButton } from "@/components/AddButton";
+import { AddMemberModal } from "./components/AddMemberModal";
 
 const page = () => {
     const [members, setMembers] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -22,9 +25,13 @@ const page = () => {
     
     return(
         <section className="w-full">
-            <h1 className="font-bold text-2xl">Miembros</h1>      
+            <h1 className="font-bold text-2xl mb-5">Miembros</h1>   
+            <AddButton 
+                name="Agregar Miembro"
+                addElement={() => setShowModal(true)}    
+            />   
 
-            <section className="shadow-lg p-5 mt-10">
+            <section className="shadow-lg p-5 mt-5">
                 {
                     members?.map(member => (
                         <Accordion 
@@ -35,6 +42,11 @@ const page = () => {
                     ))
                 }
             </section>  
+
+            <AddMemberModal 
+                showModal={showModal}
+                closeModal={() => setShowModal(false)}
+            />
         </section>
     );
 }
