@@ -33,10 +33,10 @@ const page = () => {
 
             <section className="shadow-lg p-5 mt-5">
                 {
-                    testimonials.length 
+                    testimonials?.length 
                     ? (
 
-                        testimonials.map((testimonial => (
+                        testimonials?.map((testimonial => (
                             <TestimonialPreview 
                                 key={testimonial._id}
                                 testimonial={testimonial}
