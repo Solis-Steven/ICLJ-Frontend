@@ -1,12 +1,12 @@
 "use client"
 
-import { addSite, getAllSites } from "../sites/services/site.services"
+import { addSite, getAllSites } from "../sites/services/site.services.js"
 import { useEffect, useState } from "react";
 import { EachSite } from "./components/EachSite";
 import { AddButton } from "@/components/AddButton";
+
 const page = () => {
     const [sites, setSites] = useState([]);
-
     useEffect(() => {
         const fetchSites = async () => {
             try {

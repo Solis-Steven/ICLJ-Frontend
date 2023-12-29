@@ -96,9 +96,8 @@ export const Accordion = ({member, setMembers}) => {
                 />
 
                 <section className="flex gap-8">
-                    <EditButton name="Editar"/>
+                    <EditButton/>
                     <DeleteButton 
-                        name="Eliminar"
                         deleteElement={handleDeleteModal}
                     />
                 </section>

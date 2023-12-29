@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
 
   if (!auth._id) {
     return null;
-  }
+                                }
 
   return (
     <div className="flex p-3">
