@@ -3,6 +3,7 @@ import { EditButton } from "@/components/EditButton";
 import { useModal } from "@/hooks/useModal";
 import { useRouter } from "next/navigation";
 import { deleteTestimonial } from "../services/testimonials.services";
+import { notifySuccess } from "@/utilities/notifySuccess";
 
 export const TestimonialPreview = ({testimonial, setTestimonials}) => {
     const router = useRouter();
@@ -21,17 +22,23 @@ export const TestimonialPreview = ({testimonial, setTestimonials}) => {
 
     const deleteTestimonialCallback = async (testimonialId) => {
         try {
-            await deleteTestimonial(testimonialId);
+            const data = await deleteTestimonial(testimonialId);
             setTestimonials((prevTestimonial) =>
                 prevTestimonial.filter((testimonial) => testimonial._id !== testimonialId)
             );
+
+            notifySuccess(data.msg);
+        } catch (error) {
+
         } catch (error) {
             console.error("Error deleting member:", error);
         }
     };
 
     return(
-        <section className="flex items-center justify-between border-b-2 pb-3">
+        <section className="flex flex-col md:flex-row gap-3 items-center 
+        justify-between border-b-2 pb-3 mb-5">
+
             <div className="">
                 <h3 className="font-bold text-lg">{testimonial.personName}</h3>
                 <p className="text-tertiary">{testimonial.type}</p>

@@ -23,6 +23,6 @@ export const updateTestimonial = async (id, testimonial) => {
 
     return(data);
   } catch (error) {
-    console.log("Error al obtener testimonio")
+    console.log("Error al editar testimonio")
   }
 };
