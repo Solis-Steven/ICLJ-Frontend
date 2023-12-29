@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const chechAuth = () => {
-      console.log(loading)
       if(loading) {
         return
       }
