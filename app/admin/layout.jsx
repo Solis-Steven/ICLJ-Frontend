@@ -7,13 +7,21 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const Layout = ({ children }) => {
-  const { auth } = useAuth();
+  const { auth, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!auth._id || auth.role != "Administrador") {
-      router.push("/");
+    const chechAuth = () => {
+      console.log(loading)
+      if(loading) {
+        return
+      }
+      if (!auth._id || auth.role != "Administrador") {
+        router.push("/");
+      }
     }
+
+    chechAuth();
   }, [auth._id, router]);
 
   if (!auth._id) {
