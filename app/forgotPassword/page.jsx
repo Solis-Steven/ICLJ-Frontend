@@ -1,56 +1,57 @@
 "use client"
 
 import { Input } from "@/components/Input";
-import { useAuth } from "@/hooks/useAuth";
+import { notifyError } from "@/utilities/notifyError";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { forgotPassword } from "./services/forgotPassword.services";
+import { notifySuccess } from "@/utilities/notifySuccess";
+import { compileForgotPasswordTemplate, sendMail } from "@/lib/mail";
 
 const ForgotPassword = () => {
     const router = useRouter();
 
     const [email, setEmail] = useState("");
-    const [alert, setAlert] = useState({});
-
-    const { setAuth } = useAuth();
 
     const handleEmailChange = (newEmail) => {
         setEmail(newEmail);
     };
+
+    const send = async (token) => {
+        const emailData = {
+            to: email,
+            name: "",
+            subject: "Recuperación de contraseña",
+            body: await compileForgotPasswordTemplate(token)
+        }
+
+        await sendMail(emailData);
+    }
     
     const handleSubmit = async e => {
         e.preventDefault();
 
         if([email].includes("")) {
-            setAlert({
-                msg: "Todos los campos son obligatorios",
-                error: true
-            });
+            notifyError("Introduce tu correo")
 
             return;
         }
 
-        // try {
-        //     const data = await login({email, password})
-        //     console.log("data", data)
+        try {
+            const data = await forgotPassword({email})
 
-        //     setAlert({});
-        //     localStorage.setItem("token", data.token);
-        //     setAuth(data);
-        //     router.push("/admin/members")
-        // } catch (error) {
-        //     setAlert({
-        //         msg: error.response.data.msg,
-        //         error: true
-        //     });
-        // }
+            notifySuccess(data.msg)
+            setEmail("")
+            send(data.token)
+        } catch (error) {
+            notifyError(error.response.data.msg);
+        }
     }
 
-    const { msg } = alert;
-
     return(
-        <section className="w-full h-screen flex items-center justify-center px-10 sm:px-20">
-            <div className="w-full md:w-1/2 lg:w-1/3">
+        <section className="w-full h-full flex items-center justify-center px-10 sm:px-20">
+            <div className="w-full md:w-1/2">
                 <h1 className="text-primary font-black text-6xl capitalize">
                     Recupera Tu Contrase&ntilde;a E Inicia Sesi&oacute;n
                 </h1>
@@ -63,6 +64,7 @@ const ForgotPassword = () => {
                         id={"email"}
                         labelText={"Correo Electrónico"}
                         placeholder={"Correo electrónico de registro"}
+                        value={email}
                         onChange={handleEmailChange}
                     />
 
@@ -74,7 +76,6 @@ const ForgotPassword = () => {
                         transition-colors"
                     />
 
-                    {msg && <Alert alert={alert} />}
                 </form>
 
                 <nav className="lg:flex lg:justify-end">

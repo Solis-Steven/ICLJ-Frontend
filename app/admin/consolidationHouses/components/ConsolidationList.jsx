@@ -13,11 +13,9 @@ export const ConsolidationList = ({ currentConsolidations, editConsolidation, de
           <div className="flex space-x-2">
             <EditButton
               editElement={() => editConsolidation(consolidation._id)}
-              name="Editar"
             />
             <DeleteButton
-              deleteElement={() => deleteConsolidation(consolidation._id)}
-              name="Eliminar"
+              deleteElement={() => deleteConsolidation(consolidation.id)}
             />
           </div>
         </div>
