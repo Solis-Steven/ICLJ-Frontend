@@ -15,9 +15,10 @@ module.exports = {
       },
       colors: {
         primary: "var(--primary-color)",
+        darkPrimary: "var(--dark-primary-color)",
         secondary: "var(--secondary-color)",
         tertiary: "var(--tertiary-color)",
-        border: "var(--border-color)",
+        beige: "var(--beige-color)"
       }
     },
   },

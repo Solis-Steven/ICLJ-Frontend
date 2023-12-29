@@ -1,16 +1,30 @@
 "use client"
 
+import { useAuth } from "@/hooks/useAuth";
 import Sidebar from "@/layouts/SideBar/SideBar";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-const layout = ({children}) => {
+const Layout = ({ children }) => {
+  const { auth } = useAuth();
+  const router = useRouter();
 
-    return(
-        <div className="flex p-3">
-            <Sidebar />
+  useEffect(() => {
+    if (!auth._id || auth.role != "Administrador") {
+      router.push("/");
+    }
+  }, [auth._id, router]);
 
-            <main className="flex w-full px-10">{children}</main>
-        </div>
-    );
-}
+  if (!auth._id) {
+    return null;
+  }
 
-export default layout;
+  return (
+    <div className="flex p-3">
+      <Sidebar />
+      <main className="flex w-full px-10">{children}</main>
+    </div>
+  );
+};
+
+export default Layout;
