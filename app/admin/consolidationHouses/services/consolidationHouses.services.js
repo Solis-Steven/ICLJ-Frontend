@@ -48,3 +48,30 @@ export const deleteConsolidationHouseById = async (consolidationHouseId) => {
     throw error;
   }
 };
+export const CreateConsolidationHouse = async ({ name, leader, date, address  }) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("Token not found");
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
+
+    // Modifica la URL según tu implementación
+    
+   
+    const { data } = await axiosClient.post("/consolidationHouses", { name, leader, date, address  }, config);
+    // Puedes retornar la respuesta si lo necesitas
+    return data;
+
+    // Puedes retornar la respuesta si lo necesitas
+  } catch (error) {
+    console.error("Error al agregar casa de consolidación:", error.message);
+    throw error;
+  }
+};
