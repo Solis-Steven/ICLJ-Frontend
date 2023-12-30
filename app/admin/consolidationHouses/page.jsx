@@ -6,7 +6,13 @@ import { ConsolidationList } from "./components/ConsolidationList";
 import { getAllConsolidationHouses } from "./services/consolidationHouses.services";
 import { deleteConsolidationHouseById } from "./services/consolidationHouses.services";
 
+import { AddModal } from "./components/AddModal";
 const page = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const viewModalAdd = () => {
+    setIsOpen(!isOpen);
+  };
 
   const [consolidations, setConsolidations] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,11 +31,8 @@ const page = () => {
 };
   useEffect(() => {
     fetchConsolidationHouses();
-}, []);
+}, [ , consolidations]);
 
-  const addConsolidation = () => {
-    console.log("agregar");
-  };
   const editConsolidation = (id) => {
     console.log('Editar');
   };
@@ -51,7 +54,7 @@ const page = () => {
     totalPages = Math.ceil(consolidations.length / itemsPerPage);
   }
   //permite el manejo de la cantidad de filas por página
-  const currentConsolidations = consolidations.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const currentConsolidations = consolidations?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
@@ -59,8 +62,12 @@ const page = () => {
       <h1 className="font-bold text-2xl">Casas de Consolidación</h1>
       <div className="mt-8">
         <AddButton
-          addElement={() => addConsolidation()}
+          addElement={() => viewModalAdd()}
           name="Agregar CDC"
+        />
+        <AddModal
+        isOpen={ isOpen}
+        onClose={viewModalAdd}
         />
       </div>
       <section className="shadow-lg p-5 mt-10">
