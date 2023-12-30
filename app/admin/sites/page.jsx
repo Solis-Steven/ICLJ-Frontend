@@ -4,9 +4,12 @@ import { addSite, getAllSites } from "../sites/services/site.services.js"
 import { useEffect, useState } from "react";
 import { EachSite } from "./components/EachSite";
 import { AddButton } from "@/components/AddButton";
+import { AddSiteModal } from "./components/AddSiteModal.jsx";
 
 const page = () => {
     const [sites, setSites] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+
     useEffect(() => {
         const fetchSites = async () => {
             try {
@@ -31,10 +34,7 @@ const page = () => {
 
     const addElement = async () => {
         try {
-            await addSite({
-                name: "San Jose",
-                address: "50mts sur de la iglesia"
-            });
+            setShowModal(true);
             updateSites();
         } catch (error) {
             console.error("Error adding site:", error);
@@ -54,9 +54,15 @@ const page = () => {
                         key={site._id}
                         site={site}
                         updateSites={updateSites}
-                        />
+                    />
+                    
                 ))}
             </section>  
+
+            <AddSiteModal 
+                showModal={showModal}
+                closeModal={() => setShowModal(false)}
+            />
         </section>
     );
 }
