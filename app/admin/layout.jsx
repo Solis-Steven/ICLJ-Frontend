@@ -1,5 +1,6 @@
 "use client"
 
+import { DeleteModalWarning } from "@/components/DeleteModalWarning";
 import { useAuth } from "@/hooks/useAuth";
 import Sidebar from "@/layouts/SideBar/SideBar";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,10 @@ const Layout = ({ children }) => {
   return (
     <div className="flex p-3">
       <Sidebar />
-      <main className="flex w-full px-10">{children}</main>
+      <main className="flex w-full px-10">
+        {children}
+        <DeleteModalWarning />
+      </main>
     </div>
   );
 };

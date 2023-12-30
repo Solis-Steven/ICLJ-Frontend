@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { Address } from "./components/Address";
 import { register } from "./services/register.services";
-import { Alert } from "@/components/Alert";
 import { compileRegisterTemplate, sendMail } from "@/lib/mail";
+import { notifyError } from "@/utilities/notifyError";
+import { notify } from "@/utilities/notify";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -16,8 +17,6 @@ const Register = () => {
         address: "",
         password: "",
     });
-
-    const [alert, setAlert] = useState({});
 
     const handleInputChange = (id, value) => {
         setFormData({
@@ -43,10 +42,7 @@ const Register = () => {
 
         if ([formData.email, formData.password,
         formData.name, formData.address, formData.phone].includes("")) {
-            setAlert({
-                msg: "Todos los campos son obligatorios",
-                error: true,
-            });
+            notifyError("Todos los campos son obligatorios");
 
             return;
         }
@@ -55,6 +51,7 @@ const Register = () => {
             const data = await register(formData);
 
             send(data.user)
+            notify("Revisa tu correo para confirmar tu cuenta");
             setFormData({
                 name: "",
                 phone: "",
@@ -64,18 +61,14 @@ const Register = () => {
             });
 
         } catch (error) {
-            setAlert({
-                msg: error.response.data.msg,
-                error: true,
-            });
+            notifyError(error.response.data.msg);
         }
     };
 
-    const { msg } = alert;
 
     return (
         <section className="w-full h-full flex items-center justify-center px-10 sm:px-20">
-            <div className="w-full md:w-1/2 lg:w-1/3">
+            <div className="w-full md:w-1/2">
                 <h1 className="text-primary font-black text-6xl capitalize">
                     Crea Tu Cuenta Y Regístrate A Eventos
                 </h1>
@@ -130,9 +123,6 @@ const Register = () => {
                         transition-colors"
                     />
 
-                    {
-                        msg && <Alert alert={alert} />
-                    }
                 </form>
 
                 <nav className="lg:flex lg:justify-end">
