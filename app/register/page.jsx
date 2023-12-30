@@ -3,7 +3,7 @@
 import { Input } from "@/components/Input";
 import Link from "next/link";
 import { useState } from "react";
-import { Address } from "./components/Address";
+import { Address } from "../../components/Address";
 import { register } from "./services/register.services";
 import { compileRegisterTemplate, sendMail } from "@/lib/mail";
 import { notifyError } from "@/utilities/notifyError";
@@ -26,7 +26,6 @@ const Register = () => {
     };
 
     const send = async (user) => {
-        console.log("user", user)
         const emailData = {
             to: user.email,
             name: user.name,

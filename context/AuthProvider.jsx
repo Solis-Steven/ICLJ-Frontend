@@ -2,6 +2,7 @@
 
 import { useState, useEffect, createContext } from "react";
 import { axiosClient } from "../config/axiosClient";
+import { useRouter } from "next/navigation";
 
 const AuthContext = createContext();
 
@@ -9,8 +10,11 @@ export const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState({});
     const [loading, setLoading] = useState(true);
 
+    const router = useRouter();
+
     const signOut = () => {
         setAuth({});
+        router.push("/")
     }
 
     useEffect(() => {
