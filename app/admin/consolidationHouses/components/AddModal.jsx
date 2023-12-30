@@ -1,7 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
 import { notifyError } from "@/utilities/notifyError";
-import { notify } from "@/utilities/notify";
 import { Input } from "@/components/Input";
 import { getAllMembers } from "../../members/services/member.services";
 import { CreateConsolidationHouse } from "../services/consolidationHouses.services";
