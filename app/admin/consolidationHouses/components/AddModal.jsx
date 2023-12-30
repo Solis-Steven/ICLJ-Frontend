@@ -50,7 +50,7 @@ export const AddModal = ({ isOpen, onClose }) => {
         }
 
         try {
-            await CreateConsolidationHouse({ name, leader, combinedString, address });
+            await CreateConsolidationHouse({ name, leader, date: combinedString, address });
 
             // La casa de consolidación se ha creado con éxito
             console.log(`Casa de consolidación Agregada con éxito.`);
