@@ -1,11 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
-import { Alert } from "@/components/Alert";
+import { notifyError } from "@/utilities/notifyError";
+import { notify } from "@/utilities/notify";
 import { Input } from "@/components/Input";
 import { getAllMembers } from "../../members/services/member.services";
 import { CreateConsolidationHouse } from "../services/consolidationHouses.services";
 export const AddModal = ({ isOpen, onClose }) => {
-    const [alert, setAlert] = useState({});
     const [name, setName] = useState("");
     const [leader, setLeader] = useState("");
     const [date, setDate] = useState("");
@@ -45,10 +45,7 @@ export const AddModal = ({ isOpen, onClose }) => {
     const handleSubmit = async () => {
         const combinedString = `${date}T${time}:00.000Z`;
         if ([name, leader, combinedString, address].includes("")) {
-            setAlert({
-                msg: "Todos los campos son obligatorios",
-                error: true,
-            });
+            notifyError("Todos los campos son obligatorios");
 
             return;
         }
@@ -62,10 +59,9 @@ export const AddModal = ({ isOpen, onClose }) => {
 
         } catch (error) {
             // Maneja cualquier error que pueda ocurrir durante la agregación
-            console.error(`Error al agregarr casa de consolidación ${name}:`, error.message);
+            notifyError(error.response.data.msg);
         }
     };
-    const { msg } = alert;
     return (
         <Transition.Root show={isOpen} as={Fragment}>
             <Dialog as="div" className="fixed z-5 inset-0 overflow-y-auto" onClose={onClose}>
@@ -157,7 +153,7 @@ export const AddModal = ({ isOpen, onClose }) => {
                                 rows="2"
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
-                            {msg && <Alert alert={alert} />}
+                          
                             <div className="mt-5 sm:mt-6">
                                 <button
                                     type="button"
