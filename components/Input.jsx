@@ -41,7 +41,7 @@ export const Input = ({
                 disabled={disabled}
                 checked={checked}
                 className={`mt-3 p-3 border rounded-xl bg-gray-50
-                ${disabled ? "cursor-not-allowed text-gray-300" : "w-full"}`} />
+                ${disabled ? "cursor-not-allowed text-gray-300 w-full md:w-auto" : "w-full"}`} />
         </div>
     );
 };

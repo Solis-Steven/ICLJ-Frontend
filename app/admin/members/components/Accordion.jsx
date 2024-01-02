@@ -8,7 +8,7 @@ import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
 import { deleteMember } from "../services/member.services";
 
-export const Accordion = ({ member, setMembers }) => {
+export const Accordion = ({ member, setMembers, handleEdit }) => {
     const [isAccordionOpen, setAccordionOpen] = useState(false);
 
     const toggleAccordion = () => {
@@ -66,8 +66,8 @@ export const Accordion = ({ member, setMembers }) => {
             </h2>
             <div
                 id="accordion-collapse-body-1"
-                className={`p-5 border border-b-1 border-gray-200 grid grid-cols-2
-                ${isAccordionOpen ? "" : "hidden"}`}
+                className={`p-5 border border-b-1 border-gray-200 grid grid-cols-1 
+                lg:grid-cols-2 justify-center ${isAccordionOpen ? "" : "hidden"}`}
                 aria-labelledby="accordion-collapse-heading-1"
             >
                 <Input
@@ -75,7 +75,8 @@ export const Accordion = ({ member, setMembers }) => {
                     labelText={"Teléfono"}
                     placeholder={"Número de Teléfono"}
                     disabled={true}
-                    value={member.phone} />
+                    value={member.phone}
+                    />
 
                 <Input
                     id={`email-${member.name}`}
@@ -95,10 +96,10 @@ export const Accordion = ({ member, setMembers }) => {
                     value={member.role}
                 />
 
-                <section className="flex gap-8">
-                    <EditButton name="Editar"/>
-                    <DeleteButton 
-                        name="Eliminar"
+                <section className="flex gap-8 items-center flex-col md:flex-row">
+                    <EditButton
+                        editElement={() => handleEdit(member)} />
+                    <DeleteButton
                         deleteElement={handleDeleteModal}
                     />
                 </section>
