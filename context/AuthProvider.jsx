@@ -13,6 +13,7 @@ export const AuthProvider = ({children}) => {
     const router = useRouter();
 
     const signOut = () => {
+        localStorage.removeItem("token")
         setAuth({});
         router.push("/")
     }

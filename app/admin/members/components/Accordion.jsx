@@ -8,35 +8,35 @@ import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
 import { deleteMember } from "../services/member.services";
 
-export const Accordion = ({member, setMembers}) => {
+export const Accordion = ({ member, setMembers, handleEdit }) => {
     const [isAccordionOpen, setAccordionOpen] = useState(false);
 
     const toggleAccordion = () => {
         setAccordionOpen(!isAccordionOpen);
     };
 
-    const { 
+    const {
         setDeleteModal
     } = useModal();
 
     const handleDeleteModal = () => {
         setDeleteModal(
-          "Eliminar Miembro",
-          "¿Estás seguro de que quieres eliminar un miembro?",
-          () => deleteMemberCallback(member._id)
+            "Eliminar Miembro",
+            "¿Estás seguro de que quieres eliminar un miembro?",
+            () => deleteMemberCallback(member._id)
         );
     };
 
     const deleteMemberCallback = async (memberId) => {
         try {
-          await deleteMember(memberId);
-          setMembers((prevMembers) =>
-            prevMembers.filter((member) => member._id !== memberId)
-          );
+            await deleteMember(memberId);
+            setMembers((prevMembers) =>
+                prevMembers.filter((member) => member._id !== memberId)
+            );
         } catch (error) {
-          console.error("Error deleting member:", error);
+            console.error("Error deleting member:", error);
         }
-      };
+    };
 
     return (
         <div id="accordion-collapse" data-accordion="collapse">
@@ -66,39 +66,40 @@ export const Accordion = ({member, setMembers}) => {
             </h2>
             <div
                 id="accordion-collapse-body-1"
-                className={`p-5 border border-b-1 border-gray-200 grid grid-cols-2
-                ${isAccordionOpen ? "" : "hidden"}`}
+                className={`p-5 border border-b-1 border-gray-200 grid grid-cols-1 
+                lg:grid-cols-2 justify-center ${isAccordionOpen ? "" : "hidden"}`}
                 aria-labelledby="accordion-collapse-heading-1"
             >
-                <Input 
-                    id={`phoneNumber-${member.name}`} 
-                    labelText={"Teléfono"} 
+                <Input
+                    id={`phoneNumber-${member.name}`}
+                    labelText={"Teléfono"}
                     placeholder={"Número de Teléfono"}
                     disabled={true}
-                    value={member.phone}/>
-                
-                <Input 
-                    id={`email-${member.name}`} 
-                    labelText={"Correo Electrónico"} 
+                    value={member.phone}
+                    />
+
+                <Input
+                    id={`email-${member.name}`}
+                    labelText={"Correo Electrónico"}
                     placeholder={"Correo Electrónico"}
                     disabled={true}
-                    value={member.email}/>
+                    value={member.email} />
 
-                <Input 
-                    id={`address-${member.name}`} 
-                    labelText={"Dirección"} 
+                <Input
+                    id={`address-${member.name}`}
+                    labelText={"Dirección"}
                     placeholder={"Dirección de residencia"}
                     disabled={true}
-                    value={member.address}/>
-                
-                <Role 
+                    value={member.address} />
+
+                <Role
                     value={member.role}
                 />
 
-                <section className="flex gap-8">
-                    <EditButton name="Editar"/>
-                    <DeleteButton 
-                        name="Eliminar"
+                <section className="flex gap-8 items-center flex-col md:flex-row">
+                    <EditButton
+                        editElement={() => handleEdit(member)} />
+                    <DeleteButton
                         deleteElement={handleDeleteModal}
                     />
                 </section>

@@ -3,41 +3,56 @@
 import { EditButton } from "@/components/EditButton";
 import { Input } from "@/components/Input";
 import { useState } from "react";
-import { deleteSite, editSite } from "../services/site.services";
+import { addSite, deleteSite, editSite } from "../services/site.services";
 import { DeleteButton } from "@/components/DeleteButton";
+import { useModal } from "@/hooks/useModal";
+import { AddSiteModal } from "./AddSiteModal";
+import { notifyError } from "@/utilities/notifyError";
+import { notifySuccess } from "@/utilities/notifySuccess";
 
-export const EachSite = ({ site, updateSites }) => {
+export const EachSite = ({ site }) => {
+    const [showModal, setShowModal] = useState(false);
 
-    const editElement = async () => {
-        try {
-            await editSite(site._id, {
-                name: "San Gerardo",
-                address: "50mts sur del pali"
-            });
-            updateSites();
-        } catch (error) {
-            console.error("Error editing site:", error);
-        }
+    const editElement = () => {
+        setShowModal(true);
     };
-
     const deleteElement = async () => {
         try {
-            await deleteSite(site._id);
-            updateSites();
+            const data = await deleteSite(site._id);
+            notifySuccess(data.msg);
         } catch (error) {
-            console.error("Error deleting site:", error);
+            notifyError(error.response.data.msg);
         }
     };
+    const { 
+        setDeleteModal
+    } = useModal();
+
+    const handleDeleteModal = () => {
+        setDeleteModal(
+          "Eliminar Sede",                                                                                          
+          "¿Estás seguro de que quieres eliminar una sede?",
+          () => deleteElement() 
+        );
+    };
     return (
-        <section className="shadow-lg p-5 mt-10">
-            <h1>{site.name}</h1>
-            <p>{site.address}</p>
-            <EditButton
-                editElement={editElement}
-            />
-            <DeleteButton 
-                deleteElement={deleteElement}
-            />
+        <section className="shadow-lg p-5">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <h1 style={{ fontWeight: 'bold', fontSize: '3xl' }}>{site.name}</h1>
+                    <p>{site.address}</p>
+                </div>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <EditButton editElement={editElement} />
+                    <DeleteButton deleteElement={handleDeleteModal} />
+                    <AddSiteModal
+                        site={site}
+                        siteId={site._id}
+                        showModal={showModal}
+                        closeModal={() => setShowModal(false)}
+                    />
+                </div>
+            </div>
         </section>
     );
 };

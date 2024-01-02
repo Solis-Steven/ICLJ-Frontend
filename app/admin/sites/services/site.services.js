@@ -1,9 +1,9 @@
 import { axiosClient } from "@/config/axiosClient";
-import { getConfigWithToken } from '../../services/api.utils';
+import { getToken } from '@/utilities/getToken';
 
 export const getAllSites = async () => {
   try {
-    const config = getConfigWithToken();
+    const config = getToken();
     const { data } = await axiosClient("/sites", config);
     return data;
   } catch (error) {
@@ -12,7 +12,7 @@ export const getAllSites = async () => {
 };
 export const addSite = async (siteData) => {
   try {
-    const config = getConfigWithToken();
+    const config = getToken();
     const { data } = await axiosClient.post("/sites", siteData, config);
     return data;
   } catch (error) {
@@ -22,7 +22,7 @@ export const addSite = async (siteData) => {
 };
 export const editSite = async (site_id, updatedData) => {
   try {
-    const config = getConfigWithToken();
+    const config = getToken();
     const { data } = await axiosClient.put(`/sites/${site_id}`, updatedData, config);
     return data;
   } catch (error) {
@@ -32,7 +32,7 @@ export const editSite = async (site_id, updatedData) => {
 };
 export const deleteSite = async (site_id) => {
   try {
-    const config = getConfigWithToken();
+    const config = getToken();
     const { data } = await axiosClient.delete(`/sites/${site_id}`, config);
     return data;
   } catch (error) {

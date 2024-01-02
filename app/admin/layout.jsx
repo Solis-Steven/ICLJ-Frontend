@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const chechAuth = () => {
-      console.log(loading)
       if(loading) {
         return
       }
@@ -26,7 +25,7 @@ const Layout = ({ children }) => {
 
   if (!auth._id) {
     return null;
-  }
+                                }
 
   return (
     <div className="flex p-3">
