@@ -21,24 +21,10 @@ const page = () => {
             }
         };
         fetchSites();
-    }, []);
+    }, [sites]);
 
-    const updateSites = async () => {
-        try {
-            const updatedSites = await getAllSites();
-            setSites(updatedSites);
-        } catch (error) {
-            console.error("Error updating sites:", error);
-        }
-    };
-
-    const addElement = async () => {
-        try {
-            setShowModal(true);
-            updateSites();
-        } catch (error) {
-            console.error("Error adding site:", error);
-        }
+    const addElement = () => {
+        setShowModal(true);
     };
 
     return(
@@ -53,12 +39,10 @@ const page = () => {
                     <EachSite
                         key={site._id}
                         site={site}
-                        updateSites={updateSites}
                     />
                     
                 ))}
             </section>  
-
             <AddSiteModal 
                 showModal={showModal}
                 closeModal={() => setShowModal(false)}

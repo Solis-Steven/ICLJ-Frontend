@@ -7,7 +7,8 @@ export const Input = ({
     disabled = false,
     value = "",
     onChange,
-    type = "text"
+    type = "text",
+    checked
 }) => {
     const [valueState, setValueState] = useState(value);
 
@@ -38,6 +39,7 @@ export const Input = ({
                 value={valueState}
                 onChange={handleChange}
                 disabled={disabled}
+                checked={checked}
                 className={`mt-3 p-3 border rounded-xl bg-gray-50
                 ${disabled ? "cursor-not-allowed text-gray-300" : "w-full"}`} />
         </div>

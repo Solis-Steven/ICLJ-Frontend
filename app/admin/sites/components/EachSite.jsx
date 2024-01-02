@@ -7,24 +7,21 @@ import { addSite, deleteSite, editSite } from "../services/site.services";
 import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
 import { AddSiteModal } from "./AddSiteModal";
+import { notifyError } from "@/utilities/notifyError";
+import { notifySuccess } from "@/utilities/notifySuccess";
 
-export const EachSite = ({ site, updateSites }) => {
+export const EachSite = ({ site }) => {
     const [showModal, setShowModal] = useState(false);
 
-    const editElement = async () => {
-        try {
-            setShowModal(true);
-            updateSites();
-        } catch (error) {
-            console.error("Error editing site:", error);
-        }
+    const editElement = () => {
+        setShowModal(true);
     };
     const deleteElement = async () => {
         try {
-            await deleteSite(site._id);
-            updateSites();
+            const data = await deleteSite(site._id);
+            notifySuccess(data.msg);
         } catch (error) {
-            console.error("Error deleting site:", error);
+            notifyError(error.response.data.msg);
         }
     };
     const { 
@@ -42,13 +39,14 @@ export const EachSite = ({ site, updateSites }) => {
         <section className="shadow-lg p-5">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h1>{site.name}</h1>
+                    <h1 style={{ fontWeight: 'bold', fontSize: '3xl' }}>{site.name}</h1>
                     <p>{site.address}</p>
                 </div>
-                <div>
+                <div style={{ display: 'flex', gap: '10px' }}>
                     <EditButton editElement={editElement} />
                     <DeleteButton deleteElement={handleDeleteModal} />
                     <AddSiteModal
+                        site={site}
                         siteId={site._id}
                         showModal={showModal}
                         closeModal={() => setShowModal(false)}

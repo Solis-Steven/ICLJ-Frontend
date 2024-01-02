@@ -29,8 +29,6 @@ export const TestimonialPreview = ({testimonial, setTestimonials}) => {
 
             notifySuccess(data.msg);
         } catch (error) {
-
-        } catch (error) {
             console.error("Error deleting member:", error);
         }
     };

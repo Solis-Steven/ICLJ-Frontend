@@ -10,26 +10,38 @@ export const getAllActivities = async () => {
     console.error("Error al obtener actividades:", error);
   }
 };
-// export const addSite = async (siteData) => {
-//   try {
-//     const config = getConfigWithToken();
-//     const { data } = await axiosClient.post("/sites", siteData, config);
-//     return data;
-//   } catch (error) {
-//     console.error("Error al agregar sede:", error);
-//     throw error;
-//   }
-// };
-// export const editSite = async (site_id, updatedData) => {
-//   try {
-//     const config = getConfigWithToken();
-//     const { data } = await axiosClient.put(`/sites/${site_id}`, updatedData, config);
-//     return data;
-//   } catch (error) {
-//     console.error("Error al editar sede:", error);
-//     throw error;
-//   }
-// };
+export const agendActivitie = async (activitiesData) => {
+  try {
+    const config = getToken();
+    const { data } = await axiosClient.post("/activities", activitiesData, config);
+    return data;
+  } catch (error) {
+    console.error("Error al agendar actividad:", error);
+    throw error;
+  }
+};
+export const editActivitie = async (activitie_id, updatedData) => {
+  try {
+    const config = getToken();
+    const { data } = await axiosClient.put(`/activities/${activitie_id}`, updatedData, config);
+    return data;
+  } catch (error) {
+    console.error("Error al editar actividad:", error);
+    throw error;
+  }
+};
+export const getActivitie = async (id) => {
+  try {
+    
+    const config = getToken()
+
+    const { data } = await axiosClient(`/activities/${id}`, config);
+
+    return(data);
+  } catch (error) {
+    console.error("")
+  }
+};
 // export const deleteSite = async (site_id) => {
 //   try {
 //     const config = getConfigWithToken();

@@ -6,8 +6,10 @@ import { Input } from "@/components/Input"
 import { Address } from "@/components/Address"
 import { addSite, editSite } from "../services/site.services"
 import React from "react"
+import { notifyError } from "@/utilities/notifyError"
+import { notifySuccess } from "@/utilities/notifySuccess"
 
-export const AddSiteModal = ({ siteId, showModal, closeModal }) => {
+export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
 
@@ -18,25 +20,35 @@ export const AddSiteModal = ({ siteId, showModal, closeModal }) => {
         setAddress(address);
     };
     const editElement = async () => {
+        if ([name, address].includes("")) {
+            notifyError("Todos los campos son obligatorios");
+            return;
+        }
         try {
-            await editSite(siteId, {
+            const data = await editSite(siteId, {
                 name: name,
                 address: address
             });
-            updateSites();
+            notifySuccess(data.msg)
+            closeModal();
         } catch (error) {
             console.error("Error adding site:", error);
         }
     };
     const addElement = async () => {
+        if ([name, address].includes("")) {
+            notifyError("Todos los campos son obligatorios");
+            return;
+        }
         try {
-            await addSite({
+            const data = await addSite({
                 name: name,
                 address: address
             });
-            updateSites();
+            notifySuccess(data.msg);
+            closeModal();
         } catch (error) {
-            console.error("Error editing site:", error);
+            notifyError(error.response.data.msg);
         }
     };
 
@@ -98,26 +110,45 @@ export const AddSiteModal = ({ siteId, showModal, closeModal }) => {
                                         // onSubmit={handleSubmit}
                                         className="my-10"
                                     >
-                                        <Input
-                                            id="siteName"
-                                            labelText="Lugar"
-                                            placeholder="Lugar de la Sede"
-                                            onChange={handleChangeName}
-                                            value={name}
-                                        />
-                                        <Address 
-                                            value={address}
-                                            handleChange={handleChangeAddress}
-                                        />
-
+                                        {
+                                        siteId ? 
+                                        (
+                                        <>
+                                            <Input
+                                                id="siteName"
+                                                labelText="Lugar"
+                                                placeholder={site.name}
+                                                onChange={handleChangeName}
+                                                value={name}
+                                            />
+                                            <Address 
+                                                handleChange={handleChangeAddress}
+                                                placeholder={site.address}
+                                            />
+                    
+                                        </>
+                                        ) : (
+                                            <>
+                                                <Input
+                                                    id="siteName"
+                                                    labelText="Lugar"
+                                                    placeholder="Lugar de la Sede"
+                                                    onChange={handleChangeName}
+                                                    value={name}
+                                                />
+                                                <Address 
+                                                    value={address}
+                                                    handleChange={handleChangeAddress}
+                                                />
+                                            </>
+                                        )}   
+                                    
                                         <input
-                                            type="submit"
                                             value={siteId ? "Guardar Cambios" : "Agregar Sede"}
-                                            className="bg-secondary hover:bg-sky-700 w-full 
+                                            className="text-center bg-secondary hover:bg-sky-700 w-full 
                                             p-3 text-white uppercase font-bold cursor-pointer
                                             transition-colors rounded text-sm"
                                             onClick={siteId ? editElement : addElement}
-                        
                                         />
                                     </form>
 
