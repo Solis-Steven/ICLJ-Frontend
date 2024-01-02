@@ -34,10 +34,6 @@ const Login = () => {
         }
 
         try {
-            // const { data } = await clienteAxios.post("/usuarios/login", {
-            //     email, 
-            //     password
-            // });
             const data = await login({email, password})
 
             localStorage.setItem("token", data.token);
@@ -49,7 +45,7 @@ const Login = () => {
     }
 
     return(
-        <section className="w-full h-full flex items-center justify-center px-10 sm:px-20">
+        <section className="w-full min-h-screen flex items-center justify-center px-10 sm:px-20">
             <div className="w-full md:w-1/2">
                 <h1 className="text-primary font-black text-6xl capitalize">
                     Inicia Sesión Y Regístrate A Eventos

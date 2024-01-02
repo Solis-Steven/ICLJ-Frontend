@@ -5,13 +5,13 @@ export const Select = ({ value, onChange }) => {
     return (
       <div className="my-5">
         <label
-          htmlFor="name"
+          htmlFor="problem-type"
           className="text-gray-600 uppercase block text-md font-bold"
         >
           Tipo
         </label>
         <select
-          id="proble-type"
+          id="problem-type"
           value={value}
           onChange={onChange}
           className="mt-3 p-3 border rounded-xl bg-gray-50 text-gray-600"

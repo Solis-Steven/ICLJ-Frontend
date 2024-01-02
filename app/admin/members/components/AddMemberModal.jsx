@@ -1,17 +1,19 @@
 "use client"
 
-import { Fragment, useState, useEffect } from "react"
+import { Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { Input } from "@/components/Input"
 import { Address } from "@/components/Address"
+import { Role } from "./Role"
 
-const ROLE = [
-    "Miembro",
-    "Lider",
-    "Administrador"
-]
 
-export const AddMemberModal = ({ memberId, showModal, closeModal }) => {
+export const AddMemberModal = ({
+    memberId,
+    showModal,
+    closeModal,
+    handleInputChange,
+    handleSubmit,
+    formData }) => {
 
     return (
         <Transition.Root show={showModal} as={Fragment}>
@@ -69,19 +71,23 @@ export const AddMemberModal = ({ memberId, showModal, closeModal }) => {
                                     </Dialog.Title>
 
                                     <form
-                                        // onSubmit={handleSubmit}
+                                        onSubmit={handleSubmit}
                                         className="my-10"
                                     >
                                         <Input
                                             id="memberName"
                                             labelText="Nombre"
                                             placeholder="Nombre de la Persona"
+                                            value={formData["name"]}
+                                            onChange={(value) => handleInputChange("name", value)}
                                         />
 
                                         <Input
                                             id="memberPhone"
                                             labelText="Teléfono"
                                             placeholder="Teléfono de la persona"
+                                            value={formData["phone"]}
+                                            onChange={(value) => handleInputChange("phone", value)}
                                         />
 
                                         <Input
@@ -89,9 +95,34 @@ export const AddMemberModal = ({ memberId, showModal, closeModal }) => {
                                             type="email"
                                             labelText="Correo Electrónico"
                                             placeholder="Correo Electrónico de la persona"
+                                            value={formData["email"]}
+                                            onChange={(value) => handleInputChange("email", value)}
                                         />
 
-                                        <Address />
+                                        <Address
+                                            value={formData["address"]}
+                                            handleChange={(value) => handleInputChange("address", value)}
+                                        />
+
+                                        <Role
+                                            value={formData["role"]}
+                                            show={false}
+                                            onChange={(event) => handleInputChange("role", event.target.value)}
+                                        />
+
+
+                                        {
+                                            !memberId && (
+                                                <Input
+                                                    id="memberPassword"
+                                                    type="password"
+                                                    labelText="Contraseña"
+                                                    placeholder="Contraseña de registro"
+                                                    value={formData["password"]}
+                                                    onChange={(value) => handleInputChange("password", value)}
+                                                />
+                                            )
+                                        }
 
 
                                         <input

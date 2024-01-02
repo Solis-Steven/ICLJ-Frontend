@@ -50,7 +50,7 @@ const ForgotPassword = () => {
     }
 
     return(
-        <section className="w-full h-full flex items-center justify-center px-10 sm:px-20">
+        <section className="w-full min-h-screen flex items-center justify-center px-10 sm:px-20">
             <div className="w-full md:w-1/2">
                 <h1 className="text-primary font-black text-6xl capitalize">
                     Recupera Tu Contrase&ntilde;a E Inicia Sesi&oacute;n
