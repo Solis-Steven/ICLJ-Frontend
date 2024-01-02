@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Pagination } from "./components/Pagination";
 import { AddButton } from "@/components/AddButton";
+import { notifySuccess } from "@/utilities/notifySuccess";
 import { ConsolidationList } from "./components/ConsolidationList";
 import { getAllConsolidationHouses } from "./services/consolidationHouses.services";
 import { deleteConsolidationHouseById } from "./services/consolidationHouses.services";
@@ -63,7 +64,7 @@ const page = () => {
       await deleteConsolidationHouseById(id);
 
       // La casa de consolidación se ha eliminado con éxito
-      console.log(`Casa de consolidación con id ${id} eliminada con éxito.`);
+      notifySuccess(`casa de consolidación eliminada exitosamente`);
       fetchConsolidationHouses();
     } catch (error) {
       // Maneja cualquier error que pueda ocurrir durante la eliminación

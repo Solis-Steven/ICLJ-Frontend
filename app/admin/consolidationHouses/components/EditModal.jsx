@@ -3,6 +3,7 @@ import { Fragment, useState, useEffect } from 'react';
 import { notifyError } from "@/utilities/notifyError";
 import { Input } from "@/components/Input";
 import { getAllMembers } from "../../members/services/member.services";
+import { notifySuccess } from "@/utilities/notifySuccess";
 import { UpdateConsolidationHouseById } from "../services/consolidationHouses.services";
 export const EditModal = ({ isOpen, onClose, consolidationData, dateT, timeT}) => {
     const [name, setName] = useState(consolidationData.name);
@@ -53,7 +54,7 @@ export const EditModal = ({ isOpen, onClose, consolidationData, dateT, timeT}) =
             await UpdateConsolidationHouseById(consolidationData._id,{ name, leader, date:combinedString, address });
 
             // La casa de consolidación se ha creado con éxito
-            console.log(`Casa de consolidación actualizada con éxito.`);
+            notifySuccess(`casa de consolidación ${name} editada exitosamente`);
             onClose();
 
         } catch (error) {
