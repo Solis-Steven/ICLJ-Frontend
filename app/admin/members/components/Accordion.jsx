@@ -97,11 +97,9 @@ export const Accordion = ({ member, setMembers, handleEdit }) => {
                 />
 
                 <section className="flex gap-8 items-center flex-col md:flex-row">
-                    <EditButton 
-                        name="Editar"
+                    <EditButton
                         editElement={() => handleEdit(member)} />
                     <DeleteButton
-                        name="Eliminar"
                         deleteElement={handleDeleteModal}
                     />
                 </section>
