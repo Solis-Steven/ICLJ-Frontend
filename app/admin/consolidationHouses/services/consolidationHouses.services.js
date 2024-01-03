@@ -1,5 +1,6 @@
 import { axiosClient } from "@/config/axiosClient";
 import { getToken } from "@/utilities/getToken";
+import {notifyError} from "@/utilities/notifyError";
 //Obtener todas las casas de consolidación
 export const getAllConsolidationHouses = async () => {
   try {
@@ -9,6 +10,7 @@ export const getAllConsolidationHouses = async () => {
 
     return (data);
   } catch (error) {
+    notifyError(error.response?.data?.message)
     console.log("Error al obtener casas de consolidation")
   }
 };
@@ -19,13 +21,13 @@ export const deleteConsolidationHouseById = async (consolidationHouseId) => {
     // Modifica la URL según tu implementación
     const url = `consolidationHouses/${consolidationHouseId}`;
 
-    const response = await axiosClient.delete(url, config)
+    const {data} = await axiosClient.delete(url, config)
 
     // Puedes retornar la respuesta si lo necesitas
-    return response.data;
+    return data;
   } catch (error) {
+    notifyError(error.response?.data?.message)
     console.error("Error al eliminar casa de consolidación:", error.message);
-    throw error;
   }
 };
 export const CreateConsolidationHouse = async ({ name, leader, date, address  }) => {
@@ -39,8 +41,8 @@ export const CreateConsolidationHouse = async ({ name, leader, date, address  })
 
     // Puedes retornar la respuesta si lo necesitas
   } catch (error) {
+    notifyError(error.response?.data?.message)
     console.error("Error al agregar casa de consolidación:", error.message);
-    throw error;
   }
 };
 export const getConsolidationHouseById = async (consolidationHouseId) => {
@@ -50,13 +52,13 @@ export const getConsolidationHouseById = async (consolidationHouseId) => {
     // Modifica la URL según tu implementación
     const url = `consolidationHouses/${consolidationHouseId}`;
 
-    const response = await axiosClient.get(url, config)
+    const {data} = await axiosClient.get(url, config)
 
     // Puedes retornar la respuesta si lo necesitas
-    return response.data;
+    return data;
   } catch (error) {
+    notifyError(error.response?.data?.message)
     console.error(`Error al obtener la casa de consolidación ${consolidationHouseId}:`, error.message);
-    throw error;
   }
 };
 export const UpdateConsolidationHouseById = async (consolidationHouseId,{ name, leader, date, address }) => {
@@ -66,12 +68,12 @@ export const UpdateConsolidationHouseById = async (consolidationHouseId,{ name, 
     // Modifica la URL según tu implementación
     const url = `consolidationHouses/${consolidationHouseId}`;
     const isoDate = new Date(date).toISOString();
-    const response = await axiosClient.put(url, { name, leader, date: isoDate, address  }, config)
+    const {data} = await axiosClient.put(url, { name, leader, date: isoDate, address  }, config)
 
     // Puedes retornar la respuesta si lo necesitas
-    return response.data;
+    return data;
   } catch (error) {
+    notifyError(error.response?.data?.message)
     console.error("Error al actualizar casa de consolidación:", error.message);
-    throw error;
   }
 };
