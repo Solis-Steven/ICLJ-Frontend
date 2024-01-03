@@ -68,22 +68,25 @@ const AddSermon = () => {
             <section className="shadow-lg p-5 mt-5">
                 <form>
 
-                    <Input
-                        id="sermonTitle"
-                        labelText="Título"
-                        placeholder="Título del sermón"
-                        value={title}
-                        onChange={handleTitleChange}
-                    />
+                    <div className="w-full lg:w-1/3">
 
-                    <Input
-                        id="sermonDate"
-                        labelText="Fecha"
-                        placeholder=""
-                        type="date"
-                        value={date}
-                        onChange={handleDateChange}
-                    />
+                        <Input
+                            id="sermonTitle"
+                            labelText="Título"
+                            placeholder="Título del sermón"
+                            value={title}
+                            onChange={handleTitleChange}
+                        />
+
+                        <Input
+                            id="sermonDate"
+                            labelText="Fecha"
+                            placeholder=""
+                            type="date"
+                            value={date}
+                            onChange={handleDateChange}
+                        />
+                    </div>
 
                     <div className="my-5">
                         <div ref={quillRef}></div>

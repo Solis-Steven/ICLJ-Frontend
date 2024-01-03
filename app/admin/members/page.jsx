@@ -9,8 +9,10 @@ import { notify } from "@/utilities/notify";
 import { notifyError } from "@/utilities/notifyError";
 import { compileRegisterTemplate, sendMail } from "@/lib/mail";
 import { notifySuccess } from "@/utilities/notifySuccess";
+import { Search } from "@/components/Search";
 
 const page = () => {
+    const [originalMembers, setOriginalMembers] = useState([]);
     const [members, setMembers] = useState([]);
     const [memberId, setMemberId] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -22,18 +24,38 @@ const page = () => {
         role: "",
         password: "",
     });
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const membersData = await getAllMembers();
-                setMembers(membersData);
+                const data = await getAllMembers({ page });
+                setOriginalMembers((prevMembers) => [...prevMembers, ...data]);
+                setMembers((prevMembers) => [...prevMembers, ...data]);
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching members:", error);
             }
         };
 
         fetchMembers();
+    }, [page]);
+
+    const handleScroll = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop ===
+            document.documentElement.offsetHeight
+        ) {
+            setPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     const handleInputChange = (id, value) => {
@@ -94,9 +116,10 @@ const page = () => {
                     const { msg, userSaved } = data;
 
                     const updatedMembers = members?.map(memberState =>
-                        memberState._id  === userSaved._id ? userSaved : memberState
+                        memberState._id === userSaved._id ? userSaved : memberState
                     );
                     setMembers(updatedMembers);
+                    setOriginalMembers(updatedMembers);
                     setShowModal(false);
                     setFormData({
                         name: "",
@@ -142,25 +165,61 @@ const page = () => {
         }
     }
 
+    const handleSearch = (searchValue) => {
+
+        if(searchValue === "") {
+            setMembers(originalMembers);
+            return;
+        }
+
+        const filteredMembers = originalMembers.filter(member =>
+            member.name.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        setMembers(filteredMembers);
+    };
+
     return (
         <section className="w-full">
             <h1 className="font-bold text-2xl mb-5">Miembros</h1>
-            <AddButton
-                name="Agregar Miembro"
-                addElement={() => setShowModal(true)}
-            />
+
+            <section className="flex gap-3 items-center">
+                <AddButton
+                    name="Agregar Miembro"
+                    addElement={() => setShowModal(true)}
+                />
+
+                <Search 
+                    placeholder="Buscar Miembro"
+                    onChange={handleSearch}
+                />
+            </section>
 
             <section className="shadow-lg p-5 mt-5">
                 {
-                    members?.map(member => (
-                        <Accordion
-                            key={member._id}
-                            member={member}
-                            setMembers={setMembers}
-                            handleEdit={handleEdit}
-                        />
-                    ))
+                    isLoading && (
+                        <div className="flex justify-center">
+                            <div
+                                className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                role="status"
+                            >
+                                <span
+                                    className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                                >
+                                    Loading...
+                                </span>
+                            </div>
+                        </div>
+                    )
                 }
+
+                {members?.map((member) => (
+                    <Accordion
+                        key={member._id}
+                        member={member}
+                        setMembers={setMembers}
+                        handleEdit={handleEdit}
+                    />
+                ))}
             </section>
 
             <AddMemberModal
@@ -172,6 +231,7 @@ const page = () => {
                 formData={formData}
             />
         </section>
+
     );
 }
 

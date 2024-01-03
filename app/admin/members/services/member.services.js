@@ -2,18 +2,16 @@ import { axiosClient } from "@/config/axiosClient";
 import { getToken } from "@/utilities/getToken";
 import { notifyError } from "@/utilities/notifyError";
 
-export const getAllMembers = async () => {
+export const getAllMembers = async ({ page = 1, limit = 10 }) => {
   try {
-    
-    const config = getToken()
-
-    const { data } = await axiosClient("/users", config);
-
-    return(data);
+      const config = getToken();
+      const { data } = await axiosClient(`/users?page=${page}&limit=${limit}`, config);
+      return data;
   } catch (error) {
-    console.log("Error al obtener miembros")
+      console.log("Error al obtener miembros");
   }
 };
+
 
 export const deleteMember = async (id) => {
   try {
