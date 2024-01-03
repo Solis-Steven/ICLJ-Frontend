@@ -29,7 +29,6 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
     const addElement = async () => {
         if ([name, date, time].includes("")) {
             notifyError("Todos los campos son obligatorios");
-            console.log(assistance, "-< asss")
             return;
         }
         
@@ -51,13 +50,9 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
         const combinedString = `${date}T${time}:00.000Z`;
         if ([name, combinedString].includes("")) {
             notifyError("Todos los campos son obligatorios");
-            console.log(assistance, "-< asss")
             return;
         }
         try {
-            console.log(activitie.assistance)
-            console.log(assistance)
-            console.log(activitie.users.length)
             if(activitie.users.length !== 0 && assistance === false){
                 notifyError("La actividad todavia tiene usuarios registrados");
                 return;

@@ -9,7 +9,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [assisted, setAssisted] = useState(false);
-    // const [state, setState] = useState(false);
     
     const handleNameChange = (name) => {
         setName(name);
@@ -17,18 +16,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
     const handlePhoneChange = (phone) => {
         setPhone(phone);
     };
-
-    // useEffect(() => {
-    //     const fetchMembers = async () => {
-    //         try {
-    //             const membersData = await getAllMembers();
-    //             setMembers(membersData);
-    //         } catch (error) {
-    //             console.error("Error fetching members:", error);
-    //         }
-    //     };
-    //     fetchMembers();
-    // }, []);
 
     const handleSubmit = async () => {
         if ([name, phone].includes("")) {

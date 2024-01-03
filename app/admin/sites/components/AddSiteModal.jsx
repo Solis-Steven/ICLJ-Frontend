@@ -29,7 +29,7 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
                 name: name,
                 address: address
             });
-            notifySuccess(data.msg)
+            notifySuccess("editada exitosamente")
             closeModal();
         } catch (error) {
             console.error("Error adding site:", error);
@@ -45,7 +45,7 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
                 name: name,
                 address: address
             });
-            notifySuccess(data.msg);
+            notifySuccess("sede creada exitosamente");
             closeModal();
         } catch (error) {
             notifyError(error.response.data.msg);

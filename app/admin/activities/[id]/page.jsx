@@ -10,8 +10,8 @@ import { deleteActivitie } from "../addUser/components/services/templateuser.ser
 import { notifySuccess } from "@/utilities/notifySuccess";
 import { useModal } from "@/hooks/useModal";
 import { AddUserModal } from "./components/AddUserModal";
-
 const page = ({params}) => {
+
     const [id, setId] = useState(params.id);
     const [name, setName] = useState("");
     const [assistance, setAssistance] = useState(false);
@@ -39,15 +39,9 @@ const page = ({params}) => {
     const viewModalAdd = () => {
         setIsOpen(true);
     };
-
     const editElement = () => {
         setShowModal(true);
     };
-
-    const addElement = () => {
-
-    }
-
     const { 
         setDeleteModal
     } = useModal();
@@ -78,9 +72,7 @@ const page = ({params}) => {
                         <path str okeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                     </svg>
                 </button>
-
                 <h1 className="font-bold text-2xl">{name}</h1>
-
                 <div className="flex justify-end w-full">
                     <div className="flex items-center space-x-2 mr-8">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-500">
