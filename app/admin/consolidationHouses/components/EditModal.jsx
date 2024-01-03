@@ -1,3 +1,4 @@
+"use client"
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
 import { notifyError } from "@/utilities/notifyError";
@@ -6,11 +7,11 @@ import { getAllMembers } from "../../members/services/member.services";
 import { notifySuccess } from "@/utilities/notifySuccess";
 import { UpdateConsolidationHouseById } from "../services/consolidationHouses.services";
 export const EditModal = ({ isOpen, onClose, consolidationData, dateT, timeT}) => {
-    const [name, setName] = useState(consolidationData.name);
-    const [leader, setLeader] = useState(consolidationData.leader);
-    const [date, setDate] = useState(dateT);
-    const [time, setTime] = useState(timeT);
-    const [address, setAddress] = useState(consolidationData.address);
+    const [name, setName] = useState("");
+    const [leader, setLeader] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    const [address, setAddress] = useState("");
     const [members, setMembers] = useState([]);
     
     const handleNameChange = (newName) => {
@@ -30,7 +31,15 @@ export const EditModal = ({ isOpen, onClose, consolidationData, dateT, timeT}) =
         const newAddress = event.target.value;
         setAddress(newAddress);
     };
-
+    useEffect(() => {
+        if (isOpen) {
+            setName(consolidationData.name);
+            setLeader(consolidationData.leader);
+            setDate(dateT);
+            setTime(timeT);
+            setAddress(consolidationData.address);
+        }
+    }, [isOpen]);
     useEffect(() => {
         const fetchMembers = async () => {
             try {
@@ -110,7 +119,7 @@ export const EditModal = ({ isOpen, onClose, consolidationData, dateT, timeT}) =
                                 labelText={"Nombre"}
                                 placeholder={consolidationData.name}
                                 type="text"
-                                value={consolidationData.name}
+                                value={name}
                                 onChange={handleNameChange}
                             />
                             <label htmlFor="leader" className="uppercase block text-md font-bold text-gray-600">
