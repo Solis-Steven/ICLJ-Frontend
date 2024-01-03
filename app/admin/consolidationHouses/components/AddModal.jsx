@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
 import { notifyError } from "@/utilities/notifyError";
 import { Input } from "@/components/Input";
+import { notifySuccess } from "@/utilities/notifySuccess";
 import { getAllMembers } from "../../members/services/member.services";
 import { CreateConsolidationHouse } from "../services/consolidationHouses.services";
 export const AddModal = ({ isOpen, onClose }) => {
@@ -53,7 +54,7 @@ export const AddModal = ({ isOpen, onClose }) => {
             await CreateConsolidationHouse({ name, leader, date: combinedString, address });
 
             // La casa de consolidación se ha creado con éxito
-            console.log(`Casa de consolidación Agregada con éxito.`);
+            notifySuccess(`casa de consolidación ${name} creada exitosamente`);
             onClose();
 
         } catch (error) {
