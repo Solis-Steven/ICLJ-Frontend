@@ -26,11 +26,12 @@ const page = () => {
     });
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const data = await getAllMembers({ page });
+                const data = await getAllMembers({ page, isActive });
                 setOriginalMembers((prevMembers) => [...prevMembers, ...data]);
                 setMembers((prevMembers) => [...prevMembers, ...data]);
                 setIsLoading(false);
@@ -167,7 +168,7 @@ const page = () => {
 
     const handleSearch = (searchValue) => {
 
-        if(searchValue === "") {
+        if (searchValue === "") {
             setMembers(originalMembers);
             return;
         }
@@ -176,6 +177,19 @@ const page = () => {
             member.name.toLowerCase().includes(searchValue.toLowerCase())
         );
         setMembers(filteredMembers);
+    };
+
+    const fetchMembersByFilter = async (isActive) => {
+        try {
+            setIsActive(isActive)
+            const data = await getAllMembers({ page: 1, isActive });
+            setOriginalMembers(data);
+            setMembers(data);
+            setIsLoading(false);
+        } catch (error) {
+            setIsActive(!isActive)
+            console.error("Error fetching members:", error);
+        }
     };
 
     return (
@@ -188,13 +202,27 @@ const page = () => {
                     addElement={() => setShowModal(true)}
                 />
 
-                <Search 
+                <Search
                     placeholder="Buscar Miembro"
                     onChange={handleSearch}
                 />
             </section>
 
-            <section className="shadow-lg p-5 mt-5">
+            <nav className="mt-6 text-gray-400 flex gap-5">
+                <button
+                    onClick={() => fetchMembersByFilter(true)}
+                    className="hover:text-black">
+                    Activos
+                </button>
+
+                <button
+                    onClick={() => fetchMembersByFilter(false)}
+                    className="hover:text-black">
+                    Desactivados
+                </button>
+            </nav>
+
+            <section className="shadow-lg p-5 mt-1">
                 {
                     isLoading && (
                         <div className="flex justify-center">
@@ -212,14 +240,24 @@ const page = () => {
                     )
                 }
 
-                {members?.map((member) => (
-                    <Accordion
-                        key={member._id}
-                        member={member}
-                        setMembers={setMembers}
-                        handleEdit={handleEdit}
-                    />
-                ))}
+                {
+                    members.length
+                        ? (
+
+                            members.map((member) => (
+                                <Accordion
+                                    key={member._id}
+                                    member={member}
+                                    setMembers={setMembers}
+                                    handleEdit={handleEdit}
+                                    isActive={isActive}
+                                />
+                            ))
+                        )
+                        : !isLoading && (
+                            <p className="text-center">A&uacute;n no hay miembros</p>
+                        )
+                }
             </section>
 
             <AddMemberModal

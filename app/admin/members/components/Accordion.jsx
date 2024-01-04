@@ -6,9 +6,10 @@ import { Role } from "./Role";
 import { EditButton } from "@/components/EditButton";
 import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
-import { deleteMember } from "../services/member.services";
+import { disableMember } from "../services/member.services";
+import { notifySuccess } from "@/utilities/notifySuccess";
 
-export const Accordion = ({ member, setMembers, handleEdit }) => {
+export const Accordion = ({ member, setMembers, handleEdit, isActive }) => {
     const [isAccordionOpen, setAccordionOpen] = useState(false);
 
     const toggleAccordion = () => {
@@ -21,18 +22,19 @@ export const Accordion = ({ member, setMembers, handleEdit }) => {
 
     const handleDeleteModal = () => {
         setDeleteModal(
-            "Eliminar Miembro",
-            "¿Estás seguro de que quieres eliminar un miembro?",
-            () => deleteMemberCallback(member._id)
+            "Desactivar Miembro",
+            "¿Estás seguro de que quieres desactivar un miembro?",
+            () => disableMemberCallback(member._id)
         );
     };
 
-    const deleteMemberCallback = async (memberId) => {
+    const disableMemberCallback = async (memberId) => {
         try {
-            await deleteMember(memberId);
+            const data = await disableMember(memberId);
             setMembers((prevMembers) =>
                 prevMembers.filter((member) => member._id !== memberId)
             );
+            notifySuccess(data.msg)
         } catch (error) {
             console.error("Error deleting member:", error);
         }
@@ -100,6 +102,7 @@ export const Accordion = ({ member, setMembers, handleEdit }) => {
                     <EditButton
                         editElement={() => handleEdit(member)} />
                     <DeleteButton
+                        name={`${isActive ? "Desactivar" : "Activar"}`}
                         deleteElement={handleDeleteModal}
                     />
                 </section>
