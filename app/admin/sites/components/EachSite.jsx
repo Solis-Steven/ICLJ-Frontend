@@ -36,7 +36,7 @@ export const EachSite = ({ site }) => {
         );
     };
     return (
-        <section className="shadow-lg p-5">
+        <div className="shadow-lg p-5">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <h1 style={{ fontWeight: 'bold', fontSize: '3xl' }}>{site.name}</h1>
@@ -53,7 +53,7 @@ export const EachSite = ({ site }) => {
                     />
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

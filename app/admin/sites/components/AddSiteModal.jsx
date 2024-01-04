@@ -19,6 +19,11 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
     const handleChangeAddress = (address) => {
         setAddress(address);
     };
+    const commonInputProps = {
+        id: "siteName",
+        labelText: "Lugar",
+        onChange: handleChangeName,
+    };
     const editElement = async () => {
         if ([name, address].includes("")) {
             notifyError("Todos los campos son obligatorios");
@@ -107,41 +112,17 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
                                     </Dialog.Title>
 
                                     <form
-                                        // onSubmit={handleSubmit}
                                         className="my-10"
                                     >
-                                        {
-                                        siteId ? 
-                                        (
-                                        <>
-                                            <Input
-                                                id="siteName"
-                                                labelText="Lugar"
-                                                placeholder={site.name}
-                                                onChange={handleChangeName}
-                                                value={name}
-                                            />
-                                            <Address 
-                                                handleChange={handleChangeAddress}
-                                                placeholder={site.address}
-                                            />
-                    
-                                        </>
-                                        ) : (
-                                            <>
-                                                <Input
-                                                    id="siteName"
-                                                    labelText="Lugar"
-                                                    placeholder="Lugar de la Sede"
-                                                    onChange={handleChangeName}
-                                                    value={name}
-                                                />
-                                                <Address 
-                                                    value={address}
-                                                    handleChange={handleChangeAddress}
-                                                />
-                                            </>
-                                        )}   
+                                        <Input
+                                            {...commonInputProps}
+                                            placeholder={siteId ? site.name : "Lugar de la Sede"}
+                                            value={siteId ? site.name : ""}
+                                        />
+                                        <Address 
+                                            value={siteId ? site.address : address}
+                                            handleChange={handleChangeAddress}
+                                        />
                                     
                                         <input
                                             value={siteId ? "Guardar Cambios" : "Agregar Sede"}

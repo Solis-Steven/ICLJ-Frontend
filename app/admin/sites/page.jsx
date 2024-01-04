@@ -34,7 +34,7 @@ const page = () => {
                 addElement={addElement}
                 name={"Agregar Sede"}
             />    
-            <section className="shadow-lg p-5 mt-10">
+            <div className="shadow-lg p-5 mt-10">
                 {sites.map(site => (
                     <EachSite
                         key={site._id}
@@ -42,7 +42,7 @@ const page = () => {
                     />
                     
                 ))}
-            </section>  
+            </div>  
             <AddSiteModal 
                 showModal={showModal}
                 closeModal={() => setShowModal(false)}

@@ -26,6 +26,11 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
     const handleChangeAssistance = () => {
         setAssistance(!assistance);
     };
+    const commonInputProps = {
+        id: "activityName",
+        labelText: "Nombre",
+        onChange: handleChangeName,
+    };
     const addElement = async () => {
         if ([name, date, time].includes("")) {
             notifyError("Todos los campos son obligatorios");
@@ -131,87 +136,40 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
                                     <form
                                         className="my-10"
                                     >   
-                                        {
-                                       activitieId ? 
-                                        (
-                                            
-                                        <>
-                                            <Input
-                                                id="activitieName"
-                                                labelText="Nombre"
-                                                placeholder={activitie.name}
-                                                onChange={handleChangeName}
-                                                value={name}
-                                            />
-                                            <Input
-                                                id={date}
-                                                labelText={"Fecha"}
-                                                type="date"
-                                                value={activitie.date}
-                                                
-                                            />
-                                            <Input
-                                                id={time}
-                                                labelText={"Hora"}
-                                                value={activitie.time}
-                                                type="time"
-                                            
-                                            />
-                                            
-                                            <div>
+                                        <Input
+                                            {...commonInputProps}
+                                            placeholder={activitieId ? activitie.name : "Nombre de la actividad"}
+                                            value={activitieId ? activitie.name : ""}
+                                        />
+                                        <Input
+                                            id={date}
+                                            labelText="Fecha"
+                                            type="date"
+                                            placeholder={activitieId ? undefined : "Ingrese la fecha"}
+                                            value={activitieId ? activitie.date : date}
+                                            onChange={handleChangeDate}
+                                        />
+                                        <Input
+                                            id={time}
+                                            labelText="Hora"
+                                            type="time"
+                                            placeholder={activitieId ? undefined : "Ingrese la hora del CDC"}
+                                            value={activitieId ? activitie.time : time}
+                                            onChange={handleChangeTime}
+                                        />
+                                        <div>
                                             <p className="absolute text-gray-600 mt-7">
-                                            ¿Requiere asistencia?
+                                                ¿Requiere asistencia?
                                             </p>
                                             <Input
-                                                labelText={"Asistencia"}
+                                                id={assistance}
+                                                labelText="Asistencia"
                                                 type="checkbox"
                                                 checked={assistance}
+                                                value={activitieId ? activitie.assistance : undefined}
                                                 onChange={handleChangeAssistance}
                                             />
-                                            </div>
-
-                                        </>
-                                        ) : (
-                                            <>
-                                                <Input
-                                                    id="activitieName"
-                                                    labelText="Nombre"
-                                                    placeholder="Nombre de la actividad"
-                                                    onChange={handleChangeName}
-                                                    value={name}
-                                                />
-                                                <Input
-                                                    id={date}
-                                                    labelText={"Fecha"}
-                                                    placeholder={"Ingrese la fecha"}
-                                                    type="date"
-                                                    value={date}
-                                                    onChange={handleChangeDate}
-                                                    
-                                                />
-                                                <Input
-                                                    id={time}
-                                                    labelText={"Hora"}
-                                                    placeholder={"Ingrese la hora del CDC"}
-                                                    type="time"
-                                                    value={time}
-                                                    onChange={handleChangeTime}
-                                                
-                                                />
-                                                <div>
-                                                    <p className="absolute text-gray-600 mt-7">
-                                                    ¿Requiere asistencia?
-                                                    </p>
-                                                    <Input
-                                                        id={assistance}
-                                                        labelText={"Asistencia"}
-                                                        type="checkbox"
-                                                        onChange={handleChangeAssistance}
-                                                    />
-                                                </div>
-                                                
-                                            </>
-                                        )} 
+                                        </div>
 
                                         <input
                                             value={activitieId ? "Guardar Cambios" : "Crear Actividad"}
