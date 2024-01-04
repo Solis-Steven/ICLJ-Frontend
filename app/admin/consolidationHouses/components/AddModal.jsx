@@ -42,9 +42,10 @@ export const AddModal = ({ isOpen, onClose }) => {
         };
         fetchMembers();
     }, []);
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         const combinedString = `${date}T${time}:00.000Z`;
-        if ([name, leader, combinedString, address].includes("")) {
+        if ([name, leader, date, time, address].includes("")) {
             notifyError("Todos los campos son obligatorios");
 
             return;
@@ -55,11 +56,19 @@ export const AddModal = ({ isOpen, onClose }) => {
 
             // La casa de consolidación se ha creado con éxito
             notifySuccess(`casa de consolidación ${name} creada exitosamente`);
+            setFormData({
+                name: "",
+                leader: "",
+                date: "",
+                time: "",
+                address: "",
+                
+            })
             onClose();
 
         } catch (error) {
             // Maneja cualquier error que pueda ocurrir durante la agregación
-            notifyError(error.response.data.msg);
+           console.log({error});
         }
     };
     return (

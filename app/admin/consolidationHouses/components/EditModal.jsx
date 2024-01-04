@@ -68,7 +68,7 @@ export const EditModal = ({ isOpen, onClose, consolidationData, dateT, timeT}) =
 
         } catch (error) {
             // Maneja cualquier error que pueda ocurrir durante la agregación
-            notifyError(error.response.data.msg);
+            console.log({error});
         }
     };
     return (
