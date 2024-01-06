@@ -211,13 +211,13 @@ const page = () => {
             <nav className="mt-6 text-gray-400 flex gap-5">
                 <button
                     onClick={() => fetchMembersByFilter(true)}
-                    className="hover:text-black">
+                    className={`hover:text-black ${isActive ? "text-black border-b-2 border-black " : ""}`}>
                     Activos
                 </button>
 
                 <button
                     onClick={() => fetchMembersByFilter(false)}
-                    className="hover:text-black">
+                    className={`hover:text-black ${isActive ? "" : "text-black border-b-2 border-black"}`}>
                     Desactivados
                 </button>
             </nav>

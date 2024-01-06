@@ -21,9 +21,20 @@ export const Accordion = ({ member, setMembers, handleEdit, isActive }) => {
     } = useModal();
 
     const handleDeleteModal = () => {
+
+        if(member.isActive) {
+            setDeleteModal(
+                "Desactivar Miembro",
+                "¿Estás seguro de que quieres desactivar un miembro?",
+                () => disableMemberCallback(member._id)
+            );
+
+            return;
+        }
+
         setDeleteModal(
-            "Desactivar Miembro",
-            "¿Estás seguro de que quieres desactivar un miembro?",
+            "Activar Miembro",
+            "¿Estás seguro de que quieres activar un miembro?",
             () => disableMemberCallback(member._id)
         );
     };
