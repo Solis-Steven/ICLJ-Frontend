@@ -7,6 +7,7 @@ import NavItem from "./NavItem";
 
 import menus from "./items.json";
 import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -25,12 +26,21 @@ const Sidebar = () => {
 
         <button
           onClick={signOut}
-          className="mt-5 flex  font-medium p-2 hover:bg-secondary rounded-xl duration-200
-          items-center gap-2 mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-7 h-7">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-          </svg>
-          Cerrar Sesi&oacute;n
+          className="mt-5 flex  font-medium p-2 hover:bg-secondary rounded-xl duration-200">
+          <Image
+            className={`flex w-7 h-7 min-h-max mr-2 invert duration-300 ${!open && "translate-x-1 sm:translate-x-1.5"
+              }`}
+            src="/SidebarIcons/logout.svg"
+            width={28}
+            height={28}
+            alt="logout-icon.svg"
+          />
+          <span
+            className={`whitespace-pre duration-300 ${!open && "opacity-0 translate-x-16 overflow-hidden"
+              }`}
+          >
+            Cerrar Sesi&oacute;n
+          </span>
         </button>
       </div>
     </aside>

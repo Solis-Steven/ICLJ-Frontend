@@ -1,12 +1,12 @@
 import { axiosClient } from "@/config/axiosClient";
 import { getToken } from "@/utilities/getToken";
 
-export const getAllTestimonials = async () => {
+export const getAllTestimonials = async ({ page = 1, limit = 10 }) => {
   try {
     
     const config = getToken()
 
-    const { data } = await axiosClient("/testimonials", config);
+    const { data } = await axiosClient(`/testimonials?page=${page}&limit=${limit}`, config);
 
     return(data);
   } catch (error) {
