@@ -23,7 +23,7 @@ export const ConsolidationList = ({ currentConsolidations, editConsolidation, de
           </div>
           <div className="flex space-x-2">
             <EditButton
-              editElement={() => editConsolidation(consolidation._id)}
+              editElement={() => editConsolidation(consolidation)}
             />
             <DeleteButton
               deleteElement={() => handleDeleteModal(consolidation)}
