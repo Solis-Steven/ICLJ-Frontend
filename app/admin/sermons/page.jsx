@@ -61,7 +61,7 @@ const page = () => {
         <section className="w-full">
             <h1 className="font-bold text-2xl mb-5">Sermones</h1>
 
-            <section className="flex gap-3 items-center">
+            <section className="flex flex-col sm:flex-row gap-3 items-center">
 
                 <AddButton
                     name="Agregar Sermón"
