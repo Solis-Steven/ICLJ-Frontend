@@ -3,10 +3,7 @@ import { getToken } from "@/utilities/getToken";
 
 export const getSermon = async (id) => {
   try {
-    
-    const config = getToken()
-
-    const { data } = await axiosClient(`/sermons/${id}`, config);
+    const { data } = await axiosClient(`/sermons/${id}`);
 
     return(data);
   } catch (error) {

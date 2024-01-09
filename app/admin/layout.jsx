@@ -11,21 +11,31 @@ const Layout = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const chechAuth = () => {
-      if(loading) {
-        return
+    const checkAuth = () => {
+      if (loading) {
+        return;
       }
-      if (!auth._id || auth.role != "Administrador") {
-        router.push("/");
+      console.log("auth", auth)
+      if (!auth._id || auth.role !== "Administrador") {
+        router.push("/users/home");
       }
+    };
+
+    checkAuth();
+  }, [auth._id, router, loading]);
+
+  useEffect(() => {
+    if (loading) {
+      return;
     }
+    if (!auth._id || auth.role !== "Administrador") {
+      router.push("/users/home");
+    }
+  }, [auth._id, auth.role, router]);
 
-    chechAuth();
-  }, [auth._id, router]);
-
-  if (!auth._id) {
+  if (!auth._id || auth.role !== "Administrador") {
     return null;
-                                }
+  }
 
   return (
     <div className="flex p-3">
