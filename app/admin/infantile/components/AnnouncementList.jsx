@@ -13,7 +13,6 @@ export const AnnouncementList = ({ currentAnnouncements, editAnnouncements, dele
       () => deleteAnnouncements(announcement._id)
     );
   };
-  const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   return (
     <div className="space-y-0 border shadow-sm border-inherit border-border">
       {currentAnnouncements?.map((announcement) => (

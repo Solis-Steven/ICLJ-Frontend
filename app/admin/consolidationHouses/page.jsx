@@ -27,6 +27,14 @@ const page = () => {
 
   const onClose = () => {
     setIsOpen(!isOpen);
+    setConsolidationHousesId("");
+    setFormData({
+      name: "",
+      leader: "",
+      date: "",
+      time: "",
+      address: "",
+    });
   };
 
   const fetchConsolidationHouses = async () => {
@@ -72,7 +80,7 @@ const page = () => {
       time: timeT,
       address,
     });
-    onClose();
+    setIsOpen(!isOpen);
   };
   const deleteConsolidation = async (id) => {
     try {
@@ -141,7 +149,7 @@ const page = () => {
         });
         if (data) {
           const ConsolidationHouseSaved = data;
-  
+
           const updatedConsolidations = consolidations?.map(
             (consolidationState) =>
               consolidationState._id === ConsolidationHouseSaved._id
@@ -149,7 +157,7 @@ const page = () => {
                 : consolidationState
           );
           setConsolidations(updatedConsolidations);
-          setOriginalHouses(updatedConsolidations); 
+          setOriginalHouses(updatedConsolidations);
           notifySuccess(
             `casa de consolidación ${formData.name} editada exitosamente`
           );
@@ -182,7 +190,7 @@ const page = () => {
       const updatedConsolidations = [...consolidations, data];
       setConsolidations(updatedConsolidations);
       setOriginalHouses(updatedConsolidations);
-      
+
       onClose();
       // La casa de consolidación se ha creado con éxito
       notifySuccess(

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { AddButton } from "@/components/AddButton";
 import { notifySuccess } from "@/utilities/notifySuccess";
+import { notifyError } from "@/utilities/notifyError";
 import { getAllInfantil, CreateAnnouncement, deleteAnnouncementById, UpdateAnnouncementById } from "./services/infantil.services";
 import { AnnouncementList } from "./components/AnnouncementList";
 import { AddEditModal } from "./components/AddEditModal";
@@ -22,7 +23,16 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
   const [anuncios, setAnuncios] = useState([]);
 
   const onClose = () => {
+    setIsLoading(false);
     setIsOpen(!isOpen);
+    setAnuncioId("");
+    setFormData({
+      name: "",
+      description: "",
+      date: "",
+      time: "",
+      image: "",
+    });
   };
 
   const fetchAnnouncement = async () => {
@@ -82,7 +92,7 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
     const dateT = fecha.toISOString().split("T")[0];
     // Obtener la hora en formato "HH:mm:ss"
     const timeT = fecha.toISOString().split("T")[1].split(".")[0].slice(0, -3);
-    setAnuncioId(_id);
+    
     setFormData({
       name,
       description,
@@ -90,7 +100,8 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
       time: timeT,
       image,
     });
-    onClose();
+    setAnuncioId(_id);
+    setIsOpen(!isOpen);
   };
 
   //busqueda
@@ -115,7 +126,7 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const combinedString = `${formData.date}T${formData.time}:00.000Z`;
     if (
       [
@@ -127,6 +138,7 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
       ].includes("")
     ) {
       notifyError("Todos los campos son obligatorios");
+      setIsLoading(false);
 
       return;
     }
@@ -154,6 +166,7 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
               `anuncio ${formData.name} editado exitosamente`
             );
             onClose();
+            setAnuncioId("");
             setFormData({
               name: "",
               description: "",
@@ -161,13 +174,15 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
               time: "",
               image: "",
             });
-            setAnuncioId("");
+         
           }
   
           // el anuncio se ha creado con éxito
         } catch (error) {
           // Maneja cualquier error que pueda ocurrir durante la agregación
           console.log({ error });
+        }finally{
+          setIsLoading(false);
         }
         return;
       }
@@ -207,7 +222,7 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Escuela biblica Infantil</h1>
       <section className="flex gap-3 items-center">
-        <AddButton addElement={() => onClose()} name="Agregar Anuncio" />
+        <AddButton addElement={() => {onClose()}} name="Agregar Anuncio" />
         <AddEditModal
           anuncioId={anuncioId}
           isOpen={isOpen}
@@ -215,6 +230,7 @@ const [originalAnuncios, setOriginalAnuncios] = useState([]);
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           formData={formData}
+          isLoading={isLoading}
         />
         <Search
           placeholder="Buscar Anuncio"
