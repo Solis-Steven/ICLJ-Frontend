@@ -63,8 +63,8 @@ export const DeleteModalWarning = () => {
 
 
                             <div className="sm:flex sm:items-start">
-                                <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
+                                <div className={`mx-auto flex-shrink-0 flex items-center justify-center ${modalTitle.includes("Activar") ?  "bg-green-100" : "bg-red-100"} h-12 w-12 rounded-full sm:mx-0 sm:h-10 sm:w-10`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 ${modalTitle.includes("Activar") ? "text-green-600" : "text-red-600"}`} viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                                     </svg>
                                 </div>
@@ -84,9 +84,19 @@ export const DeleteModalWarning = () => {
                                 <button
                                     type="button"
                                     onClick={deleteItem}
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                    className={`w-full inline-flex justify-center rounded-md border border-transparent 
+                                    shadow-sm px-4 py-2 text-base font-medium text-white  
+                                    focus:outline-none focus:ring-2 focus:ring-offset-2  sm:ml-3 sm:w-auto sm:text-sm
+                                    ${modalTitle.includes("Activar") ? "bg-green-600 hover:bg-green-700 focus:ring-green-500" : 
+                                    "bg-red-600 hover:bg-red-700 focus:ring-red-500"}`}
                                 >
-                                    Eliminar
+                                    {
+                                        modalTitle.includes("Desactivar") 
+                                        ? "Desactivar"
+                                        : modalTitle.includes("Activar") 
+                                            ? "Activar"
+                                            : "Eliminar"
+                                    }
                                 </button>
                                 <button
                                     type="button"

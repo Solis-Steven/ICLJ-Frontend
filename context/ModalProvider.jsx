@@ -1,6 +1,5 @@
 "use client"
 
-import { notifySuccess } from "@/utilities/notifySuccess";
 import { useState, createContext } from "react";
 
 const ModalContext = createContext();
@@ -27,8 +26,7 @@ export const ModalProvider = ({children}) => {
     const deleteItem = async () => {
         if (deleteFunction) {
             try {
-                const data = await deleteFunction();
-                notifySuccess(data.msg)
+                await deleteFunction();
             } catch (error) {
                 console.log(error)
             }

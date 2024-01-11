@@ -69,18 +69,21 @@ const AddTestimonial = () => {
             <section className="shadow-lg p-5 mt-5">
                 <form>
 
-                    <Input
-                        id="testimonialName"
-                        labelText="Nombre"
-                        placeholder="Nombre de la persona"
-                        value={name}
-                        onChange={handleNameChange}
-                    />
+                    <div className="w-full lg:w-1/3">
+                        <Input
+                            id="testimonialName"
+                            labelText="Nombre"
+                            placeholder="Nombre de la persona"
+                            value={name}
+                            onChange={handleNameChange}
+                        />
+                        
+                        <Select 
+                            value={type}
+                            onChange={handleTypeChange}
+                        />
+                    </div>
 
-                    <Select 
-                        value={type}
-                        onChange={handleTypeChange}
-                    />
 
                     <div className="my-5">
                         <div ref={quillRef}></div>
