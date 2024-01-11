@@ -44,10 +44,6 @@ const page = ({params}) => {
         setShowModal(true);
     };
 
-    const addElement = () => {
-
-    }
-
     const { 
         setDeleteModal
     } = useModal();

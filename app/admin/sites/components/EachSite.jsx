@@ -36,22 +36,21 @@ export const EachSite = ({ site }) => {
         );
     };
     return (
-        <div className="shadow-lg p-5">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                    <h1 style={{ fontWeight: 'bold', fontSize: '3xl' }}>{site.name}</h1>
-                    <p>{site.address}</p>
-                </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <EditButton editElement={editElement} />
-                    <DeleteButton deleteElement={handleDeleteModal} />
-                    <AddSiteModal
-                        site={site}
-                        siteId={site._id}
-                        showModal={showModal}
-                        closeModal={() => setShowModal(false)}
-                    />
-                </div>
+        <div className="flex flex-col md:flex-row gap-3 items-center 
+        justify-between border-b-2 pb-3 mb-5">
+            <div>
+                <h1 className="font-bold text-lg">{site.name}</h1>
+                <p>{site.address}</p>
+            </div>
+            <div className="flex gap-3">
+                <EditButton editElement={editElement} />
+                <DeleteButton deleteElement={handleDeleteModal} />
+                <AddSiteModal
+                    site={site}
+                    siteId={site._id}
+                    showModal={showModal}
+                    closeModal={() => setShowModal(false)}
+                />
             </div>
         </div>
     );

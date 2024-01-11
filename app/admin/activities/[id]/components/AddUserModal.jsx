@@ -18,18 +18,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
         setPhone(phone);
     };
 
-    // useEffect(() => {
-    //     const fetchMembers = async () => {
-    //         try {
-    //             const membersData = await getAllMembers();
-    //             setMembers(membersData);
-    //         } catch (error) {
-    //             console.error("Error fetching members:", error);
-    //         }
-    //     };
-    //     fetchMembers();
-    // }, []);
-
     const handleSubmit = async () => {
         if ([name, phone].includes("")) {
             notifyError("Todos los campos son obligatorios");
@@ -68,8 +56,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
                     >
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
-
-                    {/* This element is to trick the browser into centering the modal contents. */}
                     <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
                         &#8203;
                     </span>
