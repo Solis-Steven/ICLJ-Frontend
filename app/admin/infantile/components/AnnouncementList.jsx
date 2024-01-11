@@ -10,7 +10,7 @@ export const AnnouncementList = ({ currentAnnouncements, editAnnouncements, dele
     setDeleteModal(
       "Eliminar anuncio",
       "¿Estás seguro de que quieres eliminar un anuncio?",
-      () => deleteAnnouncements(announcement._id)
+      () => deleteAnnouncements(announcement)
     );
   };
   return (
