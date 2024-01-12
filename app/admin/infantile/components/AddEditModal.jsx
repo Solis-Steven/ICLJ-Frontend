@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
 import { uploadFile } from "@/config/firebase/config";
 import { Input } from "@/components/Input";
-import { set } from "date-fns";
+import { notifyError } from "@/utilities/notifyError";
 export const AddEditModal = ({
   anuncioId,
   isOpen,
@@ -14,7 +14,12 @@ export const AddEditModal = ({
 }) => {
   const [imageUpload, setImage] = useState(null);
   const fileSelectedHandler = (e) => {
-    const file = e.target.files[0];
+    if (
+      e.target.files[0].type === "image/png" ||
+      e.target.files[0].type === "image/jpg" ||
+      e.target.files[0].type === "image/jpeg" 
+    ) {
+      const file = e.target.files[0];
     handleInputChange("image", file);
     if (file) {
       const reader = new FileReader();
@@ -25,6 +30,11 @@ export const AddEditModal = ({
 
       reader.readAsDataURL(file);
     }
+
+    }else{
+      notifyError("El archivo no es una imagen (jpg, png, jpeg)");
+    }
+    
   };
 useEffect(() => {
   if(anuncioId){
