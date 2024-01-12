@@ -2,6 +2,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
 import { Input } from "@/components/Input";
 import { Spinner } from "@/components/Spinner";
+import { FileCompleted } from "./FileCompleted";
+import Link from "next/link";
 export const AddEditModal = ({
   multimediaId,
   isOpen,
@@ -10,6 +12,7 @@ export const AddEditModal = ({
   handleSubmit,
   formData,
   isLoading,
+  handleFileChange,
 }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -100,41 +103,46 @@ export const AddEditModal = ({
                   <div className=" w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-600"></div>
                 </label>
               </div>
+              {/*Si multimediaId contiene alog mostrar formData.ref como un link*/}
+              {multimediaId && (
+                <div>
+                  <Link
+                    href={formData.ref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-800 text-sm font-semibold hover:underline"
+                  >
+                    {"Ver archivo"}
+                  </Link>
+                  <div
+                    class="p-4 mt-1 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                    role="alert"
+                  >
+                    <span class="font-medium">Alerta de Información!</span> El
+                    nuevo archivo cargado solo se verá después de guardar los
+                    cambios.
+                  </div>
+                  <div className="container flex items-center">
+                    <label
+                      htmlFor="image"
+                      className="cursor-pointer inline-block rounded-md border border-transparent shadow-sm px-4 py-2 bg-secondary hover:bg-teal-300 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                    >
+                      Cambiar Archivo
+                      <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        onChange={(e) => handleFileChange(e)}
+                        className="hidden" // Ocultar el input original
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+              {/* Si multimediaId contiene algo mostrar FileCompleted */}
+              <FileCompleted />
               {/* Spinner*/}
               {isLoading && <Spinner />}
-              <div className="mt-2 bg-white rounded-lg overflow-hidden flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.0"
-                  stroke="currentColor"
-                  class="w-20 h-20"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 text-green-500 bg-white mt-12"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-                <span className="text-gray-500 text-sm font-semibold mt-12 ml-1">
-                    {"Completado"}
-                </span>
-              </div>
               <div className="mt-5 sm:mt-6">
                 <button
                   type="button"

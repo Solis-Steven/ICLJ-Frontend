@@ -123,7 +123,7 @@ const page = () => {
       }
     }
     try {
-    const fileName = await uploadFile(file);
+    const fileName = await uploadFile("anuncios",file);
     return fileName;
     }
     catch (error) {
