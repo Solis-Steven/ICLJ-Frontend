@@ -23,18 +23,18 @@ const Login = () => {
     const handlePasswordChange = (newPassword) => {
         setPassword(newPassword);
     };
-    
+
     const handleSubmit = async e => {
         e.preventDefault();
 
-        if([email, password].includes("")) {
+        if ([email, password].includes("")) {
             notifyError("Todos los campos son obligatorios")
 
             return;
         }
 
         try {
-            const data = await login({email, password})
+            const data = await login({ email, password })
 
             localStorage.setItem("token", data.token);
             setAuth(data);
@@ -44,13 +44,13 @@ const Login = () => {
         }
     }
 
-    return(
+    return (
         <section className="w-full min-h-screen flex items-center justify-center px-10 sm:px-20">
             <div className="w-full md:w-1/2">
                 <h1 className="text-primary font-black text-6xl capitalize">
                     Inicia Sesión Y Regístrate A Eventos
                 </h1>
-        
+
                 <form
                     onSubmit={handleSubmit}
                     className="my-10 bg-white shadow rounded-lg p-10"
@@ -77,6 +77,14 @@ const Login = () => {
                         font-bold rounded hover:cursor-pointer hover:bg-darkPrimary
                         transition-colors"
                     />
+
+                    <Link
+                        href="/users/home"
+                        className="block text-center text-slate-500 uppercase
+                        text-sm"
+                    >
+                        Regresar a la pagina principal
+                    </Link>
 
                 </form>
 

@@ -9,10 +9,12 @@ import toolbar from "@/config/toolbar";
 import { AddButton } from "@/components/AddButton";
 import { notifySuccess } from "@/utilities/notifySuccess";
 import { addSermon } from "./services/addSermon.services";
+import { notifyError } from "@/utilities/notifyError";
 
 const AddSermon = () => {
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
+    const [summary, setSummary] = useState("");
     const { quill, quillRef } = useQuill({
         modules: {
             toolbar
@@ -29,12 +31,25 @@ const AddSermon = () => {
         setDate(date);
     };
 
+    const handleSummaryChange = (value) => {
+        setSummary(value)
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if ([title, date, summary, JSON.stringify(quill.getContents())]
+            .includes("")) {
+
+            notifyError("Todos los campos son requeridos");
+
+            return;
+        }
 
         const sermonData = {
             title,
             date,
+            summary,
             sermon: JSON.stringify(quill.getContents())
         }
 
@@ -45,6 +60,7 @@ const AddSermon = () => {
 
             setTitle("");
             setDate("");
+            setSummary("");
             quill.setText("");
         } catch (error) {
 
@@ -86,6 +102,21 @@ const AddSermon = () => {
                             value={date}
                             onChange={handleDateChange}
                         />
+
+                        <div className="my-5">
+                            <label
+                                className="uppercase block text-md font-bold text-gray-600"
+                                htmlFor="summary">
+                                Resumen
+                            </label>
+                            <textarea
+                                id="sumary"
+                                placeholder="Escribe aquí tu resumen"
+                                value={summary}
+                                onChange={e => handleSummaryChange(e.target.value)}
+                                className="mt-3 p-3 border rounded-xl bg-gray-50 w-full">
+                            </textarea>
+                        </div>
                     </div>
 
                     <div className="my-5">

@@ -25,7 +25,7 @@ export const Select = ({ value, onChange }) => {
           <option value="Sanidad">Sanidad</option>
           <option value="Conversión">Conversión</option>
           <option value="Liberación">Liberación</option>
-          <option value="Provisión">Conversión</option>
+          <option value="Provisión">Provisión</option>
         </select>
       </div>
     );
