@@ -40,6 +40,14 @@ const page = () => {
 
   const onClose = () => {
     setIsOpen(!isOpen);
+    setEventFixedId("");
+    setFormData({
+      name: "",
+    manager: "",
+    date: "",
+    time: "",
+    visible: true,
+    });
   };
   const handleInputChange = (id, value) => {
     setFormData({
@@ -82,7 +90,7 @@ const page = () => {
       time: timeT,
       visible,
     });
-    onClose();
+    setIsOpen(!isOpen);
   };
   const handleScroll = () => {
     if (
