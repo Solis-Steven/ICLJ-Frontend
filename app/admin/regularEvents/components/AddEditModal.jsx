@@ -109,6 +109,11 @@ export const AddEditModal = ({
                 onChange={(e) => handleInputChange("manager", e.target.value)}
                 className="mt-3 p-3 border rounded-xl bg-gray-50 w-full"
               >
+                {!EventFixedId && (
+                  <option  value="" disabled defaultValue>
+                    Seleccione un encargado
+                  </option>
+                )}
                 {members.map((miembro) => (
                   <option key={miembro._id} value={miembro._id}>
                     {miembro.name}
