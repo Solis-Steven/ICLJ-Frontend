@@ -227,7 +227,7 @@ const page = () => {
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Multimedia</h1>
       <Search placeholder="Buscar Archivo multimedia" onChange={handleSearch} />
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         {/* button add */}
         {/* Modal */}
         <AddEditModal

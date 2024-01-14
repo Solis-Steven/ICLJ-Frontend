@@ -23,7 +23,7 @@ export const AnnouncementList = ({ currentAnnouncements, editAnnouncements, dele
             <div className="mt-0 text-sm text-gray-500 font-medium">{announcement &&  announcement.description }</div>
             
           </div>
-          <div className="flex space-x-2">
+          <div className="flex flex-col sm:flex-row gap-3 items-center mt-1 ">
             <EditButton
               editElement={() => editAnnouncements(announcement)}
             />
