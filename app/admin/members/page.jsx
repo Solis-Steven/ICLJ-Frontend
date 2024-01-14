@@ -5,6 +5,7 @@ import { Accordion } from "./components/Accordion";
 import { addMember, getAllMembers, updateMember } from "./services/member.services";
 import { AddButton } from "@/components/AddButton";
 import { AddMemberModal } from "./components/AddMemberModal";
+import { notify } from "@/utilities/notify";
 import { notifyError } from "@/utilities/notifyError";
 import { compileRegisterTemplate, sendMail } from "@/lib/mail";
 import { notifySuccess } from "@/utilities/notifySuccess";
