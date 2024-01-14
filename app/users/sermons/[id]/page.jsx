@@ -2,13 +2,12 @@
 
 import { getSermon } from "@/app/admin/sermons/[id]/services/sermon.services";
 import { useEffect, useState } from "react";
-import "quill/dist/quill.snow.css"
 import { useQuill } from "react-quilljs";
 import { notifyError } from "@/utilities/notifyError";
 import { useRouter } from "next/navigation";
 
 const Sermon = ({ params }) => {
-    const [id, setId] = useState(params.id);
+    const [id] = useState(params.id);
     const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const { quill, quillRef } = useQuill({
@@ -40,7 +39,7 @@ const Sermon = ({ params }) => {
     }, [quill]);
 
     return (
-        <section className="flex flex-col items-center">
+        <section className="flex flex-col items-center mb-10">
             <h1 className="mt-7 text-2xl text-tertiary font-bold">
                 Encuentra a Dios por medio de la lectura
             </h1>
