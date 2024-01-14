@@ -17,6 +17,7 @@ const Testimonial = ({params}) => {
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [testimonial, setTestimonial] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     const {quill, quillRef} = useQuill({
         modules: {
@@ -42,6 +43,7 @@ const Testimonial = ({params}) => {
                 setType(data.type);
                 quill.setContents(JSON.parse(data.testimonial));
                 setTestimonial(data);
+                setIsLoading(false);
             } catch (error) {
                 console.log({error});
                 notifyError(error.response?.data.msg);
@@ -84,6 +86,7 @@ const Testimonial = ({params}) => {
             </div>
 
             <section className="shadow-lg p-5 mt-5">
+                
                 <form>
 
                     <Input

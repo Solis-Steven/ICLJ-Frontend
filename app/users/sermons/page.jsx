@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { SermonPreview } from "./components/SermonPreview";
-import { useRouter } from "next/navigation";
 import { getAllSermons } from "@/app/admin/sermons/services/sermons.services";
 
 const Sermons = () => {
@@ -16,7 +15,7 @@ const Sermons = () => {
                 const data = await getAllSermons({ page });
 
                 if (data) {
-                    setSermons((prevMembers) => [...prevMembers, ...data]);
+                    setSermons((prevSermons) => [...prevSermons, ...data]);
                 }
                 setIsLoading(false);
             } catch (error) {
@@ -43,10 +42,10 @@ const Sermons = () => {
     }, []);
 
     return (
-        <section className="flex flex-col items-center">
-            <h1 className="mt-7 text-2xl text-tertiary font-bold">
+        <section className="flex flex-col items-center mb-10">
+            <h2 className="mt-7 text-2xl text-tertiary font-bold">
                 Encuentra a Dios por medio de la lectura
-            </h1>
+            </h2>
 
             {
                 isLoading && (

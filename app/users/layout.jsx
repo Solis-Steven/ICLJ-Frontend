@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
                 <h1 className="absolute text-white top-48 left-20 text-5xl font-bold">Donde los milagros ocurren</h1>
             </header>
 
-            <main className="relative z-10 h-full px-10">
+            <main className="relative z-10 h-full">
                 {children}
             </main>
 
