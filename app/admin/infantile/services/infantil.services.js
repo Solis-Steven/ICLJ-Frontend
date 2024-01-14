@@ -5,8 +5,7 @@ import {notifyError} from "@/utilities/notifyError";
 export const getAllInfantil = async ({ page = 1, limit = 15 }) => {
   try {
 
-    const config = getToken()
-    const { data } = await axiosClient(`/announcements?page=${page}&limit=${limit}`, config);
+    const { data } = await axiosClient(`/announcements?page=${page}&limit=${limit}`);
     return (data);
   } catch (error) {
     console.log("Error al obtener Anuncios escuela infantil")
@@ -45,12 +44,10 @@ export const CreateAnnouncement = async ({ name, description, date, image  }) =>
 };
 export const getAnnouncementById = async (announcementId) => {
   try {
-    const config = getToken()
-
     // Modifica la URL según tu implementación
     const url = `announcements/${announcementId}`;
 
-    const {data} = await axiosClient.get(url, config)
+    const {data} = await axiosClient.get(url)
 
     // Puedes retornar la respuesta si lo necesitas
     return data;
