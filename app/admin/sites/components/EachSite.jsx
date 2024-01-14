@@ -3,7 +3,7 @@
 import { EditButton } from "@/components/EditButton";
 import { Input } from "@/components/Input";
 import { useState } from "react";
-import { addSite, deleteSite, editSite } from "../services/site.services";
+import { addSite, deleteSite, editSite, getAllSites } from "../services/site.services";
 import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
 import { AddSiteModal } from "./AddSiteModal";
@@ -13,9 +13,6 @@ import { notifySuccess } from "@/utilities/notifySuccess";
 export const EachSite = ({ site }) => {
     const [showModal, setShowModal] = useState(false);
 
-    const editElement = () => {
-        setShowModal(true);
-    };
     const deleteElement = async () => {
         try {
             const data = await deleteSite(site._id);
@@ -43,7 +40,7 @@ export const EachSite = ({ site }) => {
                 <p>{site.address}</p>
             </div>
             <div className="flex gap-3">
-                <EditButton editElement={editElement} />
+                <EditButton editElement={() => setShowModal(true)} />
                 <DeleteButton deleteElement={handleDeleteModal} />
                 <AddSiteModal
                     site={site}

@@ -4,56 +4,42 @@ import { Fragment, useState, useEffect } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { Input } from "@/components/Input"
 import { Address } from "@/components/Address"
-import { addSite, editSite } from "../services/site.services"
+import { addSite, editSite, getAllSites } from "../services/site.services"
 import React from "react"
 import { notifyError } from "@/utilities/notifyError"
 import { notifySuccess } from "@/utilities/notifySuccess"
 
 export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
+    const [formData, setFormData] = useState({
+        name: siteId ? site.name : "",
+        address: siteId ? site.address : "",
+    });
 
-    const handleChangeName = (name) => {
-        setName(name);
+    const handleChange = (field, value) => {
+        setFormData((prevData) => ({ ...prevData, [field]: value }));
     };
-    const handleChangeAddress = (address) => {
-        setAddress(address);
-    };
+    
     const commonInputProps = {
         id: "siteName",
         labelText: "Lugar",
-        onChange: handleChangeName,
     };
-    const editElement = async () => {
-        if ([name, address].includes("")) {
+
+    const handleSubmit = async () => {
+        const { name, address } = formData;
+        if (name === "" || address === "") {
             notifyError("Todos los campos son obligatorios");
             return;
         }
         try {
-            const data = await editSite(siteId, {
-                name: name,
-                address: address
-            });
-            notifySuccess(data.msg)
-            closeModal();
-        } catch (error) {
-            console.error("Error adding site:", error);
-        }
-    };
-    const addElement = async () => {
-        if ([name, address].includes("")) {
-            notifyError("Todos los campos son obligatorios");
-            return;
-        }
-        try {
-            const data = await addSite({
-                name: name,
-                address: address
-            });
+            const data = siteId
+                ? await editSite(siteId, formData)
+                : await addSite(formData);
+
             notifySuccess(data.msg);
             closeModal();
         } catch (error) {
-            notifyError(error.response.data.msg);
+            console.error("Error:", error);
+            notifyError(error.response?.data?.msg || "Error adding/editing site");
         }
     };
 
@@ -74,8 +60,6 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
                             className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                         />
                     </Transition.Child>
-
-                    {/* This element is to trick the browser into centering the modal contents. */}
                     <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
                         &#8203;
                     </span>
@@ -116,12 +100,13 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
                                     >
                                         <Input
                                             {...commonInputProps}
-                                            placeholder={siteId ? site.name : "Lugar de la Sede"}
-                                            value={siteId ? site.name : ""}
+                                            placeholder="Lugar de la Sede"
+                                            value={formData.name}
+                                            onChange={(value) => handleChange("name", value)}
                                         />
                                         <Address 
-                                            value={siteId ? site.address : address}
-                                            handleChange={handleChangeAddress}
+                                            value={formData.address}
+                                            handleChange={(value) => handleChange("address", value)}
                                         />
                                     
                                         <input
@@ -129,7 +114,7 @@ export const AddSiteModal = ({ siteId, showModal, closeModal, site }) => {
                                             className="text-center bg-secondary hover:bg-sky-700 w-full 
                                             p-3 text-white uppercase font-bold cursor-pointer
                                             transition-colors rounded text-sm"
-                                            onClick={siteId ? editElement : addElement}
+                                            onClick={handleSubmit}
                                         />
                                     </form>
 
