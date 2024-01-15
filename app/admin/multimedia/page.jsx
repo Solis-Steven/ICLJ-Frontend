@@ -9,6 +9,7 @@ import { CreateMultimedia, getAllmultimedia, deleteMultimediaById,UpdateMultimed
 import { uploadFile, deleteFile } from "@/config/firebase/config";
 import { MultimediaList } from "./components/MultimediaList";
 import { Search } from "@/components/Search";
+import { set } from "date-fns";
 const page = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -68,6 +69,7 @@ const page = () => {
   const onClose = () => {
     setIsLoading(false);
     setMultimediaId("");
+    setPreviousFile(""); //se agrego después
     setIsOpen(!isOpen);
     setFormData({
       name: "",

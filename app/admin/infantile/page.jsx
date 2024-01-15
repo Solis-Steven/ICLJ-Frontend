@@ -13,6 +13,7 @@ import { AnnouncementList } from "./components/AnnouncementList";
 import { AddEditModal } from "./components/AddEditModal";
 import { Search } from "@/components/Search";
 import { uploadFile, deleteFile } from "@/config/firebase/config";
+import { set } from "date-fns";
 const page = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -31,6 +32,7 @@ const page = () => {
 
   const onClose = () => {
     setIsLoading(false);
+    setPreviousImage("");
     setIsOpen(!isOpen);
     setAnuncioId("");
     setFormData({
