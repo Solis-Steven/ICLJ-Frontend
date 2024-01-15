@@ -4,9 +4,7 @@ import {notifyError} from "@/utilities/notifyError";
 //Obtener todas las casas de consolidación
 export const getAllConsolidationHouses = async ({ page = 1, limit = 15 }) => {
   try {
-
-    const config = getToken()
-    const { data } = await axiosClient(`/consolidationHouses?page=${page}&limit=${limit}`, config);
+    const { data } = await axiosClient(`/consolidationHouses?page=${page}&limit=${limit}`);
     return (data);
   } catch (error) {
     console.log("Error al obtener casas de consolidation")
@@ -45,12 +43,11 @@ export const CreateConsolidationHouse = async ({ name, leader, date, address  })
 };
 export const getConsolidationHouseById = async (consolidationHouseId) => {
   try {
-    const config = getToken()
 
     // Modifica la URL según tu implementación
     const url = `consolidationHouses/${consolidationHouseId}`;
 
-    const {data} = await axiosClient.get(url, config)
+    const {data} = await axiosClient.get(url)
 
     // Puedes retornar la respuesta si lo necesitas
     return data;

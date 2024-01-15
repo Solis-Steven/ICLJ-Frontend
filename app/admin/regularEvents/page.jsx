@@ -185,7 +185,7 @@ const page = () => {
       //Agregar a la lista de consolidaciones
       const updatedEventFixed = [...eventFixed, data];
       setEventFixed(updatedEventFixed);
-      setOriginalHouses(updatedEventFixed);
+      setOriginalEventFixed(updatedEventFixed);
       // La casa de consolidación se ha creado con éxito
       notifySuccess(
         `Evento fijo ${formData.name} creado exitosamente`
@@ -206,7 +206,7 @@ const page = () => {
   return (
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Eventos Fijos</h1>
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         <AddButton addElement={() => onClose()} name="Agregar Evento Fijo" />
         <AddEditModal
           EventFixedId={eventFixedId}

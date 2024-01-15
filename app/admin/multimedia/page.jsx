@@ -9,6 +9,7 @@ import { CreateMultimedia, getAllmultimedia, deleteMultimediaById,UpdateMultimed
 import { uploadFile, deleteFile } from "@/config/firebase/config";
 import { MultimediaList } from "./components/MultimediaList";
 import { Search } from "@/components/Search";
+import { set } from "date-fns";
 const page = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -68,6 +69,7 @@ const page = () => {
   const onClose = () => {
     setIsLoading(false);
     setMultimediaId("");
+    setPreviousFile(""); //se agrego después
     setIsOpen(!isOpen);
     setFormData({
       name: "",
@@ -227,7 +229,7 @@ const page = () => {
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Multimedia</h1>
       <Search placeholder="Buscar Archivo multimedia" onChange={handleSearch} />
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         {/* button add */}
         {/* Modal */}
         <AddEditModal
