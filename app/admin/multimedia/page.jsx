@@ -9,6 +9,7 @@ import { CreateMultimedia, getAllmultimedia, deleteMultimediaById,UpdateMultimed
 import { uploadFile, deleteFile } from "@/config/firebase/config";
 import { MultimediaList } from "./components/MultimediaList";
 import { Search } from "@/components/Search";
+
 const page = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -23,6 +24,7 @@ const page = () => {
   const [file, setFile] = useState(null);
   const [page, setPage] = useState(1);
   const [previousFile, setPreviousFile] = useState("");
+  const [type, setType] = useState("");
   const fetchMultimedia = async () => {
     try {
       const data = await getAllmultimedia({ page });
@@ -57,6 +59,11 @@ const page = () => {
       e.target.files[0].type === "image/jpeg" ||
       e.target.files[0].type === "video/mp4"
     ) {
+      if(e.target.files[0].type === "video/mp4"){
+        setType("video");
+      }else{
+        setType("image");
+      }
       setFile(e.target.files[0]);
       if(multimediaId === ""){
         onClose();
@@ -68,6 +75,7 @@ const page = () => {
   const onClose = () => {
     setIsLoading(false);
     setMultimediaId("");
+    setPreviousFile(""); //se agrego después
     setIsOpen(!isOpen);
     setFormData({
       name: "",
@@ -168,6 +176,7 @@ const page = () => {
           name: formData.name,
           ref: referencia,
           visible: formData.visible,
+          type: type,
         });
         if (data) {
           const MultimediaSaved = data;
@@ -204,6 +213,7 @@ const page = () => {
         name: formData.name,
         ref: referencia,
         visible: formData.visible,
+        type: type,
       });
       setIsLoading(false);
       onClose();
@@ -227,7 +237,7 @@ const page = () => {
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Multimedia</h1>
       <Search placeholder="Buscar Archivo multimedia" onChange={handleSearch} />
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         {/* button add */}
         {/* Modal */}
         <AddEditModal
@@ -241,7 +251,16 @@ const page = () => {
           handleFileChange={handleFileChange}
         />
         {/* search */}
-        <UploadFiles handleFileChange={handleFileChange} />
+        {multimedia.filter(item => item.visible).length <= 4 ? (
+          <UploadFiles handleFileChange={handleFileChange} />
+        ) : (
+          <div
+            className="p-4 mt-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+            role="alert"
+          >
+            <span className="font-medium">Alerta de Información!</span> Para poder agregar más archivos deberá editar la visibilidad de los existentes.<span className="font-medium"> Solo puede haber 5 elementos visibles</span>.
+          </div>
+        )}
       </section>
       <section className="shadow-lg p-5 mt-10">{/* lista */}
       <MultimediaList

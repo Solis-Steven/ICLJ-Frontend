@@ -3,16 +3,16 @@ import { Fragment, useState, useEffect } from "react";
 import { Input } from "@/components/Input";
 import { getAllMembers } from "../../members/services/member.services";
 export const AddEditModal = ({
-consolidationHousesId,
+  consolidationHousesId,
   isOpen,
   onClose,
   handleInputChange,
   handleSubmit,
   formData,
   page,
-  isActive
+  isActive,
 }) => {
-const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -109,6 +109,11 @@ const [members, setMembers] = useState([]);
                 onChange={(e) => handleInputChange("leader", e.target.value)}
                 className="mt-3 p-3 border rounded-xl bg-gray-50 w-full"
               >
+                {!consolidationHousesId && (
+                  <option  value="" disabled defaultValue>
+                    Seleccione un líder
+                  </option>
+                )}
                 {members.map((miembro) => (
                   <option key={miembro._id} value={miembro._id}>
                     {miembro.name}

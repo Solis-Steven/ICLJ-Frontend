@@ -30,7 +30,7 @@ export const MultimediaList = ({ currentMultimedia, editMultimedia, deleteMultim
           <div className="mt-0 text-md text-gray-500 font-medium">{multimedia &&  multimedia.visible? "Visible": "Oculta" }</div>
           </div>
           
-          <div className="flex space-x-2">
+          <div className="flex flex-col sm:flex-row gap-3 items-center mt-1">
             <EditButton
               editElement={() => editMultimedia(multimedia)}
             />

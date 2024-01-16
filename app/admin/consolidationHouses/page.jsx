@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { AddButton } from "@/components/AddButton";
 import { notifySuccess } from "@/utilities/notifySuccess";
+import { notifyError } from "@/utilities/notifyError";
 import { ConsolidationList } from "./components/ConsolidationList";
 import { getAllConsolidationHouses } from "./services/consolidationHouses.services";
 import { deleteConsolidationHouseById } from "./services/consolidationHouses.services";
@@ -212,7 +213,7 @@ const page = () => {
   return (
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Casas de Consolidación</h1>
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         <AddButton addElement={() => onClose()} name="Agregar CDC" />
         <AddEditModal
           consolidationHousesId={consolidationHousesId}

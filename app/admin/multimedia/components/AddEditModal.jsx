@@ -115,10 +115,10 @@ export const AddEditModal = ({
                     {"Ver archivo"}
                   </Link>
                   <div
-                    class="p-4 mt-1 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                    className="p-4 mt-1 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
                     role="alert"
                   >
-                    <span class="font-medium">Alerta de Información!</span> El
+                    <span className="font-medium">Alerta de Información!</span> El
                     nuevo archivo cargado solo se verá después de guardar los
                     cambios.
                   </div>
