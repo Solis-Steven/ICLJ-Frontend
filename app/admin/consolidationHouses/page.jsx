@@ -213,7 +213,7 @@ const page = () => {
   return (
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Casas de Consolidación</h1>
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         <AddButton addElement={() => onClose()} name="Agregar CDC" />
         <AddEditModal
           consolidationHousesId={consolidationHousesId}
