@@ -3,16 +3,13 @@ import { getToken } from "@/utilities/getToken";
 
 export const getActivitie = async (id) => {
     try {
-      
       const config = getToken()
-  
       const { data } = await axiosClient(`/activities/${id}`, config);
-  
       return(data);
     } catch (error) {
       console.error("")
     }
-  };
+};
   
   export const updateActivitie = async (id, activitie) => {
     try {

@@ -5,7 +5,11 @@ import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 const EventTable = ({activities}) => {
-  const events = activities;
+
+  const events = [...activities].sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
+
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 4;
   const indexOfLastEvent = currentPage * eventsPerPage;
@@ -23,15 +27,18 @@ const EventTable = ({activities}) => {
     name: '\u200B', 
     description: '\u200B', 
   }));
+  
 
   const rowsToDisplay = currentEvents.concat(emptyRows);
 
   return (
     <div className="flex flex-col items-center h-screen mt-4">
+      <h1 className='font-bold text-2xl -mt-20 mb-10'
+      >Estas actividades en Epicentro</h1>
       <div className="max-w-screen-md w-full overflow-x-auto">
-      <h1 className="text-center border-r border-l border-t border-gray-200 p-7">Eventos</h1>
+      <h2 className="text-center border-r border-l border-t border-gray-200 p-7">Eventos</h2>
         <table className="min-w-full border border-gray-200">
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200">
             {rowsToDisplay.map((row) => (
               <tr key={row.id}>
                 <td className="px-6 text-center border-r py-4 text-sm font-medium text-gray-900 border-b">
@@ -50,13 +57,17 @@ const EventTable = ({activities}) => {
                     )}
                     {row.name}
                   </div>
-                  <button
-                    type="button"
-                    className="text-white bg-primary hover:bg-darkPrimary text-sm rounded-full ml-3 p-2"
-                    // onClick={}
-                  >
-                    Registrarme
-                  </button>
+                  {
+                    row.assistance && (
+                      <button
+                        type="button"
+                        className="text-white bg-primary hover:bg-darkPrimary text-sm rounded-full ml-3 p-2"
+                        // onClick={}
+                      >
+                        Registrarme
+                      </button>
+                    )
+                  }
                 </td>
               </tr>
             ))}
@@ -77,7 +88,9 @@ const EventTable = ({activities}) => {
             </button>
 
             <span className="text-sm text-gray-700">{currentPage}</span>
+            {
 
+            }
             <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import BurgerMenu from './BurgerMenu';
+import clsx from 'clsx';
 
 const Navbar = () => {
   const router = useRouter();
@@ -31,26 +32,40 @@ const Navbar = () => {
         >
           Iniciar Sesi&oacute;n
         </button>
+        
+        <div className={clsx(`fixed h-full w-screen 
+        lg:hidden top-0 right-0
+        `)}>
+          <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className='absolute top-4 right-4 lg:hidden'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 cursor-pointer">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+          </button>
+        </div>
+        
         <section>
-          <div className="fixed h-full w-screen lg:hidden bg-black/50 backdrop-blur-sm top-0 right-0">
-            <button
-              className="right-0"
-              onClick={handleToggleMenu}
+          <div className={clsx(`fixed h-full w-screen 
+          lg:hidden bg-black/50 top-0 right-0 z-50
+          -translate-x-full transition-transform 
+          transform`, isMenuOpen && "translate-x-0")}>
+            <section
+            className='text-black bg-white flex-col absolute right-0 
+            top-0 h-screen p-36 gap-8 z-50 flex rounded-s-xl'
             >
-              {isMenuOpen ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
-                  
-              ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                  </svg>
+              <button
+                onClick={handleToggleMenu}
+                className="absolute top-4 right-4"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 cursor-pointer">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+              {isMenuOpen && (
+                  <BurgerMenu />
               )}
-            </button>
-            {isMenuOpen && (
-                <BurgerMenu />
-            )}
+            </section>
           </div>
         </section>
     </nav>

@@ -3,8 +3,7 @@ import { getToken } from '@/utilities/getToken';
 
 export const getAllSites = async ({ page = 1, limit = 15 }) => {
   try {
-    const config = getToken();
-    const { data } = await axiosClient(`/sites?page=${page}&limit=${limit}`, config);
+    const { data } = await axiosClient(`/sites?page=${page}&limit=${limit}`);
     return data;
   } catch (error) {
     console.error("Error al obtener sedes:", error);

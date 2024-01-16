@@ -20,8 +20,6 @@ export const EachActivitie = ({ activitie }) => {
             <div>
                 <Link href={`/admin/activities/${activitie._id}`}
                 activitie={activitie}
-                setActivities={setActivities}
-                page={page}
                 className="flex items-center justify-center px-3 h-8 ms-0 leading-tight 
                 text-gray-500 rounded-s-lg hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 
                 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
