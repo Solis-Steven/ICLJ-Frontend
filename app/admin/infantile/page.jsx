@@ -13,6 +13,7 @@ import { AnnouncementList } from "./components/AnnouncementList";
 import { AddEditModal } from "./components/AddEditModal";
 import { Search } from "@/components/Search";
 import { uploadFile, deleteFile } from "@/config/firebase/config";
+import { set } from "date-fns";
 const page = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -31,6 +32,7 @@ const page = () => {
 
   const onClose = () => {
     setIsLoading(false);
+    setPreviousImage("");
     setIsOpen(!isOpen);
     setAnuncioId("");
     setFormData({
@@ -253,7 +255,7 @@ const page = () => {
   return (
     <section className="w-full">
       <h1 className="font-bold text-2xl mb-5">Escuela biblica Infantil</h1>
-      <section className="flex gap-3 items-center">
+      <section className="flex flex-col sm:flex-row gap-3 items-center">
         <AddButton
           addElement={() => {
             onClose();

@@ -23,9 +23,9 @@ export const EventFixedList = ({ currentEventFixed, editEventFixed, deleteEventF
             <div className="text-lg leading-6 font-medium text-gray-900">{eventFixed && eventFixed.name}</div>
             <div className="mt-0 text-sm text-gray-500 font-medium"> Día:  {eventFixed &&  diasSemana[new Date (eventFixed.date).getDay()] }</div>
             <div className="mt-0 text-sm text-gray-500 font-medium "> Horario: {eventFixed &&  new Date (eventFixed.date).toISOString().split("T")[1].split(".")[0].slice(0, -3) }</div>
-            <div className="mt-0 text-sm text-gray-500 font-medium"> Encargado: {eventFixed.manager.name}</div>
+            <div className="mt-0 text-sm text-gray-500 font-medium"> Encargado: {eventFixed.manager && eventFixed.manager.name}</div>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex flex-col sm:flex-row gap-3 items-center mt-1 ">
             <EditButton
               editElement={() => editEventFixed(eventFixed)}
             />
