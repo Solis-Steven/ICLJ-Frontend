@@ -6,13 +6,22 @@ import { Input } from "@/components/Input"
 import React from "react"
 import { notifyError } from "@/utilities/notifyError"
 import { notifySuccess } from "@/utilities/notifySuccess"
-import { agendActivitie, editActivitie } from "../services/activities.services"
+import { agendActivitie, editActivitie, getAllActivities } from "../services/activities.services"
 
-export const AddActivitieModal = ({ activitieId, showModal, closeModal, activitie }) => {
+export const AddActivitieModal = ({ activitieId, showModal, closeModal, activitie, setActivities, setOriginActivities, page }) => {
     const [name, setName] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [assistance, setAssistance] = useState(false);
+
+    useEffect(() => {
+        if (activitieId) {
+            setName(activitie.name);
+            setDate(activitie.date);
+            setTime(activitie.time);
+            setAssistance(activitie.assistance)
+        }
+    }, [activitieId]);
 
     const handleChangeName = (name) => {
         setName(name)
@@ -23,7 +32,7 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
     const handleChangeTime = (time) => {
         setTime(time);
     };
-    const handleChangeAssistance = () => {
+    const handleChangeAssistance = async () => {
         setAssistance(!assistance);
     };
     const commonInputProps = {
@@ -31,55 +40,41 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
         labelText: "Nombre",
         onChange: handleChangeName,
     };
-    const addElement = async () => {
-        if ([name, date, time].includes("")) {
+    const handleSubmit = async () => {
+        const combinedString = `${date}T${time}:00.000Z`;
+        if ([name, combinedString].includes("")) {
             notifyError("Todos los campos son obligatorios");
-            console.log(assistance, "-< asss")
             return;
         }
-        
+
         try {
-            const data = await agendActivitie({
-                name: name,
-                date: date,
-                time: time,
-                assistance: assistance
-            });
-            closeModal();
+            if (activitieId && activitie.users.length !== 0 && !assistance) {
+                notifyError("La actividad todavía tiene usuarios registrados");
+                return;
+            }
+            const data = await (activitieId
+                ? editActivitie(activitie._id, {
+                    name,
+                    date,
+                    time,
+                    assistance
+                })
+                : agendActivitie({
+                    name,
+                    date,
+                    time,
+                    assistance
+                }));
+            const newData = await getAllActivities({page});
+            setActivities(newData);
+            setOriginActivities(newData);
             notifySuccess(data.msg);
+            closeModal();
         } catch (error) {
             notifyError(error.response.data.msg);
         }
     };
     
-    const editElement = async () => {
-        const combinedString = `${date}T${time}:00.000Z`;
-        if ([name, combinedString].includes("")) {
-            notifyError("Todos los campos son obligatorios");
-            console.log(assistance, "-< asss")
-            return;
-        }
-        try {
-            console.log(activitie.assistance)
-            console.log(assistance)
-            console.log(activitie.users.length)
-            if(activitie.users.length !== 0 && assistance === false){
-                notifyError("La actividad todavia tiene usuarios registrados");
-                return;
-            }
-            const data = await editActivitie(activitie._id, {
-                name,
-                date,
-                time,
-                assistance,
-            });
-            notifySuccess(data.msg);
-            closeModal(); 
-        } catch (error) {
-            notifyError(error.response.data.msg);
-        }
-        
-    }
 
     return (
         <Transition.Root show={showModal} as={Fragment}>
@@ -176,7 +171,7 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
                                             className="text-center bg-secondary hover:bg-sky-700 w-full 
                                             p-3 text-white uppercase font-bold cursor-pointer
                                             transition-colors rounded text-sm"
-                                            onClick={activitieId ? editElement : addElement}
+                                            onClick={handleSubmit}
                         
                                         />
                                     </form>

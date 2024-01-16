@@ -9,14 +9,17 @@ import { Search } from "@/components/Search.jsx";
 
 const page = () => {
     const [activities, setActivities] = useState([]);
+    const [originActivities, setOriginActivities] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const activitiesData = await getAllActivities();
-                setActivities(activitiesData);
+                const activitiesData = await getAllActivities({page});
+                setActivities((prevActivities) => [...prevActivities, ...activitiesData]);
+                setOriginActivities((prevActivities) => [...prevActivities, ...activitiesData]);
                 setIsLoading(false);
                 
             } catch (error) {
@@ -24,7 +27,34 @@ const page = () => {
             }
         };
         fetchActivities();
-    }, [activities]);
+    }, [page]);
+
+    const handleScroll = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop ===
+            document.documentElement.offsetHeight
+        ) {
+            setPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const handleSearch = (searchValue) => {
+        if (searchValue === "") {
+            setActivities(originActivities);
+        } else {
+            const filteredActivities = originActivities.filter((activity) =>
+                activity.name.toLowerCase().includes(searchValue.toLowerCase())
+            );
+            setActivities(filteredActivities);
+        }
+    };
 
     const addElement = () => {
         setShowModal(true);
@@ -40,8 +70,8 @@ const page = () => {
                 </div>
                 <div>
                     <Search
-                    placeholder="Buscar Actividad"
-                    // onChange={handleSearch}
+                        placeholder="Buscar Actividad"
+                        onChange={handleSearch}
                     />
                 </div>
             </div>
@@ -84,6 +114,9 @@ const page = () => {
             <AddActivitieModal
                     showModal={showModal}
                     closeModal={() => setShowModal(false)}
+                    setActivities={setActivities}
+                    setOriginActivities={setOriginActivities} 
+                    page={page}
                 />     
         </section>
     );

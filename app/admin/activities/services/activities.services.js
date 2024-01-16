@@ -1,10 +1,10 @@
 import { axiosClient } from "@/config/axiosClient";
 import { getToken } from '@/utilities/getToken';
 
-export const getAllActivities = async () => {
+export const getAllActivities = async ({ page = 1, limit = 15 }) => {
   try {
     const config = getToken();
-    const { data } = await axiosClient("/activities", config);
+    const { data } = await axiosClient(`/activities?page=${page}&limit=${limit}`, config);
     return data;
   } catch (error) {
     console.error("Error al obtener actividades:", error);

@@ -10,6 +10,7 @@ import { deleteActivitie } from "../addUser/components/services/templateuser.ser
 import { notifySuccess } from "@/utilities/notifySuccess";
 import { useModal } from "@/hooks/useModal";
 import { AddUserModal } from "./components/AddUserModal";
+import { getAllActivities } from "../services/activities.services";
 
 const page = ({params}) => {
     const [id, setId] = useState(params.id);
@@ -35,14 +36,6 @@ const page = ({params}) => {
         }
         getActivitieEffect();
     }, [users]);
-
-    const viewModalAdd = () => {
-        setIsOpen(true);
-    };
-
-    const editElement = () => {
-        setShowModal(true);
-    };
 
     const { 
         setDeleteModal
@@ -84,8 +77,7 @@ const page = ({params}) => {
                         </svg>
                         <button
                         className="py-2 rounded text-gray-500"
-                        onClick={editElement}
-                        >
+                        onClick={() => setShowModal(true)}>
                             Editar
                         </button>
                     </div>
@@ -101,8 +93,6 @@ const page = ({params}) => {
                         </button>
                     </div>
                 </div>
-                
-                
                 <AddActivitieModal
                     activitieId={activitie._id}
                     activitie={activitie}
@@ -114,7 +104,7 @@ const page = ({params}) => {
                 assistance ?
                 (
                     <AddButton
-                    addElement={viewModalAdd}
+                    addElement={() => setIsOpen(true)}
                     name={"Agregar Participante"}
                 />
                 ):(

@@ -4,7 +4,7 @@ import { addSite, getAllSites } from "../sites/services/site.services.js"
 import { useEffect, useState } from "react";
 import { EachSite } from "./components/EachSite";
 import { AddButton } from "@/components/AddButton";
-import { AddSiteModal } from "./components/AddSiteModal.jsx";
+import { SiteModal } from "./components/SiteModal.jsx";
 import { Search } from "@/components/Search.jsx";
 
 const page = () => {
@@ -15,19 +15,19 @@ const page = () => {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
+        const getSites = async () => {
+            try {
+                const data = await getAllSites({ page });
+                setSites((prevSites) => [...prevSites, ...data]);
+                setOriginSites((prevSites) => [...prevSites, ...data]);
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Error getting sites:", error);
+            }
+        };
         getSites();
-    }, [page, sites]);
+    }, [page]);
 
-    const getSites = async () => {
-        try {
-            const data = await getAllSites({ page });
-            setSites(data);
-            setOriginSites(data);
-            setIsLoading(false);
-        } catch (error) {
-            console.error("Error getting sites:", error);
-        }
-    };
     const handleScroll = () => {
         if (
             window.innerHeight + document.documentElement.scrollTop ===
@@ -36,7 +36,7 @@ const page = () => {
             setPage((prevPage) => prevPage + 1);
         }
     };
-
+    
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => {
@@ -59,7 +59,7 @@ const page = () => {
         <section className="w-full">
             <h1 className="font-bold text-2xl">Sedes</h1> 
 
-            <section className="flex flex-col sm:flex-row gap-3 items-center">
+            <section className="flex flex-col sm:flex-row gap-3 items-center mt-5">
                 <AddButton
                     addElement={() => setShowModal(true)}
                     name={"Agregar Sede"}
@@ -96,7 +96,10 @@ const page = () => {
                             sites?.map((site => (
                                 <EachSite
                                     key={site._id}
-                                    site={site}  
+                                    site={site}
+                                    setSites={setSites} 
+                                    setOriginSites={setOriginSites}
+                                    page={page}
                                 />
                             )))
                         )
@@ -105,8 +108,11 @@ const page = () => {
                         )
                 }
             </div>  
-            <AddSiteModal 
+            <SiteModal 
                 showModal={showModal}
+                setSites={setSites} 
+                setOriginSites={setOriginSites}
+                page={page}
                 closeModal={() => {
                     setShowModal(false);
                 }}

@@ -9,7 +9,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [assisted, setAssisted] = useState(false);
-    // const [state, setState] = useState(false);
     
     const handleNameChange = (name) => {
         setName(name);
@@ -76,7 +75,7 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
                                     </svg>
                                 </button>
                             </div>
-                            <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900 font-extrabold">
+                            <Dialog.Title as="h3" className="text-lg leading-6 text-gray-900 font-extrabold">
                                 Agregar Participante
                             </Dialog.Title>
 

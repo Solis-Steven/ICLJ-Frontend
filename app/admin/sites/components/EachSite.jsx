@@ -6,16 +6,21 @@ import { useState } from "react";
 import { addSite, deleteSite, editSite, getAllSites } from "../services/site.services";
 import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
-import { AddSiteModal } from "./AddSiteModal";
+import { SiteModal } from "./SiteModal";
 import { notifyError } from "@/utilities/notifyError";
 import { notifySuccess } from "@/utilities/notifySuccess";
+import { deleteFile } from "@/config/firebase/config";
 
-export const EachSite = ({ site }) => {
+export const EachSite = ({ site, setSites, page, setOriginSites }) => {
     const [showModal, setShowModal] = useState(false);
 
     const deleteElement = async () => {
         try {
             const data = await deleteSite(site._id);
+            const newData = await getAllSites({ page });
+            await deleteFile(site.image);
+            setSites(newData);
+            setOriginSites(newData);
             notifySuccess(data.msg);
         } catch (error) {
             notifyError(error.response.data.msg);
@@ -42,9 +47,11 @@ export const EachSite = ({ site }) => {
             <div className="flex gap-3">
                 <EditButton editElement={() => setShowModal(true)} />
                 <DeleteButton deleteElement={handleDeleteModal} />
-                <AddSiteModal
+                <SiteModal
                     site={site}
                     siteId={site._id}
+                    setSites={setSites}
+                    setOriginSites={setOriginSites}
                     showModal={showModal}
                     closeModal={() => setShowModal(false)}
                 />

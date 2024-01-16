@@ -7,7 +7,7 @@ const UserList = ({activitie, users}) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 201);
+        },220);
     }, []);
 
     const sortedUsers = [...users].sort((a, b) => {
