@@ -5,8 +5,7 @@ import {notifyError} from "@/utilities/notifyError";
 export const getAllmultimedia = async ({ page = 1, limit = 15 }) => {
   try {
 
-    const config = getToken()
-    const { data } = await axiosClient(`/multimedia?page=${page}&limit=${limit}`, config);
+    const { data } = await axiosClient(`/multimedia?page=${page}&limit=${limit}`);
     return (data);
   } catch (error) {
     console.log("Error al obtener multimedia")
@@ -28,10 +27,10 @@ export const deleteMultimediaById = async (multimediaId) => {
     console.error("Error al eliminar multimedia:", error.message);
   }
 };
-export const CreateMultimedia = async ({ name, ref, visible  }) => {
+export const CreateMultimedia = async ({ name, ref, visible, type  }) => {
   try {
     const config = getToken();
-    const { data } = await axiosClient.post("/multimedia", { name, ref, visible }, config);
+    const { data } = await axiosClient.post("/multimedia", { name, ref, visible, type }, config);
     // Puedes retornar la respuesta si lo necesitas
     return data;
 
@@ -43,12 +42,12 @@ export const CreateMultimedia = async ({ name, ref, visible  }) => {
 };
 export const getMultimediaById = async (multimediaId) => {
   try {
-    const config = getToken()
+
 
     // Modifica la URL según tu implementación
     const url = `multimedia/${multimediaId}`;
 
-    const {data} = await axiosClient.get(url, config)
+    const {data} = await axiosClient.get(url)
 
     // Puedes retornar la respuesta si lo necesitas
     return data;
@@ -57,13 +56,13 @@ export const getMultimediaById = async (multimediaId) => {
     console.error(`Error al obtener el archivo multimedia ${multimediaId}:`, error.message);
   }
 };
-export const UpdateMultimediaById = async (multimediaId,{ name, ref, visible }) => {
+export const UpdateMultimediaById = async (multimediaId,{ name, ref, visible, type }) => {
   try {
     const config = getToken()
 
     // Modifica la URL según tu implementación
     const url = `multimedia/${multimediaId}`;
-    const {data} = await axiosClient.put(url, { name, ref, visible }, config)
+    const {data} = await axiosClient.put(url, { name, ref, visible, type }, config)
 
     // Puedes retornar la respuesta si lo necesitas
     return data;

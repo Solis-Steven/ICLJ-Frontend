@@ -24,6 +24,7 @@ const page = () => {
   const [file, setFile] = useState(null);
   const [page, setPage] = useState(1);
   const [previousFile, setPreviousFile] = useState("");
+  const [type, setType] = useState("");
   const fetchMultimedia = async () => {
     try {
       const data = await getAllmultimedia({ page });
@@ -58,6 +59,11 @@ const page = () => {
       e.target.files[0].type === "image/jpeg" ||
       e.target.files[0].type === "video/mp4"
     ) {
+      if(e.target.files[0].type === "video/mp4"){
+        setType("video");
+      }else{
+        setType("image");
+      }
       setFile(e.target.files[0]);
       if(multimediaId === ""){
         onClose();
@@ -170,6 +176,7 @@ const page = () => {
           name: formData.name,
           ref: referencia,
           visible: formData.visible,
+          type: type,
         });
         if (data) {
           const MultimediaSaved = data;
@@ -206,6 +213,7 @@ const page = () => {
         name: formData.name,
         ref: referencia,
         visible: formData.visible,
+        type: type,
       });
       setIsLoading(false);
       onClose();
