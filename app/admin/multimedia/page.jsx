@@ -9,7 +9,7 @@ import { CreateMultimedia, getAllmultimedia, deleteMultimediaById,UpdateMultimed
 import { uploadFile, deleteFile } from "@/config/firebase/config";
 import { MultimediaList } from "./components/MultimediaList";
 import { Search } from "@/components/Search";
-import { set } from "date-fns";
+
 const page = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -243,7 +243,16 @@ const page = () => {
           handleFileChange={handleFileChange}
         />
         {/* search */}
-        <UploadFiles handleFileChange={handleFileChange} />
+        {multimedia.filter(item => item.visible).length <= 4 ? (
+          <UploadFiles handleFileChange={handleFileChange} />
+        ) : (
+          <div
+            className="p-4 mt-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+            role="alert"
+          >
+            <span className="font-medium">Alerta de Información!</span> Para poder agregar más archivos deberá editar la visibilidad de los existentes.<span className="font-medium"> Solo puede haber 5 elementos visibles</span>.
+          </div>
+        )}
       </section>
       <section className="shadow-lg p-5 mt-10">{/* lista */}
       <MultimediaList
