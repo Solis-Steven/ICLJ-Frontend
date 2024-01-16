@@ -8,7 +8,7 @@ export const Input = ({
     value = "",
     onChange,
     type = "text",
-    checked
+    checked,
 }) => {
     const [valueState, setValueState] = useState(value);
 
