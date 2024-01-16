@@ -185,7 +185,7 @@ const page = () => {
       //Agregar a la lista de consolidaciones
       const updatedEventFixed = [...eventFixed, data];
       setEventFixed(updatedEventFixed);
-      setOriginalHouses(updatedEventFixed);
+      setOriginalEventFixed(updatedEventFixed);
       // La casa de consolidación se ha creado con éxito
       notifySuccess(
         `Evento fijo ${formData.name} creado exitosamente`

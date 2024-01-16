@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { AddButton } from "@/components/AddButton";
 import { notifySuccess } from "@/utilities/notifySuccess";
+import { notifyError } from "@/utilities/notifyError";
 import { ConsolidationList } from "./components/ConsolidationList";
 import { getAllConsolidationHouses } from "./services/consolidationHouses.services";
 import { deleteConsolidationHouseById } from "./services/consolidationHouses.services";
