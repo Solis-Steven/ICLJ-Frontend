@@ -23,7 +23,7 @@ const EventTable = ({ activities }) => {
   const totalPages = Math.ceil(events.length / eventsPerPage);
 
   const emptyRows = Array.from({ length: 4 - currentEvents.length }, (_, index) => ({
-    id: `empty-${index + 1}`,
+    _id: `empty-${index + 1}`,
     name: '\u200B',
     description: '\u200B',
   }));

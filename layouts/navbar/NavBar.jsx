@@ -101,7 +101,7 @@ const Navbar = () => {
           lg:hidden bg-black/50 top-0 left-0 z-50
           translate-x-full transition-transform 
           transform`,
-            isMenuOpen && "translate-x-0"
+            isMenuOpen && "-translate-x-0"
           )}
         >
           <section

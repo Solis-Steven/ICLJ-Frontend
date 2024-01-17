@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { editActivitie } from '../../services/activities.services';
 import { notifySuccess } from '@/utilities/notifySuccess';
 import { notifyError } from '@/utilities/notifyError';
+import { useModal } from "@/hooks/useModal";
 
 const TemplateUser = ({ user, activitie }) => {
   const [check, setCheck] = useState(false);
@@ -22,6 +23,10 @@ const TemplateUser = ({ user, activitie }) => {
       notifyError(error.response.data.msg);
     }
   };
+
+  const { 
+      setDeleteModal
+  } = useModal();
   
   const deleteElement = async () => {
     try {
@@ -34,6 +39,14 @@ const TemplateUser = ({ user, activitie }) => {
     } catch (error) {
       notifyError(error.response.data.msg);
     }
+  };
+
+  const handleDeleteModal = () => {
+    setDeleteModal(
+      "Eliminar Usuario de la Actividad",                                                                                          
+      "¿Estás seguro de que quieres eliminar este usuario?",
+      () => deleteElement() 
+    );
   };
   
   return (
@@ -55,7 +68,7 @@ const TemplateUser = ({ user, activitie }) => {
             onClick={handleToggle}
           ></button>
 
-          <DeleteButton deleteElement={deleteElement}/>
+          <DeleteButton deleteElement={handleDeleteModal}/>
       </div>
   </div>
   )
