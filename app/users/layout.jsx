@@ -1,5 +1,4 @@
 import { Footer } from "@/components/Footer";
-import New from "@/components/New";
 import Navbar from "@/layouts/navbar/NavBar";
 
 const Layout = ({ children }) => {
