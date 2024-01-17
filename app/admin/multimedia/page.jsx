@@ -139,7 +139,11 @@ const page = () => {
   const fileUploadHandler = async () => {
     const files = file;
     if (previousFile) {
-      if(previousFile !== formData.image){
+      console.log("entro 1")
+      if(previousFile !== formData.ref){
+        console.log(previousFile)
+        console.log("entro 3")
+        console.log(formData.ref)
         try {
           await deleteFile(previousFile);
         }
@@ -151,6 +155,7 @@ const page = () => {
       }
     }
     try {
+      console.log("entro 2")
       const fileRef = await uploadFile("multimedia",files);
       return fileRef;
     } catch (error) {
