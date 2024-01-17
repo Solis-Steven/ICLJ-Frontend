@@ -19,12 +19,12 @@ useEffect(() => {
                 console.error("Error getting activities:", error);
         }
     };
-        getActivities();
+    getActivities();
 }, []);
 
   return (
     <EventTable
-    activities={activities}
+      activities={activities}
     />
   )
 }

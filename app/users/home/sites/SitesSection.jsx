@@ -34,7 +34,8 @@ export default function SitesSection() {
 
       <div className='w-full max-w-screen-xl mx-auto flex flex-wrap justify-center my-40'>
         {sites?.map(site => (
-          <div key={site.id} className='relative w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 -m-12 mb-20'>
+          <div key={site._id} className='relative opacity-90 w-full sm:w-1/1 md:w-1/2 lg:w-1/2 xl:w-1/3 
+          -m-12 mb-20 transition-transform transform hover:scale-105 hover:opacity-100'>
             <img
               src={site.image}
               alt={`Imagen de ${site.name}`}

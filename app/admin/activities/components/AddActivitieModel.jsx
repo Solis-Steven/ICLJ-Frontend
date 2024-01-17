@@ -35,6 +35,13 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
     const handleChangeAssistance = async () => {
         setAssistance(!assistance);
     };
+    const handleClose = () => {
+        closeModal();
+        setName("");
+        setDate("");
+        setTime("");
+        setAssistance(false);
+    };
     const commonInputProps = {
         id: "activityName",
         labelText: "Nombre",
@@ -78,7 +85,7 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
 
     return (
         <Transition.Root show={showModal} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={closeModal}>
+            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleClose}>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
@@ -113,7 +120,7 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
                                 <button
                                     type="button"
                                     className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    onClick={closeModal}
+                                    onClick={handleClose}
                                 >
                                     <span className="sr-only">Cerrar</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
