@@ -15,9 +15,9 @@ export const EventFixedList = ({ currentEventFixed, editEventFixed, deleteEventF
   };
   const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   return (
-    <div className="space-y-0 border shadow-sm border-inherit border-border">
+    <div className="space-y-0">
       {currentEventFixed?.map((eventFixed) => (
-        <div key={eventFixed._id} className="flex flex-col sm:flex-row items-center border-t border-border m-0 py-2 px-2">
+        <div key={eventFixed._id} className="flex flex-col sm:flex-row items-center border-b border-b-2 m-0 py-2 px-2">
           <div className="flex-1 w-full">
             <div className="text-lg leading-6 font-medium text-gray-900">{eventFixed && eventFixed.name}</div>
             <div className="mt-0 text-sm text-gray-500 font-medium"> Día:  {eventFixed &&  diasSemana[new Date (eventFixed.date).getDay()] }</div>
