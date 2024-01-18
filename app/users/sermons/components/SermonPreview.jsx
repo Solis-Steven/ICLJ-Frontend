@@ -20,7 +20,7 @@ export const SermonPreview = ({sermon}) => {
 
             <div className="flex flex-col">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-lg text-tertiary font-bold">{sermon.title}</h2>
+                    <h2 className="text-lg text-tertiary font-bold max-w-xs">{sermon.title}</h2>
 
                     <h3 className="text-sm text-gray-400">{month} / {year}</h3>
                 </div>
