@@ -15,7 +15,6 @@ export const getAllRegularEvents = async ({ page = 1, limit = 15 }) => {
       // Modifica la URL según tu implementación
       const isoDate = new Date(date).toISOString();
       const { data } = await axiosClient.post("/fixedEvent", { name, manager, date: isoDate, visible }, config);
-      console.log(data)
       // Puedes retornar la respuesta si lo necesitas
       return data;
       // Puedes retornar la respuesta si lo necesitas
