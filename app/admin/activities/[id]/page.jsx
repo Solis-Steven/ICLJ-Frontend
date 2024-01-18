@@ -12,7 +12,7 @@ import { useModal } from "@/hooks/useModal";
 import { AddUserModal } from "./components/AddUserModal";
 import { getAllActivities } from "../services/activities.services";
 
-const page = ({params}) => {
+const page = ({ params }) => {
     const [id, setId] = useState(params.id);
     const [name, setName] = useState("");
     const [assistance, setAssistance] = useState(false);
@@ -23,18 +23,22 @@ const page = ({params}) => {
     const router = useRouter();
 
     useEffect(() => {
-        const getActivitieEffect = async () => {
-            try {
-                const data = await getActivitie(id);
-                setName(data.name);
-                setAssistance(data.assistance);
-                setUsers(data.users);
-                setActivitie(data);
-            } catch (error) {
-                console.log({error});
+        if(id){
+            const getActivitieEffect = async () => {
+                try {
+                    const data = await getActivitie(id);
+                    setName(data.name);
+                    setAssistance(data.assistance);
+                    setUsers(data.users);
+                    setActivitie(data);
+                } catch (error) {
+                    console.log({error});
+                }
             }
+            getActivitieEffect();
         }
-        getActivitieEffect();
+        
+        
     }, [users]);
 
     const { 
@@ -47,7 +51,7 @@ const page = ({params}) => {
             notifySuccess(data.msg);
             router.push("/admin/activities")
         } catch (error) {
-            notifyError(error.response.data.msg);
+            console.log(error)
         }
     }
     const handleDeleteModal = () => {
