@@ -9,47 +9,47 @@ import { notifySuccess } from "@/utilities/notifySuccess"
 import { agendActivitie, editActivitie, getAllActivities } from "../services/activities.services"
 
 export const AddActivitieModal = ({ activitieId, showModal, closeModal, activitie, setActivities, setOriginActivities, page }) => {
-    const [name, setName] = useState("");
-    const [date, setDate] = useState("");
-    const [time, setTime] = useState("");
+    const [formData, setFormData] = useState({
+        name: "",
+        date: "", 
+        time: "",
+    });
     const [assistance, setAssistance] = useState(false);
 
     useEffect(() => {
         if (activitieId) {
-            setName(activitie.name);
-            setDate(activitie.date);
-            setTime(activitie.time);
+            setFormData({
+                name: activitie.name, 
+                date: activitie.date, 
+                time: activitie.time,
+            });
             setAssistance(activitie.assistance)
         }
     }, [activitieId]);
 
-    const handleChangeName = (name) => {
-        setName(name)
-    };
-    const handleChangeDate = (date) => {
-        setDate(date)
-    };
-    const handleChangeTime = (time) => {
-        setTime(time);
+    const handleChange = (field, value) => {
+        setFormData((prevData) => ({ ...prevData, [field]: value }));
     };
     const handleChangeAssistance = async () => {
         setAssistance(!assistance);
     };
     const handleClose = () => {
         closeModal();
-        setName("");
-        setDate("");
-        setTime("");
+        setFormData(activitieId ? {
+            name: activitie.name,
+            date: activitie.date,
+            time: activitie.time
+        }:{
+            name: "",
+            date: "",
+            time: "",
+        });
         setAssistance(false);
     };
-    const commonInputProps = {
-        id: "activityName",
-        labelText: "Nombre",
-        onChange: handleChangeName,
-    };
     const handleSubmit = async () => {
-        const combinedString = `${date}T${time}:00.000Z`;
-        if ([name, combinedString].includes("")) {
+      
+        const combinedString = `${formData.date}T${formData.time}:00.000Z`;
+        if ([formData.name, combinedString].includes("")) {
             notifyError("Todos los campos son obligatorios");
             return;
         }
@@ -59,26 +59,31 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
                 notifyError("La actividad todavía tiene usuarios registrados");
                 return;
             }
-            const data = await (activitieId
-                ? editActivitie(activitie._id, {
-                    name,
-                    date,
-                    time,
-                    assistance
-                })
-                : agendActivitie({
-                    name,
-                    date,
-                    time,
-                    assistance
-                }));
-            const newData = await getAllActivities({page});
-            setActivities(newData);
-            setOriginActivities(newData);
+            let data;
+            if (activitieId) {
+                data = await editActivitie(activitieId, {
+                    name: formData.name,
+                    date: formData.date,
+                    time: formData.time,
+                    assistance: assistance
+                });
+            } else {
+                data = await agendActivitie({
+                    name: formData.name,
+                    date: formData.date,
+                    time: formData.time,
+                    assistance: assistance
+                });
+                const newData = await getAllActivities({page});
+                setActivities(newData);
+                setOriginActivities(newData);
+            }
+        
             notifySuccess(data.msg);
             closeModal();
+
         } catch (error) {
-            notifyError(error.response.data.msg);
+            console.log(error);
         }
     };
     
@@ -139,25 +144,25 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
                                         className="my-10"
                                     >   
                                         <Input
-                                            {...commonInputProps}
-                                            placeholder={activitieId ? activitie.name : "Nombre de la actividad"}
-                                            value={activitieId ? activitie.name : ""}
+                                            placeholder={"Nombre de la actividad"}
+                                            value={formData.name}
+                                            onChange={(value) => handleChange("name", value)}
                                         />
                                         <Input
-                                            id={date}
+                                            id={formData.date}
                                             labelText="Fecha"
                                             type="date"
-                                            placeholder={activitieId ? undefined : "Ingrese la fecha"}
-                                            value={activitieId ? activitie.date : date}
-                                            onChange={handleChangeDate}
+                                            placeholder={"Ingrese la fecha"}
+                                            value={formData.date}
+                                            onChange={(value) => handleChange("date", value)}
                                         />
                                         <Input
-                                            id={time}
+                                            id={formData.time}
                                             labelText="Hora"
                                             type="time"
-                                            placeholder={activitieId ? undefined : "Ingrese la hora del CDC"}
-                                            value={activitieId ? activitie.time : time}
-                                            onChange={handleChangeTime}
+                                            placeholder={"Ingrese la hora del CDC"}
+                                            value={formData.time}
+                                            onChange={(value) => handleChange("time", value)}
                                         />
                                         <div>
                                             <p className="absolute text-gray-600 mt-7">

@@ -25,11 +25,7 @@ export const getActivitie = async (id) => {
   };
   export const addUserActivitie = async (id_activitie, user) => {
     try {
-      
-      const config = getToken()
-  
-      const { data } = await axiosClient.post(`/activities/${id_activitie}`, user, config);
-  
+      const { data } = await axiosClient.post(`/activities/${id_activitie}`, user);
       return(data);
     } catch (error) {
       console.log("Error al agregar usuario a la actividad")
