@@ -185,6 +185,7 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, handleAdd
                                         className="my-10"
                                     >
                                         <Input
+                                            labelText="Lugar"
                                             placeholder="Lugar de la Sede"
                                             value={formData.name}
                                             onChange={(value) => handleChange("name", value)}

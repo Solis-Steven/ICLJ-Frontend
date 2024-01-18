@@ -146,6 +146,7 @@ export const AddActivitieModal = ({ activitieId,
                                         className="my-10"
                                     >   
                                         <Input
+                                            labelText="Nombre"
                                             placeholder={"Nombre de la actividad"}
                                             value={formData.name}
                                             onChange={(value) => handleChange("name", value)}
