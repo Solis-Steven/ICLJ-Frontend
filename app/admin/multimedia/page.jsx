@@ -268,11 +268,21 @@ const page = () => {
         )}
       </section>
       <section className="shadow-lg p-5 mt-10">{/* lista */}
-      <MultimediaList
+      {multimedia?.length?
+      (
+        <MultimediaList
           currentMultimedia={multimedia}
           editMultimedia={editMultimedia}
           deleteMultimedia={deleteMultimedia}
         />
+      ):(
+        !isLoading && (
+          <p className="text-center">
+            A&uacute;n no hay archivos multimedia agregados
+          </p>
+        )
+      )}
+     
       </section>
     </section>
   );

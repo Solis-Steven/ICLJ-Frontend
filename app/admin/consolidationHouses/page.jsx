@@ -244,11 +244,19 @@ const page = () => {
           </div>
         )}
         {/* lista */}
-        <ConsolidationList
-          currentConsolidations={consolidations}
-          editConsolidation={editConsolidation}
-          deleteConsolidation={deleteConsolidation}
-        />
+        {consolidations?.length ? (
+          <ConsolidationList
+            currentConsolidations={consolidations}
+            editConsolidation={editConsolidation}
+            deleteConsolidation={deleteConsolidation}
+          />
+        ) : (
+          !isLoading && (
+            <p className="text-center">
+              A&uacute;n no hay casas de consolidación agregadas
+            </p>
+          )
+        )}
       </section>
     </section>
   );

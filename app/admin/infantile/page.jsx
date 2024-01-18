@@ -286,12 +286,22 @@ const page = () => {
             </div>
           </div>
         )}
-        {/* lista */}
-        <AnnouncementList
+        {anuncios?.length?
+        (
+          <AnnouncementList
           currentAnnouncements={anuncios}
           editAnnouncements={editRegularEvent}
           deleteAnnouncements={deleteRegularEvent}
         />
+        ):
+        (
+          !isLoading && (
+            <p className="text-center">
+              A&uacute;n no hay anuncios agregados
+            </p>
+          )
+        )
+        }
       </section>
     </section>
   );

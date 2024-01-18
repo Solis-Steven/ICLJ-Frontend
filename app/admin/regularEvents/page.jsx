@@ -234,11 +234,20 @@ const page = () => {
             </div>
           </div>
         )}
-        <EventFixedList
-          currentEventFixed={eventFixed}
-          editEventFixed={editRegularEvent}
-          deleteEventFixed={deleteRegularEvent}
-        />
+        {eventFixed?.length ? (
+          <EventFixedList
+            currentEventFixed={eventFixed}
+            editEventFixed={editRegularEvent}
+            deleteEventFixed={deleteRegularEvent}
+          />
+        ) :  (
+          !isLoading && (
+            <p className="text-center">
+              A&uacute;n no hay eventos fijos agregados
+            </p>
+          )
+        )}
+       
       </section>
     </section>
   );
