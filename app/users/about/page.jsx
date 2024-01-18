@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { Bot } from "../home/chatbot/bot";
 const About = () => {
     
     return(
@@ -41,6 +41,7 @@ const About = () => {
                     </article>
                 </section>
             </article>
+            <Bot />
         </>
     );
 }

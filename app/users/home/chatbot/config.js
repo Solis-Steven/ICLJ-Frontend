@@ -13,7 +13,7 @@ const config = {
     },
   },
   customComponents: {
-    header: () => <div className="rounded bg-primary font-arial flex items-center text-sm text-terciary p-3 font-bold">Bot Casa de Luz Jireh</div>,
+    header: () => <div className="rounded bg-primary font-arial flex items-center text-sm text-white p-3 font-bold">Bot Casa de Luz Jireh</div>,
   },
   widgets: [
     {
