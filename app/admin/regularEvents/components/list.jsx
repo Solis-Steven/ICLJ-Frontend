@@ -17,7 +17,6 @@ export const EventFixedList = ({ currentEventFixed, editEventFixed, deleteEventF
   return (
     <div className="space-y-0 border shadow-sm border-inherit border-border">
       {currentEventFixed?.map((eventFixed) => (
-        console.log(eventFixed),
         <div key={eventFixed._id} className="flex flex-col sm:flex-row items-center border-t border-border m-0 py-2 px-2">
           <div className="flex-1 w-full">
             <div className="text-lg leading-6 font-medium text-gray-900">{eventFixed && eventFixed.name}</div>

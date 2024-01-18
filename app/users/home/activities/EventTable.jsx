@@ -4,10 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { format, parseISO, isAfter, startOfToday } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { useAuth } from "@/hooks/useAuth";
+import { addUserActivitie } from '@/app/admin/activities/[id]/services/activitie.services';
+import { notifySuccess } from '@/utilities/notifySuccess';
 
 const EventTable = ({ activities }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { signOut, auth, loading } = useAuth();
+  const { signOut, auth } = useAuth();
 
   const eventsPerPage = 4;
   const currentDate = startOfToday();
@@ -33,8 +35,20 @@ const EventTable = ({ activities }) => {
     setCurrentPage(newPage);
   };
 
+  const handleRegisterUser = async (activity) => {
+    try {
+      await addUserActivitie(activity._id, {
+        name: auth.name,
+        phone: auth.phone
+      });
+      notifySuccess("Se ha registrado tu asistencia al evento")
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center h-screen mt-4">
+    <div className="flex flex-col items-center mt-4">
       <h1 className='font-bold text-2xl -mt-20 mb-10'>
         Estas actividades en Epicentro
       </h1>
@@ -65,9 +79,21 @@ const EventTable = ({ activities }) => {
                     <button
                       type="button"
                       className="text-white bg-primary hover:bg-darkPrimary text-sm rounded-full ml-3 p-2"
-                      // onClick={}
+                      onClick={() => handleRegisterUser(row)}
                     >
                       Registrarme
+                      {/* {
+                        row.users.map((user) => (
+                          <span key={user._id}>
+                            { user.name === auth.name && user.phone === auth.phone ? (
+                              <span
+                              className='bg-gray-500'>Registrado</span>
+                            ) : (
+                              <span>Registrarme</span>
+                            )}
+                          </span>
+                        ))
+                      } */}
                     </button>
                   )}
                 </td>

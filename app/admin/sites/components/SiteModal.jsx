@@ -105,7 +105,6 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
                     image: imageUpload,
                 });
             }
-
             const newData = await getAllSites({ page });
             setSites(newData);
             setOriginSites(newData);

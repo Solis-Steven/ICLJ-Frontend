@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 
-const BurgerMenu = ({user, signOut}) => {
+const BurgerMenu = ({auth, signOut}) => {
     const router = useRouter();
     
     return (
@@ -14,7 +14,7 @@ const BurgerMenu = ({user, signOut}) => {
                 <NavItem href="/users/infantile">Infantil</NavItem>
                 <NavItem href="/users/testimonials">Testimonios</NavItem>
                 <NavItem href="/users/sermons">Sermones</NavItem>
-                {user?
+                { auth ?
                 (
                     <button
                         type="button"
