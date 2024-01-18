@@ -50,7 +50,7 @@ const EventTable = ({ activities }) => {
   return (
     <div className="flex flex-col items-center h-screen mt-4">
       <h1 className='font-bold text-2xl -mt-20 mb-10'>
-        Estas actividades en Epicentro
+        Estas actividades en Casa de Luz Jireh
       </h1>
       <div className="max-w-screen-md w-full overflow-x-auto">
         <h2 className="text-center border-r border-l border-t border-gray-200 p-7">

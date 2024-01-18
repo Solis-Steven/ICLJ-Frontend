@@ -6,9 +6,14 @@ import { Input } from "@/components/Input"
 import React from "react"
 import { notifyError } from "@/utilities/notifyError"
 import { notifySuccess } from "@/utilities/notifySuccess"
-import { agendActivitie, editActivitie, getAllActivities } from "../services/activities.services"
+import { agendActivitie, editActivitie } from "../services/activities.services"
 
-export const AddActivitieModal = ({ activitieId, showModal, closeModal, activitie, setActivities, setOriginActivities, page }) => {
+export const AddActivitieModal = ({ activitieId, 
+    showModal, 
+    closeModal, 
+    activitie, 
+    addElement
+    }) => {
     const [formData, setFormData] = useState({
         name: "",
         date: "", 
@@ -34,7 +39,6 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
         setAssistance(!assistance);
     };
     const handleClose = () => {
-        closeModal();
         setFormData(activitieId ? {
             name: activitie.name,
             date: activitie.date,
@@ -45,11 +49,10 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
             time: "",
         });
         setAssistance(false);
+        closeModal();
     };
     const handleSubmit = async () => {
-      
-        const combinedString = `${formData.date}T${formData.time}:00.000Z`;
-        if ([formData.name, combinedString].includes("")) {
+        if ([formData.name, formData.date, formData.time].includes("")) {
             notifyError("Todos los campos son obligatorios");
             return;
         }
@@ -74,13 +77,12 @@ export const AddActivitieModal = ({ activitieId, showModal, closeModal, activiti
                     time: formData.time,
                     assistance: assistance
                 });
-                const newData = await getAllActivities({page});
-                setActivities(newData);
-                setOriginActivities(newData);
+                addElement(data.data);
+                
             }
-        
+            
             notifySuccess(data.msg);
-            closeModal();
+            handleClose();
 
         } catch (error) {
             console.log(error);

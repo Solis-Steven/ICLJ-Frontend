@@ -10,7 +10,7 @@ import { notifyError } from "@/utilities/notifyError"
 import { notifySuccess } from "@/utilities/notifySuccess"
 import { uploadFile, deleteFile } from "@/config/firebase/config";
 
-export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites, setOriginSites }) => {
+export const SiteModal = ({ siteId, showModal, closeModal, site, page, handleAdd, handleEdit }) => {
     const [formData, setFormData] = useState({
         name: "",
         address: "", 
@@ -79,7 +79,7 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
     
     const handleSubmit = async () => {
         setIsLoading(true);
-        if (formData.name === "" || formData.address === "") {
+        if (formData.name === "" || formData.address === "" || formData.image === "") {
             notifyError("Todos los campos son obligatorios");
             return;
         }
@@ -97,6 +97,8 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
                     address: formData.address,
                     image: imageUpload,
                 });
+                handleEdit(data.data)
+                
             } else {
                 imageUpload = await fileUploadHandler();
                 data = await addSite({
@@ -104,17 +106,14 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
                     address: formData.address,
                     image: imageUpload,
                 });
+                handleAdd(data.data)
             }
-            const newData = await getAllSites({ page });
-            setSites(newData);
-            setOriginSites(newData);
+
             notifySuccess(data.msg);
-            closeModal();   
+            handleModalClose();  
         } catch (error) {
             console.error("Error:", error);
-            notifyError(error.response?.data?.msg || "Error creando/editando la sede");
-        } finally {
-            setIsLoading(false);
+            notifyError(error.response?.data?.msg);
         }
     };
     const handleModalClose = () => {
@@ -128,6 +127,7 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
             image: "",
         });
         closeModal();
+        setIsLoading(false);
     };
 
     return (
@@ -167,7 +167,7 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
                                 <button
                                     type="button"
                                     className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    onClick={closeModal}
+                                    onClick={handleModalClose}
                                 >
                                     <span className="sr-only">Cerrar</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -223,11 +223,12 @@ export const SiteModal = ({ siteId, showModal, closeModal, site, page, setSites,
                                         type="button"
                                         className="text-center bg-secondary hover:bg-sky-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors rounded text-sm"
                                         onClick={handleSubmit}
+                                        disabled={loading}
                                         >
                                         {siteId ? (
                                             loading ? ("Guardando..."):("Guardar Cambios")
-                                        ) : "Agregar Sede"}
-                                        </button>
+                                        ) : loading ? ("Guardando..."):("Agregar Sede")}
+                                    </button>
                                     </form>
 
                                 </div>
