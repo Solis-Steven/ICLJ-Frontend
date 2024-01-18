@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { TestimonialForm } from "./components/TestimonialForm";
 import { OutlineCard } from "./components/OutlineCard";
 import { SolidCard } from "./components/SolidCard";
+import { Bot } from "../home/chatbot/bot";
 
 const Testimonials = () => {
     const [testimonials, setTestimonials] = useState([]);
@@ -130,6 +131,7 @@ const Testimonials = () => {
                 </article>
 
             </section>
+            <Bot />
         </>
     );
 }

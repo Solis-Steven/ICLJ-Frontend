@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SermonPreview } from "./components/SermonPreview";
+import { Bot } from "../home/chatbot/bot";
 import { getAllSermons } from "@/app/admin/sermons/services/sermons.services";
 
 const Sermons = () => {
@@ -96,6 +97,7 @@ const Sermons = () => {
                     }
                 </section>
             </section>
+            <Bot />
         </>
     );
 }

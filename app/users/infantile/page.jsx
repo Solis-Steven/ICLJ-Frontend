@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Bot } from "../home/chatbot/bot";
 import { getAllInfantil } from "@/app/admin/infantile/services/infantil.services";
 import { AnnouncementCard } from "./components/AnnouncementCard";
 const Infantile = () => {
@@ -93,6 +94,7 @@ const Infantile = () => {
             )
         }
       </section>
+      <Bot />
     </>
   );
 };
