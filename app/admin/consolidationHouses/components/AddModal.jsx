@@ -26,6 +26,7 @@ export const AddEditModal = ({
     fetchMembers();
   }, []);
   return (
+    
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as="div"
@@ -105,7 +106,7 @@ export const AddEditModal = ({
               <select
                 id="leader"
                 name="leader"
-                value={formData["leader"]}
+                value={formData["leader"]._id || formData["leader"].id}
                 onChange={(e) => handleInputChange("leader", e.target.value)}
                 className="mt-3 p-3 border rounded-xl bg-gray-50 w-full"
               >
