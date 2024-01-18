@@ -1,5 +1,7 @@
-import SitesSection from "./sites/SitesSection"
+import New from "@/components/New";
+import SitesSection from "./sites/SitesSection";
 import ActivitiesSection from "./activities/ActivitiesSection";
+import { Bot } from "./chatbot/bot.js";
 const Home = () => {
 
     return (
@@ -16,10 +18,10 @@ const Home = () => {
                     <h1 className="text-white text-4xl font-bold">Donde los milagros ocurren</h1>
                 </div>
             </section>
+            {/*<New /> */}
             <SitesSection />
             <ActivitiesSection />
-            <h1>Inicio</h1>
-
+            <Bot />
         </>
     );
 }
