@@ -7,24 +7,25 @@ import { getAllSermons } from "./services/sermons.services";
 import { SermonPreview } from "./components/SermonPreview";
 import { Search } from "@/components/Search";
 
-const page = () => {
+const Page = () => {
     const [originalSermons, setOriginalSermons] = useState([]);
     const [sermons, setSermons] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
-    useEffect(() => {
-        const getSermons = async () => {
-            try {
-                const data = await getAllSermons({ page });
-                setOriginalSermons((prevMembers) => [...prevMembers, ...data]);
-                setSermons((prevMembers) => [...prevMembers, ...data]);
-                setIsLoading(false);
-            } catch (error) {
-                console.log(error)
-            }
+    const getSermons = async () => {
+        try {
+            const data = await getAllSermons({ page });
+            setOriginalSermons((prevMembers) => [...prevMembers, ...data]);
+            setSermons((prevMembers) => [...prevMembers, ...data]);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error)
         }
+    }
+
+    useEffect(() => {
         getSermons();
     }, [page]);
 
@@ -113,4 +114,4 @@ const page = () => {
     );
 }
 
-export default page;
+export default Page;
