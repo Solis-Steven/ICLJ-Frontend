@@ -15,10 +15,10 @@ export const MultimediaList = ({ currentMultimedia, editMultimedia, deleteMultim
     );
   };
   return (
-    <div className="space-y-0 border shadow-sm border-inherit border-border">
+    <div className="space-y-0">
       {currentMultimedia?.map((multimedia) => (
 
-        <div key={multimedia._id} className="flex flex-col sm:flex-row items-center border-t border-border m-0 py-2 px-2">
+        <div key={multimedia._id} className="flex flex-col sm:flex-row items-center border-b border-b-2 m-0 py-2 px-2">
           <div className="flex-1 w-full">
             <FileCompleted
             label = {multimedia && multimedia.name} />
