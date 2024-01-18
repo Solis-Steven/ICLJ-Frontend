@@ -1,4 +1,4 @@
-describe("Casas de Consolidación", () => {
+describe("Fixed Event", () => {
   beforeEach(() => {
     cy.visit("/login");
 
@@ -68,9 +68,9 @@ describe("Casas de Consolidación", () => {
     )
       .eq(0)
       .click();
-    cy.get('input[type="text"]').type("Venida de Dios");
+      cy.get('input#HousesName').type("Venida de Dios");
     // Selecciona el valor del líder en el dropdown
-    cy.get("select#leader").select("javier"); // Puedes ajustar el valor según tus necesidades
+    cy.get("select#leader").select("Javier"); // Puedes ajustar el valor según tus necesidades
     // Rellena el input de Fecha
     cy.get('input[type="date"]').type("2023-01-12"); // Puedes ajustar la fecha según tus necesidades
     // Rellena el input de Hora

@@ -1,4 +1,4 @@
-describe("Casas de Consolidación", () => {
+describe("Multimedia", () => {
   beforeEach(() => {
     cy.visit("/login");
 
@@ -11,7 +11,7 @@ describe("Casas de Consolidación", () => {
     cy.url().should("include", "/admin/members");
   });
 
-    it("Crear evento fijo Celebración debe dar error", () => {
+    it("Crear archivo multimedia Vistas", () => {
     cy.visit("/admin/consolidationHouses");
     cy.contains("Agregar CDC").click();
     cy.get('input[placeholder="Nombre de la CDC"]').type("Shekinah");
@@ -37,7 +37,7 @@ describe("Casas de Consolidación", () => {
 
 
   });
-     it("Crear evento fijo Oración", () => {
+     it("Crear archivo multimedia debe dar error", () => {
     cy.visit("/admin/consolidationHouses");
     cy.contains("Agregar CDC").click();
     cy.get('input[placeholder="Nombre de la CDC"]').type("Apostol");
@@ -60,7 +60,7 @@ describe("Casas de Consolidación", () => {
       "creada exitosamente"
     );
   });
-  it("Editar evento fijo ", () => {
+  it("Editar archivo multimedia vistas editado ", () => {
     cy.visit("/admin/consolidationHouses");
     // Hacer clic en el botón "Editar" del primer elemento (index 0)
     cy.get(
@@ -68,9 +68,9 @@ describe("Casas de Consolidación", () => {
     )
       .eq(0)
       .click();
-    cy.get('input[type="text"]').type("Venida de Dios");
+      cy.get('input#HousesName').type("Venida de Dios");
     // Selecciona el valor del líder en el dropdown
-    cy.get("select#leader").select("javier"); // Puedes ajustar el valor según tus necesidades
+    cy.get("select#leader").select("Javier"); // Puedes ajustar el valor según tus necesidades
     // Rellena el input de Fecha
     cy.get('input[type="date"]').type("2023-01-12"); // Puedes ajustar la fecha según tus necesidades
     // Rellena el input de Hora
@@ -86,7 +86,7 @@ describe("Casas de Consolidación", () => {
       "editada exitosamente"
     );
   });
-  it("Editar evento fijo", () => {
+  it("Editar archivo multimedia", () => {
     cy.visit("/admin/consolidationHouses");
     // Hacer clic en el botón "Editar" del primer elemento (index 0)
     cy.get(
@@ -109,7 +109,7 @@ describe("Casas de Consolidación", () => {
       "editada exitosamente"
     );
   });
-  it("Eliminarevento fijo", () => {
+  it("Eliminar archivo multimedia", () => {
     cy.visit("/admin/consolidationHouses");
     // Hacer clic en el botón "Editar" del primer elemento (index 0)
     cy.get(
