@@ -10,27 +10,13 @@ import { useAuth } from "@/hooks/useAuth";
 const Navbar = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState({});
-  const { signOut, auth, loading } = useAuth();
+  const { signOut, auth } = useAuth();
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  useEffect(() => {
-    const chechUser = () => {
-      if (loading) {
-        return;
-      }
-      setUser(auth);
-    };
-    chechUser();
-  }, [auth._id, router, loading]);
-
-  const buttonContent = user ? <>Cerrar Sesión</> : <>Iniciar Sesión</>;
-
   const handleClick = () => {
-    if (user) {
+    if (auth) {
       signOut();
     } else {
       router.push("/login");
@@ -65,7 +51,9 @@ const Navbar = () => {
           bg-primary hover:bg-darkPrimary text-sm rounded-full transition duration-200"
         onClick={handleClick}
       >
-        {buttonContent}
+        {
+          auth ? "Cerrar Sesión": "Iniciar Sesión"
+        }
       </button>
 
       <div
@@ -127,7 +115,7 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-            {isMenuOpen && <BurgerMenu user={user} signOut={signOut} />}
+            {isMenuOpen && <BurgerMenu auth={auth} signOut={signOut} />}
           </section>
         </div>
       </section>

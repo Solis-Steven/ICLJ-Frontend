@@ -32,7 +32,7 @@ const TemplateUser = ({ user, activitie }) => {
     try {
       await editActivitie(activitie._id, {
         ...activitie,
-        users: activitie.users.filter(objet => objet.name !== user.name)
+        users: activitie.users.filter(objet => objet.name !== user.name || objet.phone !== user.phone)
       });
   
       notifySuccess(`${user.name} eliminado correctamente`);
