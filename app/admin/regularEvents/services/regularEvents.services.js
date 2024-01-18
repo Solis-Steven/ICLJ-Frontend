@@ -3,9 +3,7 @@ import { getToken } from "@/utilities/getToken";
 import {notifyError} from "@/utilities/notifyError";
 export const getAllRegularEvents = async ({ page = 1, limit = 15 }) => {
     try {
-  
-      const config = getToken()
-      const { data } = await axiosClient(`/fixedEvent?page=${page}&limit=${limit}`, config);
+      const { data } = await axiosClient(`/fixedEvent?page=${page}&limit=${limit}`);
       return (data);
     } catch (error) {
       console.log("Error al obtener los Eventos Fijos")
@@ -17,7 +15,6 @@ export const getAllRegularEvents = async ({ page = 1, limit = 15 }) => {
       // Modifica la URL según tu implementación
       const isoDate = new Date(date).toISOString();
       const { data } = await axiosClient.post("/fixedEvent", { name, manager, date: isoDate, visible }, config);
-      console.log(data)
       // Puedes retornar la respuesta si lo necesitas
       return data;
       // Puedes retornar la respuesta si lo necesitas
