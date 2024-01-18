@@ -31,21 +31,22 @@ export const List = ({ regularEvent }) => {
     return resultado;
   };
   return (
-    <section className="flex flex-col sm:flex-row gap-3 items-center bg-primary overflow-hidden border-b-2 border-black">
-      <article className="flex flex-col mx-2">
+    <section className="flex items-center bg-white overflow-hidden border-b-2 border-grey-200">
+      <article className="flex flex-col mx-2 w-[300px]">
+        
         <div className="flex">
-          <h1 className="font-medium font-sans">Fecha:</h1>
-          <p className="ml-2 font-sans">
+          <h1 className="font-medium font-sans ">Evento:</h1>
+          <p className="ml-2 font-sans text-left">{regularEvent.name}</p>
+        </div>
+        <div className="flex">
+          <h1 className="text-sm font-medium font-sans text-tertiary">Fecha:</h1>
+          <p className="ml-2 font-sans text-sm text-tertiary ">
             {formateardiaSemana(regularEvent.date)}
           </p>
         </div>
         <div className="flex">
-          <h1 className="font-medium font-sans">EVENTO:</h1>
-          <p className="ml-2 font-sans">{regularEvent.name}</p>
-        </div>
-        <div className="flex">
-          <h1 className="font-medium font-sans">ENCARGADO:</h1>
-          <p className="ml-2 font-sans">{regularEvent.manager.name}</p>
+          <h1 className="text-sm font-medium font-sans text-tertiary">Encargado:</h1>
+          <p className="ml-2 font-sans text-sm text-tertiary ">{regularEvent.manager.name}</p>
         </div>
       </article>
     </section>

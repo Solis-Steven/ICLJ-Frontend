@@ -38,7 +38,7 @@ export const RegularEvents = () => {
       }, []);
   return (
     <>
-      <section className="flex flex-col items-center mb-10 h-auto sm:h-[150px]  ">
+      <section className="flex flex-col items-center mb-10 h-[150px]  ">
         {isLoading && (
           <div className="flex justify-center">
             <div
