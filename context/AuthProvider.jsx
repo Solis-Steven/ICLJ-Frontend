@@ -14,8 +14,8 @@ export const AuthProvider = ({children}) => {
 
     const signOut = () => {
         localStorage.removeItem("token")
-        setAuth({});
-        router.push("/")
+        setAuth(null);
+        router.push("/users/home")
     }
 
     useEffect(() => {
@@ -32,6 +32,7 @@ export const AuthProvider = ({children}) => {
                 try {
                     const { data } = await axiosClient("/users/profile", config);
                     setAuth(data);
+                    console.log(data);
                 } catch (error) {
                     setAuth({});
                     console.log("Error al autenticar usuario: ", error);

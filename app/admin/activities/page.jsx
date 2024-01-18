@@ -13,6 +13,7 @@ const page = () => {
     const [showModal, setShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(1);
+
     useEffect(() => {
         const fetchActivities = async () => {
             try {
