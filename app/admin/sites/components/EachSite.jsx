@@ -3,22 +3,24 @@
 import { EditButton } from "@/components/EditButton";
 import { Input } from "@/components/Input";
 import { useState } from "react";
-import { addSite, deleteSite, editSite } from "../services/site.services";
+import { addSite, deleteSite, editSite, getAllSites } from "../services/site.services";
 import { DeleteButton } from "@/components/DeleteButton";
 import { useModal } from "@/hooks/useModal";
-import { AddSiteModal } from "./AddSiteModal";
+import { SiteModal } from "./SiteModal";
 import { notifyError } from "@/utilities/notifyError";
 import { notifySuccess } from "@/utilities/notifySuccess";
+import { deleteFile } from "@/config/firebase/config";
 
-export const EachSite = ({ site }) => {
+export const EachSite = ({ site, setSites, page, setOriginSites }) => {
     const [showModal, setShowModal] = useState(false);
 
-    const editElement = () => {
-        setShowModal(true);
-    };
     const deleteElement = async () => {
         try {
             const data = await deleteSite(site._id);
+            const newData = await getAllSites({ page });
+            await deleteFile(site.image);
+            setSites(newData);
+            setOriginSites(newData);
             notifySuccess(data.msg);
         } catch (error) {
             notifyError(error.response.data.msg);
@@ -36,24 +38,25 @@ export const EachSite = ({ site }) => {
         );
     };
     return (
-        <section className="shadow-lg p-5">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                    <h1 style={{ fontWeight: 'bold', fontSize: '3xl' }}>{site.name}</h1>
-                    <p>{site.address}</p>
-                </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <EditButton editElement={editElement} />
-                    <DeleteButton deleteElement={handleDeleteModal} />
-                    <AddSiteModal
-                        site={site}
-                        siteId={site._id}
-                        showModal={showModal}
-                        closeModal={() => setShowModal(false)}
-                    />
-                </div>
+        <div className="flex flex-col md:flex-row gap-3 items-center 
+        justify-between border-b-2 pb-3 mb-5">
+            <div>
+                <h1 className="font-bold text-lg">{site.name}</h1>
+                <p>{site.address}</p>
             </div>
-        </section>
+            <div className="flex gap-3">
+                <EditButton editElement={() => setShowModal(true)} />
+                <DeleteButton deleteElement={handleDeleteModal} />
+                <SiteModal
+                    site={site}
+                    siteId={site._id}
+                    setSites={setSites}
+                    setOriginSites={setOriginSites}
+                    showModal={showModal}
+                    closeModal={() => setShowModal(false)}
+                />
+            </div>
+        </div>
     );
 };
 

@@ -14,7 +14,7 @@ export const Select = ({ value, onChange }) => {
           id="problem-type"
           value={value}
           onChange={onChange}
-          className="mt-3 p-3 border rounded-xl bg-gray-50 text-gray-600"
+          className="mt-3 p-3 border rounded-xl bg-gray-50 text-gray-600 w-full"
         >
           {!isPlaceholderOptionDisabled && (
             <option value="" disabled>
@@ -25,7 +25,7 @@ export const Select = ({ value, onChange }) => {
           <option value="Sanidad">Sanidad</option>
           <option value="Conversión">Conversión</option>
           <option value="Liberación">Liberación</option>
-          <option value="Provisión">Conversión</option>
+          <option value="Provisión">Provisión</option>
         </select>
       </div>
     );

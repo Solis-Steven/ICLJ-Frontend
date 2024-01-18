@@ -9,7 +9,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [assisted, setAssisted] = useState(false);
-    // const [state, setState] = useState(false);
     
     const handleNameChange = (name) => {
         setName(name);
@@ -17,18 +16,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
     const handlePhoneChange = (phone) => {
         setPhone(phone);
     };
-
-    // useEffect(() => {
-    //     const fetchMembers = async () => {
-    //         try {
-    //             const membersData = await getAllMembers();
-    //             setMembers(membersData);
-    //         } catch (error) {
-    //             console.error("Error fetching members:", error);
-    //         }
-    //     };
-    //     fetchMembers();
-    // }, []);
 
     const handleSubmit = async () => {
         if ([name, phone].includes("")) {
@@ -68,8 +55,6 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
                     >
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
-
-                    {/* This element is to trick the browser into centering the modal contents. */}
                     <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
                         &#8203;
                     </span>
@@ -90,7 +75,7 @@ export const AddUserModal = ({ isOpen, onClose, id_activitie }) => {
                                     </svg>
                                 </button>
                             </div>
-                            <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900 font-extrabold">
+                            <Dialog.Title as="h3" className="text-lg leading-6 text-gray-900 font-extrabold">
                                 Agregar Participante
                             </Dialog.Title>
 

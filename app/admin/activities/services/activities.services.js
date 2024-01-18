@@ -1,10 +1,9 @@
 import { axiosClient } from "@/config/axiosClient";
 import { getToken } from '@/utilities/getToken';
 
-export const getAllActivities = async () => {
+export const getAllActivities = async ({ page = 1, limit = 15 }) => {
   try {
-    const config = getToken();
-    const { data } = await axiosClient("/activities", config);
+    const { data } = await axiosClient(`/activities?page=${page}&limit=${limit}`);
     return data;
   } catch (error) {
     console.error("Error al obtener actividades:", error);
@@ -42,13 +41,3 @@ export const getActivitie = async (id) => {
     console.error("")
   }
 };
-// export const deleteSite = async (site_id) => {
-//   try {
-//     const config = getConfigWithToken();
-//     const { data } = await axiosClient.delete(`/sites/${site_id}`, config);
-//     return data;
-//   } catch (error) {
-//     console.error("Error al borrar sede:", error);
-//     throw error;
-//   }
-// };
