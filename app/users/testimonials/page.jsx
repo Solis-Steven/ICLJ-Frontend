@@ -69,9 +69,9 @@ const Testimonials = () => {
         <>
             <section>
                 <img
-                    src="/bg.jpg"
+                    src="/fe.jpg"
                     alt="Imagen de fondo"
-                    className="top-0 left-0 w-full h-96 object-cover relative"
+                    className="top-0 left-0 w-full h-96 object-cover object-center relative"
                 />
 
                 <div className="z-10 absolute top-40 left-10 ">
