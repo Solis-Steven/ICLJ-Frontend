@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Bot } from "../home/chatbot/bot";
 import Slider from "./components/Carousel";
 import { InfoSection } from "./components/InfoSection";
 import { CardConsolidationHouse } from "./components/CardConsolidationHouse";
@@ -38,6 +39,19 @@ const ConsolidationHouses = () => {
       }, []);
   return (
     <>
+    <section>
+                <img
+                    src="/casa.jpg"
+                    alt="Imagen de fondo"
+                    className="top-0 left-0 w-full h-96 object-cover object-center relative"
+                />
+
+                <div className="z-10 absolute top-40 left-10 ">
+                    <p className="text-white text-lg">Casa de Luz Jireh</p>
+                    <h1 className="text-white text-4xl font-bold">Donde los milagros ocurren</h1>
+                </div>
+            </section>
+
       <Slider />
       <InfoSection />
      
@@ -73,6 +87,7 @@ const ConsolidationHouses = () => {
             )
         }
       </section>
+      <Bot />
     </>
   );
 };

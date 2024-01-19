@@ -139,7 +139,8 @@ const page = () => {
   const fileUploadHandler = async () => {
     const files = file;
     if (previousFile) {
-      if(previousFile !== formData.image){
+      if(files !== null){
+        console.log("entro 1")
         try {
           await deleteFile(previousFile);
         }
@@ -151,6 +152,8 @@ const page = () => {
       }
     }
     try {
+      console.log("entro 2")
+      console.log(files)
       const fileRef = await uploadFile("multimedia",files);
       return fileRef;
     } catch (error) {
@@ -188,6 +191,7 @@ const page = () => {
 
           notifySuccess(`archivo multimedia ${formData.name} editado exitosamente`);
           onClose();
+          setFile(null);
           setMultimediaId("");
           setFormData({
             name: "",
@@ -217,6 +221,7 @@ const page = () => {
       });
       setIsLoading(false);
       onClose();
+      setFile(null);
       const updatedMultimedia = [...multimedia, data];
       setMultimedia(updatedMultimedia);
       setOriginalMultimedia(updatedMultimedia);
@@ -263,11 +268,21 @@ const page = () => {
         )}
       </section>
       <section className="shadow-lg p-5 mt-10">{/* lista */}
-      <MultimediaList
+      {multimedia?.length?
+      (
+        <MultimediaList
           currentMultimedia={multimedia}
           editMultimedia={editMultimedia}
           deleteMultimedia={deleteMultimedia}
         />
+      ):(
+        !isLoading && (
+          <p className="text-center">
+            A&uacute;n no hay archivos multimedia agregados
+          </p>
+        )
+      )}
+     
       </section>
     </section>
   );

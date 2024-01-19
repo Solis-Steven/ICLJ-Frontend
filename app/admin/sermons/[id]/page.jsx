@@ -12,7 +12,7 @@ import { notifySuccess } from "@/utilities/notifySuccess";
 import { getSermon, updateSermon } from "./services/sermon.services";
 
 const Sermon = ({ params }) => {
-    const [id] = useState(params.id);
+    const [id, setId] = useState(params.id);
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
     const [summary, setSummary] = useState("");
@@ -37,20 +37,19 @@ const Sermon = ({ params }) => {
         setSummary(value)
     }
 
-    useEffect(() => {
-        const getSermonEffect = async () => {
-            try {
-                const data = await getSermon(id);
-                setTitle(data.title);
-                setDate(data.date?.split("T")[0]);
-                setSummary(data.summary);
-                quill.setContents(JSON.parse(data.sermon));
-            } catch (error) {
-                console.log({ error });
-                notifyError(error.response?.data.msg);
-            }
+    const getSermonEffect = async () => {
+        try {
+            const data = await getSermon(id);
+            setTitle(data.title);
+            setDate(data.date?.split("T")[0]);
+            setSummary(data.summary);
+            quill.setContents(JSON.parse(data.sermon));
+        } catch (error) {
+            notifyError(error.response?.data.msg);
         }
+    }
 
+    useEffect(() => {
         if (quill) {
             getSermonEffect();
         }

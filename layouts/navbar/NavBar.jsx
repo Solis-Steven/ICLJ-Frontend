@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex gap-3 items-center justify-center absolute top-0 mt-10 text-white">
+    <nav className="flex z-10 gap-3 items-center justify-center absolute top-0 mt-10 text-white">
       <ul className="hidden lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
         <Link className="hover:text-primary" href="/users/home">
           Inicio
@@ -52,7 +52,7 @@ const Navbar = () => {
         onClick={handleClick}
       >
         {
-          auth ? "Cerrar Sesión": "Iniciar Sesión"
+          auth?._id ? "Cerrar Sesión": "Iniciar Sesión"
         }
       </button>
 

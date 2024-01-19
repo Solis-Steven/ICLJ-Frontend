@@ -10,12 +10,14 @@ const Layout = ({ children }) => {
   const { auth, loading } = useAuth();
   const router = useRouter();
 
+  if(!auth) return;
+
   useEffect(() => {
     const checkAuth = () => {
       if (loading) {
         return;
       }
-      console.log("auth", auth)
+
       if (!auth._id || auth.role !== "Administrador") {
         router.push("/users/home");
       }
