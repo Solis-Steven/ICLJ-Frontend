@@ -11,19 +11,19 @@ class ActionProvider {
       }));
     }
     SedesHandler = () => {
-        const message = this.createChatBotMessage("Estas son nuestras sedes");
+        const message = this.createChatBotMessage("Nos encontramos en San Ramón y Ciudad Quesada");
         this.setChatbotMessage(message);
         };
     PastoresHandler = () => {
-        const message = this.createChatBotMessage("Estos son nuestros pastores");
+        const message = this.createChatBotMessage("Nuestro numero de contacto es el +506 60940516");
         this.setChatbotMessage(message);
         }
     HorariosHandler = () => {
-        const message = this.createChatBotMessage("Estos son nuestros horarios");
+        const message = this.createChatBotMessage("Todos los sábados a las 7:00p.m.");
         this.setChatbotMessage(message);
         }
     UbicacionHandler = () => {
-        const message = this.createChatBotMessage("Estas son nuestras ubicaciones");
+        const message = this.createChatBotMessage("https://goo.su/9q95eU");
         this.setChatbotMessage(message);
         }
     DefaultHandler = () => {
