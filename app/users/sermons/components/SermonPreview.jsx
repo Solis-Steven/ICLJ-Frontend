@@ -18,14 +18,14 @@ export const SermonPreview = ({sermon}) => {
 
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col justify-between w-full">
                 <div className="flex items-center justify-between">
                     <h2 className="text-lg text-tertiary font-bold max-w-xs">{sermon.title}</h2>
 
                     <h3 className="text-sm text-gray-400">{month} / {year}</h3>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                     <p className="text-tertiary mt-2 max-w-lg">
                         {sermon.summary}
                     </p><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

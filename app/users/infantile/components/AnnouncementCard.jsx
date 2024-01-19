@@ -37,7 +37,7 @@ export const AnnouncementCard = ({ announcement }) => {
     return resultado;
   };
   return (
-    <div className="flex flex-col sm:flex-row gap-3 items-center mt-1  h-auto sm:h-96 w-full sm:w-2/3 overflow-hidden border-t-2  ">
+    <div className="flex flex-col px-4 mb-10 sm:flex-row gap-3 items-center mt-1  h-auto sm:h-96 w-full sm:w-2/3 overflow-hidden">
       {/* Información a la izquierda */}
       <article className="w-full sm:w-1/2 border-solid border border-primary rounded-lg overflow-hidden h-72 flex flex-col justify-between ">
         <div className="overflow-y-auto custom-scrollbar ">

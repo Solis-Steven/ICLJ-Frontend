@@ -31,7 +31,7 @@ const About = () => {
 
                 <p className="mt-4">Estamos encantados de dar la bienvenida a nuevos miembros a nuestra familia espiritual. Si estás buscando un lugar donde puedas crecer espiritualmente, encontrar apoyo y hacer amigos duraderos, ¡Casa de Luz Jireh es el lugar para ti!</p>
                 
-                <section className="mt-20 flex flex-col md:flex-row gap-4 items-center">
+                <section className="mt-20 flex flex-col-reverse md:flex-row gap-4 items-center">
                     <Image 
                         src="/pastor.webp"
                         alt="logo"

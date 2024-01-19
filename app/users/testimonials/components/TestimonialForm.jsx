@@ -22,6 +22,7 @@ export const TestimonialForm = () => {
         });
 
         if (id === "testimonial" && value.trim() === "") setError(true);
+        if (id === "testimonial" && value.trim() !== "") setError(false);
     };
 
     const send = async () => {
@@ -29,7 +30,7 @@ export const TestimonialForm = () => {
             to: data.email,
             name: data.name,
             subject: "Testimonio Compartido",
-            body: await compileTestimonialTemplate(data.name, data.phoneNumber, data.testimonial)
+            body: await compileTestimonialTemplate(data.name, data.phoneNumber, data.email, data.testimonial)
         }
 
         await sendMail(emailData);

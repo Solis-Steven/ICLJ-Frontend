@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState({});
+    const [auth, setAuth] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const router = useRouter();
@@ -32,7 +32,6 @@ export const AuthProvider = ({children}) => {
                 try {
                     const { data } = await axiosClient("/users/profile", config);
                     setAuth(data);
-                    console.log(data);
                 } catch (error) {
                     setAuth({});
                     console.log("Error al autenticar usuario: ", error);

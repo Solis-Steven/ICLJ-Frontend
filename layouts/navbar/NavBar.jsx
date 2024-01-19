@@ -70,8 +70,8 @@ const Navbar = () => {
       </div>
 
       <div
-        className={clsx(`fixed h-full w-screen 
-        lg:hidden top-0 right-0
+        className={clsx(`h-full w-screen 
+        lg:hidden top-0 right-0 absolute
         `)}
       >
         <button
@@ -102,7 +102,7 @@ const Navbar = () => {
           lg:hidden bg-black/50 top-0 left-0 z-50
           translate-x-full transition-transform 
           transform`,
-            isMenuOpen && "translate-x-0"
+            isMenuOpen && "-translate-x-0"
           )}
         >
           <section
@@ -128,7 +128,7 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-            {isMenuOpen && <BurgerMenu auth={auth} signOut={signOut} />}
+            {isMenuOpen && <BurgerMenu setIsMenuOpen={setIsMenuOpen} auth={auth} signOut={signOut} />}
           </section>
         </div>
       </section>

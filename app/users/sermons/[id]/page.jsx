@@ -40,7 +40,12 @@ const Sermon = ({ params }) => {
 
     return (
         <section className="flex flex-col items-center mb-10">
-            <h1 className="mt-7 text-2xl text-tertiary font-bold">
+            <img
+                    src="/sermones.jpg"
+                    alt="Imagen de fondo"
+                    className="top-0 left-0 w-full h-96 object-cover object-top relative"
+                />
+            <h1 className="mt-7 text-2xl text-tertiary font-bold text-center">
                 Encuentra a Dios por medio de la lectura
             </h1>
 

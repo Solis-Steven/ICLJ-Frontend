@@ -42,7 +42,7 @@ const EventTable = ({ activities }) => {
 
   return (
     <div className="flex flex-col items-center mt-4">
-      <h1 className='font-bold text-2xl -mt-20 mb-10'>
+      <h1 className='font-bold text-2xl -mt-20 mb-10 text-center'>
         Estas actividades en Casa de Luz Jireh
       </h1>
       <div className="max-w-screen-md w-full overflow-x-auto">

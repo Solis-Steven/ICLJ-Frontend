@@ -4,11 +4,14 @@ import { useAuth } from "@/hooks/useAuth";
 import { addUserActivitie } from '@/app/admin/activities/[id]/services/activitie.services';
 import { notifySuccess } from '@/utilities/notifySuccess';
 import { notifyError } from '@/utilities/notifyError';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterButtom({row}) {
 
     const [isRegistered, setIsRegistered] = useState(false);
     const { auth } = useAuth();
+
+    const router = useRouter();
 
     useEffect(() => {
         const checkRegister = (row) => {
