@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState({});
+    const [auth, setAuth] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const router = useRouter();
