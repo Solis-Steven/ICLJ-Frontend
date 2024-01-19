@@ -25,7 +25,7 @@ export const Gallery = () => {
   }, [page]);
 
   return (
-    <section className="flex flex-col items-center mb-10 my-24">
+    <section className="flex flex-col items-center mb-10 my-24 md:mx-20 lg:mx-40">
     <h2 className="mt-7 text-4xl text-tertiary font-bold text-center uppercase font-serif">Momentos en Comunidad</h2>
   
     {isLoading && (
