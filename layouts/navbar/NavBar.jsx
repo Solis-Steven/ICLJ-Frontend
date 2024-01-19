@@ -52,7 +52,7 @@ const Navbar = () => {
         onClick={handleClick}
       >
         {
-          auth ? "Cerrar Sesión": "Iniciar Sesión"
+          auth?._id ? "Cerrar Sesión": "Iniciar Sesión"
         }
       </button>
 

@@ -58,7 +58,7 @@ const Sermons = () => {
                 </div>
             </section>
             <section className="flex flex-col items-center mb-10">
-                <h2 className="mt-7 text-2xl text-tertiary font-bold">
+                <h2 className="mt-7 text-2xl text-tertiary font-bold mx-6 text-center">
                     Encuentra a Dios por medio de la lectura
                 </h2>
 
@@ -79,7 +79,7 @@ const Sermons = () => {
                     )
                 }
 
-                <section className="flex flex-col">
+                <section className="flex flex-col mx-6">
                     {
                         sermons?.length
                             ? (
