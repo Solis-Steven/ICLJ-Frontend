@@ -116,14 +116,14 @@ const Testimonials = () => {
                     }
                 </article>
 
-                <article className="p-14 bg-tertiary flex flex-col lg:flex-row justify-center items-center">
-                    <div className="flex flex-col lg:flex-row gap-8 justify-center items-center w-3/4">
+                <article className="p-8 md:p-14 bg-tertiary flex flex-col lg:flex-row justify-center items-center">
+                    <div className="flex flex-col lg:flex-row gap-8 justify-center items-center md:w-3/4">
                         <div className="">
                             <p className="text-white">Iglesia Casa de Luz Jireh</p>
                             <h2 className="text-2xl text-white font-bold">
                                 Comparte tu testimonio con toda la comunidad
                             </h2>
-                            <p className="text-white text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur accusamus quo non temporibus, quas veritatis aperiam obcaecati, quam a veniam impedit quis sint doloremque reprehenderit ad nostrum deleniti amet in.</p>
+                            <p className="text-white text-sm">Te animo a compartir con nosotros tu testimonio y darle toda la gloria a Dios</p>
                         </div>
 
                         <TestimonialForm />

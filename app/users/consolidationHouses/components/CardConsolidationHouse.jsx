@@ -32,13 +32,14 @@ export const CardConsolidationHouse = ({ consolidationHouse }) => {
   };
 
   return (
-    <section className=" max-w-full mt-4 mb-8 bg-primary rounded-lg md:max-w-[600px] ">
-      <div className="flex justify-between mx-4">
-        <h1 className="text-white mt-2 font-medium text-2xl font-sans mr-2">
+    <section className="w-full mx-10 mt-4 mb-8 bg-primary rounded-lg md:w-[600px] py-3">
+      <div className="flex justify-between mx-4 items-center">
+        <h2
+         className="text-white font-medium text-2xl font-sans mr-2">
           {consolidationHouse.name}
-        </h1>
+        </h2>
         {/* barra inicial header */}
-        <div className="flex justify-between mt-2">
+        <div className="flex justify-between mt-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -54,25 +55,25 @@ export const CardConsolidationHouse = ({ consolidationHouse }) => {
             />
           </svg>
 
-          <h1 className="text-white ml-1 font-medium text-2xl font-sans text-center">
+          <h3 className="text-white ml-1 font-medium text-lg font-sans text-center">
             {formateardiaSemana(consolidationHouse.date)}
-          </h1>
+          </h3>
         </div>
       </div>
       {/* líder */}
-      <p className="text-white mt-4 mx-6 font-medium ">
+      <p className="text-white mt-2 mx-4 font-medium ">
         Líder a cargo: {consolidationHouse.leader.name}
       </p>
       {/* ubicación */}
-      <hr className="line border-t border-white my-2"></hr>
-      <div className="flex mx-6  items-start">
+      <hr className="line border-t border-white my-4"></hr>
+      <div className="flex mx-4 gap-2 items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="white"
-          className="w-10 h-20"
+          className="w-10 h-10"
         >
           <path
             strokeLinecap="round"
@@ -85,7 +86,7 @@ export const CardConsolidationHouse = ({ consolidationHouse }) => {
             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
           />
         </svg>
-        <p className="ml-2  mt-6 text-white line-clamp-4">
+        <p className="text-white line-clamp-4">
           {consolidationHouse.address}
         </p>
       </div>
