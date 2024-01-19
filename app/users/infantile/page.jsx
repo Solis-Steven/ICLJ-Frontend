@@ -77,7 +77,6 @@ const Infantile = () => {
           </div>
         )}
 
-        <section className="flex flex-col"></section>
         {
           infantil?.length
             ? (

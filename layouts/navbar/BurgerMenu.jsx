@@ -2,18 +2,18 @@ import React from 'react'
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 
-const BurgerMenu = ({auth, signOut}) => {
+const BurgerMenu = ({auth, signOut, setIsMenuOpen}) => {
     const router = useRouter();
     
     return (
         <div className="lg:hidden absolute top-16 left-0 right-0 bg-transparent text-black">
             <ul className="flex flex-col items-start ml-4">
-                <NavItem href="/users/home">Home</NavItem>
-                <NavItem href="/users/about">Sobre Nosotros</NavItem>
-                <NavItem href="/users/consolidationHouses">Casas de Consolidaci&oacute;n</NavItem>
-                <NavItem href="/users/infantile">Infantil</NavItem>
-                <NavItem href="/users/testimonials">Testimonios</NavItem>
-                <NavItem href="/users/sermons">Sermones</NavItem>
+                <NavItem setIsMenuOpen={setIsMenuOpen} href="/users/home">Inicio</NavItem>
+                <NavItem setIsMenuOpen={setIsMenuOpen} href="/users/about">Sobre Nosotros</NavItem>
+                <NavItem setIsMenuOpen={setIsMenuOpen} href="/users/consolidationHouses">Casas de Consolidaci&oacute;n</NavItem>
+                <NavItem setIsMenuOpen={setIsMenuOpen} href="/users/infantile">Infantil</NavItem>
+                <NavItem setIsMenuOpen={setIsMenuOpen} href="/users/testimonials">Testimonios</NavItem>
+                <NavItem setIsMenuOpen={setIsMenuOpen} href="/users/sermons">Sermones</NavItem>
                 { auth ?
                 (
                     <button
@@ -44,12 +44,12 @@ const BurgerMenu = ({auth, signOut}) => {
     )
 }
 
-const NavItem = ({ href, children }) => (
+const NavItem = ({ href, children, setIsMenuOpen }) => (
     <li className="text-black mb-4">
-        <Link href={href}>
-            <h1 className="text-sm hover:text-primary font-bold nowrap whitespace-nowrap">
+        <Link href={href} onClick={() => setIsMenuOpen(false)}>
+            <p className="text-sm hover:text-primary font-bold nowrap whitespace-nowrap">
                 {children}
-            </h1>
+            </p>
         </Link>
     </li>
 );
