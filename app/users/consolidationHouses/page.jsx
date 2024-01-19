@@ -48,14 +48,14 @@ const ConsolidationHouses = () => {
 
                 <div className="z-10 absolute top-40 left-10 ">
                     <p className="text-white text-lg">Casa de Luz Jireh</p>
-                    <h1 className="text-white text-4xl font-bold">Donde los milagros ocurren</h1>
+                    <h1 className="text-white text-4xl font-bold">Casas de Consolidaci&oacute;n</h1>
                 </div>
             </section>
 
       <Slider />
       <InfoSection />
      
-      <section className="flex flex-col items-center mb-10">
+      <section className="flex flex-col items-center mb-10 mx-10">
         <h2 className="mt-7 text-2xl text-tertiary font-bold text-center">
         Nuestras casas de consolidación
         </h2>
