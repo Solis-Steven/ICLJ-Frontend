@@ -56,7 +56,6 @@ export const AddActivitieModal = ({ activitieId,
             notifyError("Todos los campos son obligatorios");
             return;
         }
-
         try {
             if (activitieId && activitie.users.length !== 0 && !assistance) {
                 notifyError("La actividad todavía tiene usuarios registrados");
