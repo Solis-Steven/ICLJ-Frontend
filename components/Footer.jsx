@@ -9,7 +9,7 @@ export const Footer = () => {
             <section className="flex flex-col items-center">
                 <Link href="/users/home">
                     <Image
-                        src="/LOGOTIPO-_1__page-0001.webp"
+                        src="/logo.webp"
                         alt="logotipo de la iglesia"
                         width={80}
                         height={80}

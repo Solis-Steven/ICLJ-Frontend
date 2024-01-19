@@ -6,6 +6,7 @@ import Link from "next/link";
 import BurgerMenu from "./BurgerMenu";
 import clsx from "clsx";
 import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
 
 const Navbar = () => {
   const router = useRouter();
@@ -24,37 +25,49 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex z-10 gap-3 items-center justify-center absolute top-0 mt-10 text-white">
-      <ul className="hidden lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
-        <Link className="hover:text-primary" href="/users/home">
-          Inicio
+    <nav className="z-50 gap-3 items-center w-full absolute top-0 mt-10 text-white">
+      <div className="flex justify-evenly items-center">
+        <Link className="hidden lg:inline" href="/users/home">
+          <Image
+            src="/logo.webp"
+            alt="logotipo de la iglesia"
+            width={50}
+            height={50}
+          />
         </Link>
-        <Link className="hover:text-primary" href="/users/about">
-          Sobre Nosotros
-        </Link>
-        <Link className="hover:text-primary" href="/users/consolidationHouses">
-          Casas de Consolidaci&oacute;n
-        </Link>
-        <Link className="hover:text-primary" href="/users/infantile">
-          Infantil
-        </Link>
-        <Link className="hover:text-primary" href="/users/testimonials">
-          Testimonios
-        </Link>
-        <Link className="hover:text-primary" href="/users/sermons">
-          Sermones
-        </Link>
-      </ul>
-      <button
-        type="button"
-        className="hidden lg:inline-block lg:ml-auto text-white lg:mr-3 py-2 px-6 
-          bg-primary hover:bg-darkPrimary text-sm rounded-full transition duration-200"
-        onClick={handleClick}
-      >
-        {
-          auth?._id ? "Cerrar Sesión": "Iniciar Sesión"
-        }
-      </button>
+        <div className="flex gap-6">
+          <ul className="hidden lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
+            <Link className="hover:text-primary" href="/users/home">
+              Inicio
+            </Link>
+            <Link className="hover:text-primary" href="/users/about">
+              Sobre Nosotros
+            </Link>
+            <Link className="hover:text-primary" href="/users/consolidationHouses">
+              Casas de Consolidaci&oacute;n
+            </Link>
+            <Link className="hover:text-primary" href="/users/infantile">
+              Infantil
+            </Link>
+            <Link className="hover:text-primary" href="/users/testimonials">
+              Testimonios
+            </Link>
+            <Link className="hover:text-primary" href="/users/sermons">
+              Sermones
+            </Link>
+          </ul>
+          <button
+            type="button"
+            className="hidden lg:inline-block lg:ml-auto text-white lg:mr-3 py-2 px-6 
+              bg-primary hover:bg-darkPrimary text-sm rounded-full transition duration-200"
+            onClick={handleClick}
+          >
+            {
+              auth?._id ? "Cerrar Sesión" : "Iniciar Sesión"
+            }
+          </button>
+        </div>
+      </div>
 
       <div
         className={clsx(`fixed h-full w-screen 
@@ -89,7 +102,7 @@ const Navbar = () => {
           lg:hidden bg-black/50 top-0 left-0 z-50
           translate-x-full transition-transform 
           transform`,
-            isMenuOpen && "-translate-x-0"
+            isMenuOpen && "translate-x-0"
           )}
         >
           <section

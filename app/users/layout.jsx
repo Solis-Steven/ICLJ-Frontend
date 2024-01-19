@@ -4,7 +4,7 @@ import Navbar from "@/layouts/navbar/NavBar";
 const Layout = ({ children }) => {
     return (
         <section>
-            <header className="flex justify-center">
+            <header className="">
                 <Navbar />
             </header>
             <main className="relative h-full">
