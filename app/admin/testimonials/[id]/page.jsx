@@ -89,6 +89,7 @@ const Testimonial = ({params}) => {
                 
                 <form>
 
+                <div className="w-full lg:w-1/3">
                     <Input
                         id="testimonialName"
                         labelText="Nombre"
@@ -96,11 +97,15 @@ const Testimonial = ({params}) => {
                         value={name}
                         onChange={handleNameChange}
                     />
+                </div>
 
+                <div className="w-full lg:w-1/3">
                     <Select
                         value={type}
                         onChange={handleTypeChange}
                     />
+                </div>
+
 
                     <div className="my-5">
                         <div ref={quillRef}></div>
