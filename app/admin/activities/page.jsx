@@ -16,6 +16,7 @@ const page = () => {
 
     useEffect(() => {
         const fetchActivities = async () => {
+            console.log(activities)
             try {
                 const activitiesData = await getAllActivities({page});
                 setActivities((prevActivities) => [...prevActivities, ...activitiesData]);
@@ -54,9 +55,10 @@ const page = () => {
             setActivities(filteredActivities);
         }
     };
-
-    const addElement = () => {
-        setShowModal(true);
+    
+    const addElement = (newElement) => {
+        setActivities((prevActivities) => [...prevActivities, newElement])
+        setOriginActivities((prevActivities) => [...prevActivities, newElement])
     };
 
     return(
@@ -65,7 +67,7 @@ const page = () => {
               
             <div className="flex">
                 <div className="mr-4">
-                    <AddButton name={"Crear Actividad"} addElement={addElement} />
+                    <AddButton name={"Crear Actividad"} addElement={() => setShowModal(true)} />
                 </div>
                 <div>
                     <Search
@@ -113,9 +115,7 @@ const page = () => {
             <AddActivitieModal
                     showModal={showModal}
                     closeModal={() => setShowModal(false)}
-                    setActivities={setActivities}
-                    setOriginActivities={setOriginActivities} 
-                    page={page}
+                    addElement={addElement}
                 />     
         </section>
     );

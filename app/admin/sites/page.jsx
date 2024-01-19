@@ -55,6 +55,19 @@ const page = () => {
         }
     };
 
+    const handleAdd = (newElement) => {
+        setSites((prevSites) => [...prevSites, newElement]);
+        setOriginSites((prevSites) => [...prevSites, newElement]);
+    }
+
+    const handleEdit = (newElement) => {
+        const editedSites = sites.map((site) => site._id === newElement._id
+        ? newElement : site
+        );
+        setSites(editedSites);
+        setOriginSites(editedSites);
+    }
+
     return(
         <section className="w-full">
             <h1 className="font-bold text-2xl">Sedes</h1> 
@@ -97,8 +110,8 @@ const page = () => {
                                 <EachSite
                                     key={site._id}
                                     site={site}
-                                    setSites={setSites} 
-                                    setOriginSites={setOriginSites}
+                                    setSites={setSites}
+                                    handleEdit={handleEdit}
                                     page={page}
                                 />
                             )))
@@ -110,8 +123,7 @@ const page = () => {
             </div>  
             <SiteModal 
                 showModal={showModal}
-                setSites={setSites} 
-                setOriginSites={setOriginSites}
+                handleAdd={handleAdd}
                 page={page}
                 closeModal={() => {
                     setShowModal(false);

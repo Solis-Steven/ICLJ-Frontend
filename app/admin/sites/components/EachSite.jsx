@@ -11,16 +11,16 @@ import { notifyError } from "@/utilities/notifyError";
 import { notifySuccess } from "@/utilities/notifySuccess";
 import { deleteFile } from "@/config/firebase/config";
 
-export const EachSite = ({ site, setSites, page, setOriginSites }) => {
+export const EachSite = ({ site, setSites ,setOriginSites, handleEdit }) => {
     const [showModal, setShowModal] = useState(false);
 
     const deleteElement = async () => {
         try {
             const data = await deleteSite(site._id);
-            const newData = await getAllSites({ page });
             await deleteFile(site.image);
-            setSites(newData);
-            setOriginSites(newData);
+            setSites((prevMembers) =>
+                prevMembers.filter((member) => member._id !== site._id)
+            );
             notifySuccess(data.msg);
         } catch (error) {
             notifyError(error.response.data.msg);
@@ -53,7 +53,10 @@ export const EachSite = ({ site, setSites, page, setOriginSites }) => {
                     setSites={setSites}
                     setOriginSites={setOriginSites}
                     showModal={showModal}
-                    closeModal={() => setShowModal(false)}
+                    handleEdit={handleEdit}
+                    closeModal={() => {
+                        setShowModal(false);
+                    }}
                 />
             </div>
         </div>
