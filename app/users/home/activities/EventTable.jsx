@@ -9,6 +9,7 @@ import { notifySuccess } from '@/utilities/notifySuccess';
 
 const EventTable = ({ activities }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const { signOut, auth } = useAuth();
 
   const eventsPerPage = 4;
@@ -76,25 +77,25 @@ const EventTable = ({ activities }) => {
                     {row.name}
                   </div>
                   {row.assistance && (
-                    <button
-                      type="button"
-                      className="text-white bg-primary hover:bg-darkPrimary text-sm rounded-full ml-3 p-2"
-                      onClick={() => handleRegisterUser(row)}
-                    >
-                      Registrarme
-                      {/* {
-                        row.users.map((user) => (
-                          <span key={user._id}>
-                            { user.name === auth.name && user.phone === auth.phone ? (
-                              <span
-                              className='bg-gray-500'>Registrado</span>
-                            ) : (
-                              <span>Registrarme</span>
-                            )}
-                          </span>
-                        ))
-                      } */}
-                    </button>
+                      <span key={row._id}>
+                      {row.users.some(user => user.name === auth.name && user.phone === auth.phone) ? (
+                        <button
+                          type="button"
+                          className="text-white bg-gray-500 text-sm rounded-full ml-3 p-2"
+                          disabled={true}
+                        >
+                          Registrado
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="text-white bg-primary hover:bg-darkPrimary text-sm rounded-full ml-3 p-2"
+                          onClick={() => handleRegisterUser(row)}
+                        >
+                          Registrarme
+                        </button>
+                      )}
+                    </span>
                   )}
                 </td>
               </tr>
