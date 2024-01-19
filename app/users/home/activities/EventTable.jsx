@@ -6,10 +6,15 @@ import { es } from 'date-fns/locale';
 import { useAuth } from "@/hooks/useAuth";
 import { addUserActivitie } from '@/app/admin/activities/[id]/services/activitie.services';
 import { notifySuccess } from '@/utilities/notifySuccess';
+import { useRouter } from "next/navigation";
+import RegisterButtom from './components/registerButtom';
 
 const EventTable = ({ activities }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const { signOut, auth } = useAuth();
+
+  const router = useRouter();
 
   const eventsPerPage = 4;
   const currentDate = startOfToday();
@@ -33,18 +38,6 @@ const EventTable = ({ activities }) => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-  };
-
-  const handleRegisterUser = async (activity) => {
-    try {
-      await addUserActivitie(activity._id, {
-        name: auth.name,
-        phone: auth.phone
-      });
-      notifySuccess("Se ha registrado tu asistencia al evento")
-    } catch (error) {
-      console.log(error)
-    }
   };
 
   return (
@@ -76,25 +69,8 @@ const EventTable = ({ activities }) => {
                     {row.name}
                   </div>
                   {row.assistance && (
-                    <button
-                      type="button"
-                      className="text-white bg-primary hover:bg-darkPrimary text-sm rounded-full ml-3 p-2"
-                      onClick={() => handleRegisterUser(row)}
-                    >
-                      Registrarme
-                      {/* {
-                        row.users.map((user) => (
-                          <span key={user._id}>
-                            { user.name === auth.name && user.phone === auth.phone ? (
-                              <span
-                              className='bg-gray-500'>Registrado</span>
-                            ) : (
-                              <span>Registrarme</span>
-                            )}
-                          </span>
-                        ))
-                      } */}
-                    </button>
+                    <RegisterButtom
+                    row={row}/>
                   )}
                 </td>
               </tr>
