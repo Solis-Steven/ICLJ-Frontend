@@ -23,7 +23,7 @@ export default function SitesSection() {
 
   return (
     <section>
-      <div className='text-center mt-40'>
+      <div className='text-center mt-10 sm:mt-40'>
         <h1 className='font-bold text-4xl text-gray-800 leading-tight mb-4'>
         UNA IGLESIA. <br />MULTIPLES LOCALIDADES
         </h1>

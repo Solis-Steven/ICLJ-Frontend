@@ -56,7 +56,7 @@ const Testimonials = () => {
             const startIndex = index * 2;
 
             return (
-                <div key={startIndex} className="flex gap-8">
+                <div key={startIndex} className="flex gap-8 flex-col mx-10 md:flex-row">
                     <OutlineCard testimonial={testimonials[startIndex]} />
                     {testimonials[startIndex + 1] && <SolidCard testimonial={testimonials[startIndex + 1]} />}
                 </div>

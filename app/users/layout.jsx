@@ -5,7 +5,6 @@ const Layout = ({ children }) => {
     return (
         <section>
             <header className="flex justify-center">
-
                 <Navbar />
             </header>
             <main className="relative h-full">
