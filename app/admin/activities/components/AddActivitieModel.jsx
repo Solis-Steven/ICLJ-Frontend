@@ -56,7 +56,6 @@ export const AddActivitieModal = ({ activitieId,
             notifyError("Todos los campos son obligatorios");
             return;
         }
-
         try {
             if (activitieId && activitie.users.length !== 0 && !assistance) {
                 notifyError("La actividad todavía tiene usuarios registrados");
@@ -146,6 +145,7 @@ export const AddActivitieModal = ({ activitieId,
                                         className="my-10"
                                     >   
                                         <Input
+                                            labelText="Nombre"
                                             placeholder={"Nombre de la actividad"}
                                             value={formData.name}
                                             onChange={(value) => handleChange("name", value)}
